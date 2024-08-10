@@ -3,9 +3,13 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
-    pathMatch: 'full',
-  },
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }, 
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  }, 
   {
     path: 'folder/:id',
     loadComponent: () =>
@@ -52,4 +56,5 @@ export const routes: Routes = [
     path: 'notifications-list',
     loadComponent: () => import('./pages/notifications/notifications-list/notifications-list.page').then( m => m.NotificationsListPage)
   }
+
 ];

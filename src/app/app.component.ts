@@ -15,6 +15,7 @@ import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutl
 export class AppComponent {
   public appPages = [
     { title: 'Dashboard', url: '/dashboard', icon: '' },
+    { title: 'login', url: '/login', icon: '' },
     { title: 'Bon Entrée', url: '/bon-entre-list', icon: '' },
     { title: 'Bon Sortie', url: '/bon-sortie-list', icon: '' },
     { title: 'Fournisseurs', url: '/fournisseurs-list', icon: '' },

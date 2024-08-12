@@ -1,20 +1,78 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+
+
+import {
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonList,
+  IonMenuButton,
+  IonModal, IonRouterLink, IonRow,
+  IonSearchbar,
+  IonText,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-bon-sortie-list',
   templateUrl: './bon-sortie-list.page.html',
   styleUrls: ['./bon-sortie-list.page.scss'],
   standalone: true,
-  imports: [IonButtons, IonContent, IonHeader, IonTitle, IonMenuButton, IonToolbar, CommonModule, FormsModule]
+  imports: [
+    IonRouterLink,  
+    IonGrid,
+    IonCard,
+    IonText,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonCardSubtitle,
+    IonRow,
+    IonCol,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonMenuButton,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonButton,
+    IonIcon,
+    IonInput,
+    IonItem,
+  
+  
+    IonList,
+    IonModal,
+    IonSearchbar,
+  ],
 })
-export class BonSortieListPage implements OnInit {
+export class BonSortieListPage  {
+  constructor(private router: Router) {}
 
-  constructor() { }
+  goToAddForm() {
+    console.log('Navigation vers le formulaire');
 
-  ngOnInit() {
+    this.router.navigate(['/bon-sortie-form']);
+    console.log('Navigation vers le Ok');
   }
-
+goToAddDetail(){
+  this.router.navigate(['/bon-sortie-detail']);
+}
 }

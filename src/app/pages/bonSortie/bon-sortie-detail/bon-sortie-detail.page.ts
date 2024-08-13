@@ -6,11 +6,14 @@ import {
   IonButton,
   IonButtons, IonCol, IonContent, IonFooter, IonHeader,
   IonIcon,
-  IonInput, IonItem, IonLabel, IonMenuButton, IonRow,
+  IonInput,
+  IonItem, IonLabel, IonMenuButton, IonRow,
   IonSelect,
   IonSelectOption,
   IonTitle, IonToolbar
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { camera, qrCode } from 'ionicons/icons';
 
 @Component({
   selector: 'app-bon-sortie-detail',
@@ -34,7 +37,7 @@ import {
     IonToolbar,
     IonFooter,
     IonRow,
-    IonCol,
+    IonCol,IonIcon,
   ],
 })
 export class BonSortieDetailPage {
@@ -46,6 +49,9 @@ export class BonSortieDetailPage {
       quantite: ['', [Validators.required, Validators.min(1)]],
       prix: ['', [Validators.required, Validators.min(0)]],
     });
+    addIcons({
+      qrCode, camera
+     });
   }
 
   onSubmit() {

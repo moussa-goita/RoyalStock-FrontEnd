@@ -6,6 +6,7 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+ 
   {
     path: 'folder/:id',
     loadComponent: () =>
@@ -64,4 +65,5 @@ export const routes: Routes = [
     path: 'user-profile',
     loadComponent: () => import('./pages/user-profile/user-profile.page').then( m => m.UserProfilePage)
   }
+
 ];

@@ -17,7 +17,7 @@ import {
 @Component({
   selector: 'app-fournisseur-form',
   templateUrl: './fournisseurs-form.page.html',
-  styleUrls: ['./fournisseurs-form.page.css'],
+  styleUrls: ['./fournisseurs-form.page.scss'],
   standalone: true,
   imports: [IonButtons, IonCol, IonFooter, IonButton, IonHeader, 
     CommonModule, 

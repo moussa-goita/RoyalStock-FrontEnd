@@ -45,6 +45,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-list/fournisseurs-list.page').then( m => m.FournisseursListPage)
   },
   {
+    path: 'fournisseurs-form',
+    loadComponent: () => import('./pages/fournisseurs/fournisseurs-form/fournisseurs-form.page').then( m => m.FournisseursFormPage)
+  },
+  {
     path: 'fournisseurs-espace',
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-espace/fournisseurs-espace.page').then( m => m.FournisseursEspacePage)
   },

@@ -7,87 +7,97 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
-      <ion-button (click)="goToAddForm()">
-        <ion-icon slot="start" name="add-outline"></ion-icon>
-        Ajouter
-      </ion-button>
-  <ion-grid>
-  
-    <ion-row class="ion-justify-content-center">
-      <!-- Première colonne avec une carte -->
-      <ion-col size="12" size-md="3" size-lg="6">
-        <ion-card>
-          <ion-card-content text-center>
-            <ion-text color="primary">
-              <h6>Bon Sortie n°1 <span>1</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Date: <span>12/09/2024</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Motif: <span>Vente</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Utilisateur</h6>
-            </ion-text> 
-            
-            <div class="ion-text-center">
-              <ion-button fill="clear" color="danger">
-                <ion-icon slot="icon-only" name="print-outline"></ion-icon>
-              </ion-button>
-              <ion-button fill="clear" color="primary">
-                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              </ion-button>
-              <ion-button fill="clear" color="danger">
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-button>
-              <ion-button (click)="goToAddDetail()" fill="clear">
-                <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
-                Detail
-              </ion-button>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      
-      <!-- Deuxième colonne avec une carte -->
-      <ion-col size="12" size-md="3" size-lg="6">
-        <ion-card>
-          <ion-card-content text-center>
-            <ion-text color="primary">
-              <h6>Bon Sortie n°1 <span>1</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Date: <span>12/09/2024</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Motif: <span>Vente</span></h6>
-            </ion-text> 
-            <ion-text color="primary">
-              <h6>Utilisateur</h6>
-            </ion-text> 
-            
-            <div class="ion-text-center">
-              <ion-button fill="clear" color="danger">
-                <ion-icon name="print"></ion-icon>
-                <ion-icon slot="icon-only" name="print-outline"></ion-icon>
-              </ion-button>
-              <ion-button fill="clear" color="primary">
-                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              </ion-button>
-              <ion-button fill="clear" color="danger">
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-button>
-                <ion-button fill="clear">
-                  <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
-                  Detail
-                </ion-button>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-button (click)="goToAddForm()">
+    <ion-icon slot="start" name="add-outline"></ion-icon>
+    Ajouter
+  </ion-button>
+
+  <div class="card-container">
+
+    <ion-card>
+      <ion-card-content text-center>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="document"></ion-icon> Bon Sortie n°1 <span>1</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="calendar"></ion-icon> Date: <span>12/09/2024</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="clipboard"></ion-icon> Motif: <span>Vente</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="person"></ion-icon> Utilisateur
+          </h6>
+        </ion-text>
+
+        <div class="ion-text-center">
+          <ion-button fill="clear" color="danger">
+            <ion-icon slot="icon-only" name="print"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="primary">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-button (click)="goToAddDetail()" fill="clear">
+            <ion-icon slot="icon-only" name="eye"></ion-icon>
+            Detail
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content text-center>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="document"></ion-icon> Bon Sortie n°1 <span>1</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="calendar"></ion-icon> Date: <span>12/09/2024</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="clipboard"></ion-icon> Motif: <span>Vente</span>
+          </h6>
+        </ion-text>
+        <ion-text color="primary">
+          <h6 class="large-bold-text">
+            <ion-icon name="person"></ion-icon> Utilisateur
+          </h6>
+        </ion-text>
+
+        <div class="ion-text-center">
+          <ion-button fill="clear" color="danger">
+            <ion-icon slot="icon-only" name="print"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="primary">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="secondary">
+            <ion-icon slot="icon-only" name="eye"></ion-icon>
+            Detail
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
 </ion-content>

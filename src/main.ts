@@ -9,7 +9,7 @@ import { AppComponent } from './app/app.component';
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { addIcons } from 'ionicons';
-import { home, cube, enter, exit, pricetags, key, business, people, person } from 'ionicons/icons';
+import {home, cube, enter, exit, pricetags, key, business, people, person, mail, lockClosed, eye} from 'ionicons/icons';
 
 addIcons({
   'home': home,
@@ -20,7 +20,10 @@ addIcons({
   'key': key,
   'business': business,
   'people': people,
-  'person': person
+  'person': person,
+  'mail': mail,
+  'lock-closed': lockClosed,
+  'eye': eye,
 });
 
 bootstrapApplication(AppComponent, {

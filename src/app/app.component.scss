@@ -1,4 +1,82 @@
-ion-menu ion-content {
+.menu-second ion-header ion-toolbar {
+  position: fixed;
+  --background: #251D73;
+  color: white; /* Assurez-vous que le texte est lisible sur un fond sombre */
+}
+
+ion-menu {
+  --background: #251D73; /* Primary background color for the menu */
+  width: 200px; /* Adjust width to your design */
+  box-shadow: 2px 0 8px rgb(37, 29, 115); /* Add shadow for depth */
+
+  ion-toolbar {
+    --background: transparent; /* Make toolbar background transparent */
+    padding-top: 30px; /* Increase padding for better spacing */
+    text-align: center;
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px; /* Adjust spacing */
+
+      img.logo {
+        width: 80px; /* Slightly increase logo size for better visibility */
+        height: auto;
+      }
+    }
+  }
+
+  ion-content {
+    --background: #251D73; /* Match the background color */
+    padding-left: 15px; /* Increase padding for better spacing */
+    padding-right: 15px;
+
+    ion-list {
+      padding: 0;
+
+      ion-item {
+        --color: #ffffff; /* White text color */
+        --background: #251D73; /* Transparent background for items */
+        border-radius: 0px; /* Increase border-radius for more rounded edges */
+        margin-bottom: 0px; /* Increase margin for better separation */
+        padding: 0px 0px; /* Add padding for larger click/tap area */
+        transition: background 0.3s ease-in-out; /* Smooth transition for background */
+
+        ion-icon {
+          color: #ffffff; /* White icons */
+          margin-right: 15px; /* Increase margin between icon and label */
+          font-size: 15px; /* Increase icon size for better visibility */
+        }
+
+        ion-label {
+          font-size: 15px; /* Slightly increase font size */
+          font-weight: 100; /* Increase font weight for emphasis */
+        }
+
+        &.selected {
+          --background: #180161; /* Slightly darker highlight background for selected item */
+          box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); /* Add subtle inset shadow */
+        }
+
+        &.logout {
+          margin-top: 30px; /* Increase margin-top for separation */
+          ion-icon {
+            color: #FF6B6B; /* Red icon for logout */
+            font-size: 22px; /* Increase icon size for logout */
+          }
+        }
+
+        &:hover {
+          --background: #180161; /* Hover background color */
+          transform: scale(1.02); /* Slightly scale up on hover */
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+      }
+    }
+  }
+}
+
+
+/*ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
@@ -116,4 +194,4 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
-}
+}*/

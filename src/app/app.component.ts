@@ -1,24 +1,51 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import { IonApp, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuButton, IonMenuToggle, IonNote, IonRouterLink, IonRouterOutlet, IonSplitPane, IonTitle, IonToggle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonApp,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonItemDivider,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenu,
+  IonMenuButton,
+  IonMenuToggle,
+  IonNote,
+  IonRouterLink,
+  IonRouterOutlet,
+  IonSplitPane,
+  IonTitle,
+  IonToggle,
+  IonToolbar
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import { homeOutline, homeSharp, cubeOutline, cubeSharp, enterOutline, enterSharp, exitOutline, exitSharp, pricetagsOutline, pricetagsSharp, keyOutline, keySharp, businessOutline, businessSharp, peopleOutline, peopleSharp, personOutline, personSharp, compassOutline, notificationsOutline, receiptOutline, statsChartOutline, bookmarksOutline, compassSharp, notificationsSharp, receiptSharp, statsChartSharp, bookmarksSharp } from 'ionicons/icons';
 import {AuthService} from "./services/auth.service";
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [IonToggle, IonButtons,  IonToolbar, IonToolbar, IonHeader, IonTitle, RouterLink, RouterLinkActive, CommonModule, IonMenuButton, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet],
+  imports: [IonToggle, IonButtons, IonToolbar, IonToolbar, IonHeader, IonTitle, RouterLink, RouterLinkActive, CommonModule, IonMenuButton, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet, IonItemDivider],
 })
 export class AppComponent {
   public appPages: Array<{ title: string, url: string, icon: string, role: string[] }> = [];
+  public currentUserRole: string | any;
 
   constructor(public authService: AuthService, private router: Router) {
-    this.initializeAppPages();
+    this.authService.currentUser.subscribe(user => {
+      this.currentUserRole = user?.role;
+      this.initializeAppPages();
+    });
+
     addIcons({
       homeOutline, homeSharp,
       cubeOutline, cubeSharp,
@@ -32,24 +59,15 @@ export class AppComponent {
       statsChartOutline, receiptOutline, bookmarksOutline,
       compassOutline, notificationsOutline, compassSharp,
       notificationsSharp, receiptSharp, statsChartSharp,
-      bookmarksSharp, mailOutline, mailSharp,
-      paperPlaneOutline, paperPlaneSharp,
-      heartOutline, heartSharp, archiveOutline, archiveSharp,
-      trashOutline, trashSharp, warningOutline, warningSharp,
-      bookmarkOutline, bookmarkSharp
+      bookmarksSharp
     });
   }
 
   initializeAppPages() {
-    const currentUser = this.authService.currentUserValue;
-
-    if (!currentUser) {
-      // If the user is not authenticated, redirect to login
+    if (!this.currentUserRole) {
       this.router.navigate(['/login']);
       return;
     }
-
-    const role = currentUser.role;
 
     this.appPages = [
       { title: 'Dashboard', url: '/dashboard', icon: 'home', role: ['ADMIN', 'MANAGER'] },
@@ -62,7 +80,7 @@ export class AppComponent {
       { title: 'Notification', url: '/notification', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] },
       { title: 'Rapport', url: '/rapport', icon: 'receipt', role: ['MANAGER'] },
       { title: 'Mon Profil', url: '/user-profile', icon: 'person', role: ['ADMIN', 'MANAGER', 'VENDEUR'] },
-    ].filter(page => page.role.includes(role));
+    ].filter(page => page.role.includes(this.currentUserRole));
   }
 
   toggleDarkMode(event: any) {

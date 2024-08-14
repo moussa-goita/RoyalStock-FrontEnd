@@ -1,7 +1,10 @@
 .menu-second ion-header ion-toolbar {
   position: fixed;
-  --background: #251D73;
-  color: white; /* Assurez-vous que le texte est lisible sur un fond sombre */
+  width: 100%;
+  z-index: 10; /* Ensure the header is on top of other elements */
+  --background: #251D73; /* Dark background color for the global header */
+  color: white; /* White text color for visibility */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
 
 ion-menu {
@@ -39,7 +42,7 @@ ion-menu {
         border-radius: 0px; /* Increase border-radius for more rounded edges */
         margin-bottom: 0px; /* Increase margin for better separation */
         padding: 0px 0px; /* Add padding for larger click/tap area */
-        transition: background 0.3s ease-in-out; /* Smooth transition for background */
+        transition: background 0.3s ease-in-out, transform 0.2s; /* Smooth transition for background */
 
         ion-icon {
           color: #ffffff; /* White icons */

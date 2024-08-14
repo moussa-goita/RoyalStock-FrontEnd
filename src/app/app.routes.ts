@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage), canActivate: [AuthGuard], data: { roles: ['MANAGER']}
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage), canActivate: [AuthGuard], data: { roles: ['ADMIN', 'MANAGER', 'VENDEUR']}
   },
   {
     path: 'bon-entree-list',

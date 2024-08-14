@@ -1,7 +1,7 @@
 <ion-app>
   <ion-split-pane contentId="main-content" when="(min-width: 768px)">
     <!-- Menu latéral -->
-    <ion-menu contentId="main-content" type="overlay" *ngIf="authService.currentUserValue">
+    <ion-menu contentId="main-content" type="overlay" side="start" *ngIf="authService.currentUserValue">
       <ion-header>
         <ion-toolbar>
           <div class="logo-container">
@@ -19,7 +19,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-item>
+          <ion-item lines="none">
             <ion-buttons>
               <ion-label>Dark Mode</ion-label>
               <ion-toggle (ionChange)="toggleDarkMode($event)"></ion-toggle>
@@ -32,16 +32,13 @@
     <!-- Contenu principal -->
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
-  <!-- Header global avec bouton hamburger -->
-  <div class="menu-second">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <!-- Bouton hamburger -->
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-  </div>
+  <!-- Header global avec bouton hamburger-->
+  <ion-header class="menu-second">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 </ion-app>

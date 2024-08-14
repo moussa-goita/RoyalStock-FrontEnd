@@ -6,7 +6,7 @@ import {
   IonContent,
   IonHeader,
   IonInput,
-  IonItem,
+  IonItem, IonLabel,
   IonList,
   IonTitle,
   IonToolbar
@@ -19,7 +19,7 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonInput, IonButton, IonList, IonCardTitle, IonCardHeader, IonCardContent, IonCard]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonInput, IonButton, IonList, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonLabel]
 })
 export class UserProfilePage implements OnInit {
 

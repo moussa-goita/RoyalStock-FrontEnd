@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Mon Profil</ion-title>
-    <ion-button *ngIf="currentUser" (click)="logout()"> Se déconnecter</ion-button>
+    <ion-button slot="end" *ngIf="currentUser" (click)="logout()" fill="outline" color="danger">Se déconnecter</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Mon Profil</ion-title>
-      <ion-button> Se déconnecter</ion-button>
+      <ion-button slot="end" fill="outline" color="danger">Se déconnecter</ion-button>
     </ion-toolbar>
   </ion-header>
 
@@ -22,33 +22,36 @@
         <form (ngSubmit)="updateProfile()">
           <ion-list>
             <ion-item>
-              <ion-input label="Nom d'utilisateur" id="username" [(ngModel)]="utilisateur.username" name="username"
-                         placeholder="Nom d'utilisateur" [counter]="true" maxlength="20"></ion-input>
+              <ion-label position="floating">Nom d'utilisateur</ion-label>
+              <ion-input [(ngModel)]="utilisateur.username" name="username"
+                         placeholder="Nom d'utilisateur" maxlength="20"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Nouveau Mot de Passe" type="password" id="password" [(ngModel)]="newPassword"
-                         name="newPassword" [counter]="true" minlength="8" maxlength="30"></ion-input>
+              <ion-label position="floating">Nouveau Mot de Passe</ion-label>
+              <ion-input type="password" [(ngModel)]="newPassword"
+                         name="newPassword" minlength="8" maxlength="30"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Confirmer le Mot de Passe" type="password" id="confirmPassword"
-                         [(ngModel)]="confirmPassword" name="confirmPassword" [counter]="true" minlength="8"
-                         maxlength="30"></ion-input>
+              <ion-label position="floating">Confirmer le Mot de Passe</ion-label>
+              <ion-input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
+                         minlength="8" maxlength="30"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Email" type="email" id="email" [(ngModel)]="utilisateur.email" name="email"
-                         placeholder="email@domain.com" [counter]="true" maxlength="30"
-                         error-text="Veuillez entrer une adresse e-mail valide"></ion-input>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" [(ngModel)]="utilisateur.email" name="email"
+                         placeholder="email@domain.com" maxlength="30"></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input label="Téléphone" type="text" id="contact" [(ngModel)]="utilisateur.contact" name="contact"
-                         placeholder="88-88-88-88" [counter]="true" maxlength="8"></ion-input>
+              <ion-label position="floating">Téléphone</ion-label>
+              <ion-input type="tel" [(ngModel)]="utilisateur.contact" name="contact"
+                         placeholder="88-88-88-88" maxlength="8"></ion-input>
             </ion-item>
 
-            <ion-button type="submit"> Sauvegarder</ion-button>
+            <ion-button type="submit" expand="block" color="primary" shape="round" class="ion-margin-top">Sauvegarder</ion-button>
           </ion-list>
         </form>
       </ion-card-content>

@@ -39,7 +39,9 @@ export class AppComponent {
     { title: 'Bon Sortie', url: '/bon-sortie-list', icon: 'exit', role: ['VENDEUR', 'MANAGER'] },
     { title: 'Fournisseurs', url: '/fournisseurs-list', icon: 'people', role: ['VENDEUR', 'MANAGER'] },
     { title: 'Fournisseurs-Espace', url: '/fournisseurs-espace', icon: 'bookmarks', role: ['VENDEUR', 'MANAGER']},
-    { title: 'Notification', url: '/notifications', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] }
+    { title: 'Notification', url: '/notifications', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] },
+    { title: 'Entrepot', url: '/entrepots', icon: 'shop', role: ['ADMIN'] }
+
   ].filter(page => page.role.includes(role));
 }
 

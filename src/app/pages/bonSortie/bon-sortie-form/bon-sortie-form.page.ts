@@ -13,13 +13,13 @@ import {
   IonContent,
   IonFooter,
   IonHeader,
-
   IonInput,
   IonItem,
   IonLabel,
   IonMenuButton,
   IonRow,
   IonSelectOption,
+  IonText,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -36,7 +36,7 @@ import { MotifService } from 'src/app/services/motif.service';
   templateUrl: './bon-sortie-form.page.html',
   styleUrls: ['./bon-sortie-form.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonText, 
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -50,7 +50,6 @@ import { MotifService } from 'src/app/services/motif.service';
     IonHeader,
     IonInput,
     IonItem,
-    // IonicModule,
     IonFooter,
     IonLabel,
     IonTitle,
@@ -62,7 +61,6 @@ import { MotifService } from 'src/app/services/motif.service';
 export class BonSortieFormPage implements OnInit {
   bonSortieForm: FormGroup;
   detailSortie: DetailSortie[] = [];
-
   bonSortie: BonSortie = {} as BonSortie;
   motifs: Motif[] = [];
   selectedMotifId: number | any;
@@ -70,16 +68,22 @@ export class BonSortieFormPage implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,  private bonSortieService: BonSortieService,
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private bonSortieService: BonSortieService,
     private authService: AuthService,
-    private motifService: MotifService) {
+    private motifService: MotifService
+  ) {
     this.bonSortieForm = this.fb.group({
       date: ['', Validators.required],
       motif: ['', Validators.required],
     });
   }
+
   ngOnInit(): void {
+    console.log('ngOnInit appelé');
     this.bonSortieForm;
     this.bonSortie.utilisateur = {
       id: this.authService.currentUserValue?.id,
@@ -93,23 +97,26 @@ export class BonSortieFormPage implements OnInit {
     }
   }
 
-
-  
   loadMotifs(): void {
     this.motifService.getMotifs().subscribe(data => {
       this.motifs = data;
-      console.log('Motifs reçus:', data); 
-
+      console.log('Motifs reçus:', data);
+    }, error => {
+      console.error('Error loading motifs:', error);
+      this.errorMessage = 'Erreur lors du chargement des motifs.';
+      setTimeout(() => this.errorMessage = '', 3000);
     });
   }
+
   get motifControl(): FormControl {
     return this.bonSortieForm.get('motif') as FormControl;
   }
-  
+
   loadBonSortieById(id: number): void {
     this.bonSortieService.getBonSortieById(id).subscribe(data => {
       this.bonSortie = data;
       this.selectedMotifId = data.motif ? data.motif.id : null;
+      console.log('Bon de sortie chargé:', data);
     }, error => {
       console.error('Error loading bon de sortie:', error);
       this.errorMessage = 'Erreur lors du chargement du bon de sortie.';
@@ -118,10 +125,17 @@ export class BonSortieFormPage implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.bonSortieForm.valid) {
-      const detailData = this.bonSortieForm.value;
-      console.log('Détail soumis :', detailData);
-    const currentUserEmail = this.authService.currentUserValue?.email; 
+    console.log('onSubmit appelé');
+    if (!this.bonSortieForm.valid) {
+      console.log('Formulaire invalide');
+      this.errorMessage = 'Veuillez remplir tous les champs requis.';
+      setTimeout(() => this.errorMessage = '', 3000);
+      return;
+    }
+
+    const detailData = this.bonSortieForm.value;
+    console.log('Détail soumis :', detailData);
+    const currentUserEmail = this.authService.currentUserValue?.email;
     if (!currentUserEmail) {
       this.errorMessage = 'Erreur : utilisateur non authentifié.';
       setTimeout(() => this.errorMessage = '', 3000);
@@ -131,7 +145,7 @@ export class BonSortieFormPage implements OnInit {
     const selectedMotif = this.motifs.find(motif => motif.id === this.selectedMotifId);
     console.log('Motif sélectionné:', selectedMotif);
     this.bonSortie.detailsSorties = this.detailSortie;
-    this.bonSortie.motif = {id: this.selectedMotifId} as Motif;
+    this.bonSortie.motif = { id: this.selectedMotifId } as Motif;
 
     const formattedBonSortie = {
       ...this.bonSortie,
@@ -161,15 +175,9 @@ export class BonSortieFormPage implements OnInit {
         setTimeout(() => this.errorMessage = '', 3000);
       });
     }
-  } else {
-    console.log('Formulaire invalide');
-  }
   }
 
   onCancel() {
     this.router.navigate(['/bon-sortie-list']);
-    
-    // this.bonSortieForm.reset();
   }
-  
 }

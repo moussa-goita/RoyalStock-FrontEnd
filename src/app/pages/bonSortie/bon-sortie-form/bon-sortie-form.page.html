@@ -33,9 +33,7 @@
         label-placement="floating" 
         fill="outline" 
         placeholder="Entrez le motif" 
-        [formControl]="motifControl" 
-        id="motif" 
-        name="motif" 
+        formControlName="motif"
         [(ngModel)]="selectedMotifId"
         required>
         <ion-select-option *ngFor="let motif of motifs" [value]="motif.id">
@@ -43,7 +41,6 @@
         </ion-select-option> 
       </ion-select>
     </ion-item>
-    
   </form>
 </ion-content>
 

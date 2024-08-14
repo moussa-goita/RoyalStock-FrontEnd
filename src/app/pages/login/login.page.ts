@@ -1,26 +1,39 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { IonicModule } from "@ionic/angular";
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [ IonicModule, CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, IonicModule]
 })
 export class LoginPage {
+
   email: string = '';
   password: string = '';
+  passwordVisible: boolean = false;
+  errorMessage: string = '';
 
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  login() { 
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
- 
+  login() {
+    this.authService.login(this.email, this.password).subscribe(
+      () => {
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        this.errorMessage = 'Email ou mot de passe incorrect';
+      }
+    );
+  }
 
 }

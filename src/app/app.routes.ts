@@ -4,12 +4,9 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
-  }, 
-  {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
-  }, 
+    pathMatch: 'full',
+  },
+ 
   {
     path: 'folder/:id',
     loadComponent: () =>
@@ -49,12 +46,24 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-list/fournisseurs-list.page').then( m => m.FournisseursListPage)
   },
   {
+    path: 'fournisseurs-form',
+    loadComponent: () => import('./pages/fournisseurs/fournisseurs-form/fournisseurs-form.page').then( m => m.FournisseursFormPage)
+  },
+  {
     path: 'fournisseurs-espace',
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-espace/fournisseurs-espace.page').then( m => m.FournisseursEspacePage)
   },
   {
     path: 'notifications-list',
     loadComponent: () => import('./pages/notifications/notifications-list/notifications-list.page').then( m => m.NotificationsListPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'user-profile',
+    loadComponent: () => import('./pages/user-profile/user-profile.page').then( m => m.UserProfilePage)
   }
 
 ];

@@ -3,19 +3,32 @@
     <ion-menu contentId="main-content" type="overlay" *ngIf="authService.currentUserValue">
       <ion-header>
         <ion-toolbar>
+<<<<<<< HEAD
           <div class="logo-container">
             <img src="assets/LogoRoyale%202.png" alt="Royal Stock Logo" class="logo"/>
           </div>
+=======
+          <ion-title>Menu</ion-title>
+          <ion-buttons slot="end">
+            <ion-label>Dark Mode</ion-label>
+            <ion-toggle (ionChange)="toggleDarkMode($event)"></ion-toggle>
+          </ion-buttons>
+>>>>>>> goita
         </ion-toolbar>
       </ion-header>
       <ion-content>
         <ion-list id="inbox-list">
+<<<<<<< HEAD
+=======
+     
+>>>>>>> goita
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+<<<<<<< HEAD
           <ion-item lines="none">
             <ion-buttons slot="start">
               <ion-icon aria-hidden="true" slot="start" name="invert-mode-outline"></ion-icon>
@@ -23,6 +36,8 @@
               <ion-toggle (ionChange)="toggleDarkMode($event)"></ion-toggle>
             </ion-buttons>
           </ion-item>
+=======
+>>>>>>> goita
         </ion-list>
       </ion-content>
     </ion-menu>

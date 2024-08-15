@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 import {
   IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
   IonContent,
@@ -14,9 +17,12 @@ import {
 } from '@ionic/angular/standalone';
 import { UtilisateurService } from "../../services/utilisateur.service";
 import {AuthService} from "../../services/auth.service";
+<<<<<<< HEAD
 =======
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 >>>>>>> goita
+=======
+>>>>>>> origin/master
 
 @Component({
   selector: 'app-user-profile',
@@ -24,6 +30,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonInput, IonButton, IonList, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonLabel]
 })
 export class UserProfilePage implements OnInit {
@@ -80,6 +89,7 @@ export class UserProfilePage implements OnInit {
 
   logout(): void {
     this.authService.logout();
+<<<<<<< HEAD
 =======
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
@@ -89,6 +99,8 @@ export class UserProfilePage implements OnInit {
 
   ngOnInit() {
 >>>>>>> goita
+=======
+>>>>>>> origin/master
   }
 
 }

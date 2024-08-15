@@ -1,10 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import {IonicModule} from "@ionic/angular";
+<<<<<<< HEAD
 =======
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -13,6 +17,8 @@ import { Router } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
 import { AuthService } from 'src/app/services/auth.service';
 >>>>>>> goita
+=======
+>>>>>>> origin/master
 
 @Component({
   selector: 'app-login',
@@ -20,10 +26,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.page.scss'],
   standalone: true,
 <<<<<<< HEAD
+<<<<<<< HEAD
   imports: [CommonModule, FormsModule, IonicModule ]
 =======
   imports: [CommonModule, FormsModule, IonicModule]
 >>>>>>> goita
+=======
+  imports: [CommonModule, FormsModule, IonicModule ]
+>>>>>>> origin/master
 })
 export class LoginPage {
 

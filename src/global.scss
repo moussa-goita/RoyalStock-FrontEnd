@@ -35,6 +35,7 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+<<<<<<< HEAD
 body.dark {
     --ion-background-color: #000;
     --ion-text-color: #fff;
@@ -52,6 +53,24 @@ body.dark {
   // ion-button{
   //   color: #032156;
   // }
+=======
+
+body.dark {
+  --ion-background-color: #000;
+  --ion-text-color: #fff;
+}
+
+body {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  --ion-color-primary: #251D73;
+  --ion-color-secondary: #3dc2ff;
+}
+
+// ion-button{
+//   color: #032156;
+// }
+>>>>>>> origin/master
 
 /* Augmente la marge entre le header et le contenu */
 ion-header + ion-content {

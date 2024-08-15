@@ -11,6 +11,9 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const currentUser = this.authService.currentUserValue;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
     if (currentUser) {
       // Si l'utilisateur est connecté, vérifier s'il a le rôle requis
@@ -26,12 +29,15 @@ export class AuthGuard implements CanActivate {
 
     // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+<<<<<<< HEAD
 =======
     if (currentUser) {
       return true;
     }
    // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
 >>>>>>> goita
+=======
+>>>>>>> origin/master
     return false;
   }
 }

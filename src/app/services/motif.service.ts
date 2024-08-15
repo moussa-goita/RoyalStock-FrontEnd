@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+=======
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+>>>>>>> origin/master
 import { Observable } from 'rxjs';
 import { Motif } from '../models/motif';
 
@@ -20,6 +25,12 @@ export class MotifService {
     return this.http.get<Motif>(`${this.baseUrl}/${id}`);
   }
 
+<<<<<<< HEAD
+=======
+  // createMotif(motif: Motif): Observable<Motif> {
+  //   return this.http.post<Motif>(`${this.baseUrl}`, motif);
+  // }
+>>>>>>> origin/master
   getMotifsForCurrentUser(email: string): Observable<Motif[]> {
     return this.http.get<Motif[]>(`${this.baseUrl}/current?email=${email}`);
   }

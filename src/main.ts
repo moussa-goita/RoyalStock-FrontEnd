@@ -1,5 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { importProvidersFrom } from '@angular/core';
@@ -26,6 +29,7 @@ addIcons({
   'lock-closed': lockClosed,
   'eye': eye,
 });
+<<<<<<< HEAD
 =======
 import { PreloadAllModules, RouteReuseStrategy, provideRouter, withPreloading } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -35,6 +39,8 @@ import { importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 >>>>>>> goita
+=======
+>>>>>>> origin/master
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -42,13 +48,19 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     importProvidersFrom(HttpClientModule)
   ],
 }).then(() => {
   defineCustomElements(window);
+<<<<<<< HEAD
 =======
     importProvidersFrom(HttpClient),provideHttpClient()
 
   ],
 >>>>>>> goita
+=======
+>>>>>>> origin/master
 });

@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Utilisateur } from '../models/utilisateur';
-=======
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import {Observable, Subscription, throwError} from 'rxjs';
-import { Utilisateur } from '../models/utilisateur';
-import {observableToBeFn} from "rxjs/internal/testing/TestScheduler";
->>>>>>> origin/master
 import { AuthService } from './auth.service';
 
 @Injectable({

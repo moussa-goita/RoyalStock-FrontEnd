@@ -13,8 +13,9 @@ import { AuthService } from './services/auth.service';
   standalone: true,
   imports: [IonToggle,RouterModule, IonButtons,  IonToolbar, IonToolbar, IonHeader, IonTitle, RouterLink, RouterLinkActive, CommonModule, IonMenuButton, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet],
 })
-export class AppComponent {
+export class AppComponent { 
   public appPages: Array<{ title: string, url: string, icon: string, role: string[] }> = [];
+ 
 
   constructor(public authService: AuthService, private router: Router) {
     this.initializeAppPages();

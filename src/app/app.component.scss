@@ -1,5 +1,93 @@
+
+.menu-second ion-header ion-toolbar {
+  position: fixed;
+  width: 100%;
+  z-index: 10; /* Ensure the header is on top of other elements */
+  --background: #251D73; /* Dark background color for the global header */
+  color: white; /* White text color for visibility */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+
+ion-menu {
+  --background: #251D73; /* Primary background color for the menu */
+  width: 200px; /* Adjust width to your design */
+  box-shadow: 2px 0 8px rgb(37, 29, 115); /* Add shadow for depth */
+
+  ion-toolbar {
+    --background: transparent; /* Make toolbar background transparent */
+    padding-top: 30px; /* Increase padding for better spacing */
+    text-align: center;
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px; /* Adjust spacing */
+
+      img.logo {
+        width: 80px; /* Slightly increase logo size for better visibility */
+        height: auto;
+      }
+    }
+  }
+}
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
+
+  ion-content {
+    --background: #251D73; /* Match the background color */
+    padding-left: 15px; /* Increase padding for better spacing */
+    padding-right: 15px;
+
+    ion-list {
+      padding: 0;
+
+      ion-item {
+        --color: #ffffff; /* White text color */
+        --background: #251D73; /* Transparent background for items */
+        border-radius: 0px; /* Increase border-radius for more rounded edges */
+        margin-bottom: 0px; /* Increase margin for better separation */
+        padding: 0px 0px; /* Add padding for larger click/tap area */
+        transition: background 0.3s ease-in-out, transform 0.2s; /* Smooth transition for background */
+
+        ion-icon {
+          color: #ffffff; /* White icons */
+          margin-right: 15px; /* Increase margin between icon and label */
+          font-size: 15px; /* Increase icon size for better visibility */
+        }
+
+        ion-label {
+          font-size: 15px; /* Slightly increase font size */
+          font-weight: 100; /* Increase font weight for emphasis */
+        }
+
+        &.selected {
+          --background: #180161; /* Slightly darker highlight background for selected item */
+          box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); /* Add subtle inset shadow */
+        }
+
+        &.logout {
+          margin-top: 30px; /* Increase margin-top for separation */
+          ion-icon {
+            color: #FF6B6B; /* Red icon for logout */
+            font-size: 22px; /* Increase icon size for logout */
+          }
+        }
+
+        &:hover {
+          --background: #180161; /* Hover background color */
+          transform: scale(1.02); /* Slightly scale up on hover */
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+      }
+    }
+  }
+}
+
+
+/*ion-menu ion-content {
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+>>>>>>> origin/master
 }
 
 ion-menu.md ion-content {
@@ -23,13 +111,28 @@ ion-menu.md ion-note {
 }
 
 ion-menu.md ion-list#inbox-list {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  border-bottom: 1px solid var(--ion-background-color-step-150, #251D73);
+=======
   border-bottom: 1px solid var(--ion-background-color-step-150, #d7d8da);
+>>>>>>> goita
+=======
+  border-bottom: 1px solid var(--ion-background-color-step-150, #d7d8da);
+>>>>>>> origin/master
 }
 
 ion-menu.md ion-list#inbox-list ion-list-header {
   font-size: 22px;
   font-weight: 600;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> goita
+=======
+
+>>>>>>> origin/master
   min-height: 20px;
 }
 
@@ -38,15 +141,35 @@ ion-menu.md ion-list#labels-list ion-list-header {
 
   margin-bottom: 18px;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+  color: #ffffff;
+=======
   color: #757575;
+>>>>>>> goita
+=======
+  color: #757575;
+>>>>>>> origin/master
 
   min-height: 26px;
 }
 
 ion-menu.md ion-item {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  --background: #251D73;
+  --padding-start: 10px;
+  --padding-end: 10px;
+=======
   --padding-start: 10px;
   --padding-end: 10px;
   border-radius: 4px;
+>>>>>>> goita
+=======
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 4px;
+>>>>>>> origin/master
 }
 
 ion-menu.md ion-item.selected {
@@ -58,7 +181,15 @@ ion-menu.md ion-item.selected ion-icon {
 }
 
 ion-menu.md ion-item ion-icon {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  color: #ffffff;
+=======
   color: #616e7e;
+>>>>>>> goita
+=======
+  color: #616e7e;
+>>>>>>> origin/master
 }
 
 ion-menu.md ion-item ion-label {
@@ -90,7 +221,15 @@ ion-menu.ios ion-item.selected ion-icon {
 
 ion-menu.ios ion-item ion-icon {
   font-size: 24px;
+<<<<<<< HEAD
+<<<<<<< HEAD
+  color: #ffffff;
+=======
   color: #73849a;
+>>>>>>> goita
+=======
+  color: #73849a;
+>>>>>>> origin/master
 }
 
 ion-menu.ios ion-list#labels-list ion-list-header {
@@ -116,4 +255,11 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> goita
+=======
+}*/

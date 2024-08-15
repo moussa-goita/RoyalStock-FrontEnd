@@ -36,7 +36,7 @@ export class AppComponent {
     this.appPages = [
     { title: 'Dashboard', url: '/dashboard', icon: 'home', role: ['ADMIN', 'MANAGER']  },
     { title: 'Bon Entrée', url: '/bon-entre-list', icon: 'enter', role: ['MANAGER'] },
-    { title: 'Bon Sortie', url: '/bon-sortie-list', icon: 'exit', role: ['VENDEUR', 'MANAGER'] },
+    { title: 'Bon Sortie', url: '/bon-sortie-list', icon: 'exit', role: ['VENDEUR', 'ADMIN', 'MANAGER'] },
     { title: 'Fournisseurs', url: '/fournisseurs-list', icon: 'people', role: ['VENDEUR', 'MANAGER'] },
     { title: 'Fournisseurs-Espace', url: '/fournisseurs-espace', icon: 'bookmarks', role: ['VENDEUR', 'MANAGER']},
     { title: 'Notification', url: '/notifications', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] }

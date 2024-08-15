@@ -18,6 +18,7 @@ import {
   IonLabel,
   IonMenuButton,
   IonRow,
+  IonSelect,
   IonSelectOption,
   IonText,
   IonTitle,
@@ -36,7 +37,8 @@ import { MotifService } from 'src/app/services/motif.service';
   templateUrl: './bon-sortie-form.page.html',
   styleUrls: ['./bon-sortie-form.page.scss'],
   standalone: true,
-  imports: [IonText, 
+  imports: [
+    IonText, 
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -53,6 +55,7 @@ import { MotifService } from 'src/app/services/motif.service';
     IonFooter,
     IonLabel,
     IonTitle,
+    IonSelect,
     IonToolbar,
     IonRow,
     IonCol,
@@ -77,14 +80,15 @@ export class BonSortieFormPage implements OnInit {
     private motifService: MotifService
   ) {
     this.bonSortieForm = this.fb.group({
-      date: ['', Validators.required],
-      motif: ['', Validators.required],
+      date_sortie: ['', Validators.required],
+      motifs: ['', Validators.required],
+      entrepot_id: ['', Validators.required],
+      utilisateur_id: ['', Validators.required],      
     });
   }
 
   ngOnInit(): void {
     console.log('ngOnInit appelé');
-    this.bonSortieForm;
     this.bonSortie.utilisateur = {
       id: this.authService.currentUserValue?.id,
       username: this.authService.currentUserValue?.username
@@ -98,82 +102,97 @@ export class BonSortieFormPage implements OnInit {
   }
 
   loadMotifs(): void {
-    this.motifService.getMotifs().subscribe(data => {
-      this.motifs = data;
-      console.log('Motifs reçus:', data);
-    }, error => {
-      console.error('Error loading motifs:', error);
-      this.errorMessage = 'Erreur lors du chargement des motifs.';
-      setTimeout(() => this.errorMessage = '', 3000);
-    });
+    this.motifService.getMotifs().subscribe(
+      (data) => {
+        this.motifs = data;
+        console.log('Motifs reçus:', data);
+      },
+      (error) => {
+        console.error('Error loading motifs:', error);
+        this.errorMessage = 'Erreur lors du chargement des motifs.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
   }
 
   get motifControl(): FormControl {
-    return this.bonSortieForm.get('motif') as FormControl;
+    return this.bonSortieForm.get('motifs') as FormControl;
   }
 
   loadBonSortieById(id: number): void {
-    this.bonSortieService.getBonSortieById(id).subscribe(data => {
-      this.bonSortie = data;
-      this.selectedMotifId = data.motif ? data.motif.id : null;
-      console.log('Bon de sortie chargé:', data);
-    }, error => {
-      console.error('Error loading bon de sortie:', error);
-      this.errorMessage = 'Erreur lors du chargement du bon de sortie.';
-      setTimeout(() => this.errorMessage = '', 3000);
-    });
+    this.bonSortieService.getBonSortieById(id).subscribe(
+      (data) => {
+        this.bonSortie = data;
+        this.selectedMotifId = data.motif ? data.motif.id : null;
+        this.bonSortieForm.patchValue({
+          date_sortie: this.bonSortie.dateSortie,
+          motifs: this.selectedMotifId,
+          // entrepot_id: this.bonSortie.entrepot?.id,
+          // utilisateur_id: this.bonSortie.utilisateur?.id,
+        });
+        console.log('Bon de sortie chargé:', data);
+      },
+      (error) => {
+        console.error('Error loading bon de sortie:', error);
+        this.errorMessage = 'Erreur lors du chargement du bon de sortie.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
   }
 
   onSubmit(): void {
     console.log('onSubmit appelé');
+    const formData = this.bonSortieForm.value;
     if (!this.bonSortieForm.valid) {
-      console.log('Formulaire invalide');
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
-      setTimeout(() => this.errorMessage = '', 3000);
+      setTimeout(() => (this.errorMessage = ''), 3000);
       return;
     }
 
-    const detailData = this.bonSortieForm.value;
-    console.log('Détail soumis :', detailData);
-    const currentUserEmail = this.authService.currentUserValue?.email;
-    if (!currentUserEmail) {
-      this.errorMessage = 'Erreur : utilisateur non authentifié.';
-      setTimeout(() => this.errorMessage = '', 3000);
-      return;
-    }
-
-    const selectedMotif = this.motifs.find(motif => motif.id === this.selectedMotifId);
-    console.log('Motif sélectionné:', selectedMotif);
+    const selectedMotif = this.motifs.find((motif) => motif.id === this.selectedMotifId);
     this.bonSortie.detailsSorties = this.detailSortie;
     this.bonSortie.motif = { id: this.selectedMotifId } as Motif;
 
     const formattedBonSortie = {
       ...this.bonSortie,
       date_sortie: this.bonSortie.dateSortie
-        ? format(new Date(this.bonSortie.dateSortie), 'yyyy-MM-dd')
-        : null
+        ? format(new Date(this.bonSortie.dateSortie), 'MM-dd-yyyy')
+        : null,
     };
 
     if (this.isEditMode) {
-      this.bonSortieService.updateBonSortie(this.bonSortie.id, formattedBonSortie).subscribe(() => {
-        this.successMessage = 'Bon de Sortie mis à jour avec succès!';
-        setTimeout(() => this.successMessage = '', 3000);
-        setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
-      }, error => {
-        console.error('Error updating bon de sortie:', error);
-        this.errorMessage = 'Erreur lors de la mise à jour du bon de sortie.';
-        setTimeout(() => this.errorMessage = '', 3000);
-      });
+      this.bonSortieService.updateBonSortie(this.bonSortie.id, formattedBonSortie).subscribe(
+        () => {
+          this.successMessage = 'Bon de Sortie mis à jour avec succès!';
+          setTimeout(() => (this.successMessage = ''), 3000);
+          setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
+        },
+        (error) => {
+          console.error('Error updating bon de sortie:', error);
+          this.errorMessage = 'Erreur lors de la mise à jour du bon de sortie.';
+          setTimeout(() => (this.errorMessage = ''), 3000);
+        }
+      );
     } else {
-      this.bonSortieService.createBonSortie(formattedBonSortie, currentUserEmail).subscribe(() => {
-        this.successMessage = 'Bon de Sortie créé avec succès!';
-        setTimeout(() => this.successMessage = '', 3000);
-        setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
-      }, error => {
-        console.error('Error creating bon de sortie:', error);
-        this.errorMessage = 'Erreur lors de la création du bon de sortie.';
-        setTimeout(() => this.errorMessage = '', 3000);
-      });
+      const currentUserEmail = this.authService.currentUserValue?.email;
+      if (!currentUserEmail) {
+        this.errorMessage = 'Erreur : utilisateur non authentifié.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
+        return;
+      }
+
+      this.bonSortieService.createBonSortie(formattedBonSortie, currentUserEmail).subscribe(
+        () => {
+          this.successMessage = 'Bon de Sortie créé avec succès!';
+          setTimeout(() => (this.successMessage = ''), 3000);
+          setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
+        },
+        (error) => {
+          console.error('Error creating bon de sortie:', error);
+          this.errorMessage = 'Erreur lors de la création du bon de sortie.';
+          setTimeout(() => (this.errorMessage = ''), 3000);
+        }
+      );
     }
   }
 

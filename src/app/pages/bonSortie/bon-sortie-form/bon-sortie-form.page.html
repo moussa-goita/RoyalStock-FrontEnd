@@ -14,6 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Ajout du formGroup ici -->
   <form [formGroup]="bonSortieForm" (ngSubmit)="onSubmit()">
     <ion-item class="ion-margin-bottom">
       <ion-input
@@ -21,7 +22,7 @@
         label-placement="floating"
         fill="outline"
         placeholder="Sélectionnez une date"
-        formControlName="date"
+        formControlName="dateSortie"
         type="date"
         required>
       </ion-input>
@@ -41,22 +42,23 @@
         </ion-select-option> 
       </ion-select>
     </ion-item>
+
+    <!-- Boutons d'action -->
+    <ion-footer>
+      <ion-toolbar>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" color="primary" type="submit" [disabled]="!bonSortieForm.valid">
+              Ajouter
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" color="danger" (click)="onCancel()">
+              Annuler
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+    </ion-footer>
   </form>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col>
-        <ion-button expand="full" color="primary" type="submit" [disabled]="!bonSortieForm.valid">
-          Ajouter
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button expand="full" color="danger" (click)="onCancel()">
-          Annuler
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>

@@ -26,7 +26,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage)
   },
   {
-    path: 'bon-sortie-detail',
+    path: 'bon-sortie-detail/:id',
     loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage)
   },
   {

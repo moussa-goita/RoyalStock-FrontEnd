@@ -130,9 +130,10 @@ export class BonSortieListPage implements OnInit  {
     this.router.navigate(['/bon-sortie-form']);
     console.log('Navigation vers le Ok');
   }
-goToAddDetail(){
-  this.router.navigate(['/bon-sortie-detail']);
-}
+  goToAddDetail(bonSortieId: number): void {
+    this.router.navigate(['/bon-sortie-detail', bonSortieId]);
+  }
+
 hasRole(role: string): boolean {
   return this.authService.hasRole(role);
 }

@@ -14,7 +14,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Ajout du formGroup ici -->
   <form [formGroup]="bonSortieForm" (ngSubmit)="onSubmit()">
     <ion-item class="ion-margin-bottom">
       <ion-input
@@ -26,6 +25,7 @@
         type="date"
         required>
       </ion-input>
+
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
@@ -35,7 +35,6 @@
         fill="outline" 
         placeholder="Entrez le motif" 
         formControlName="motif"
-        [(ngModel)]="selectedMotifId"
         required>
         <ion-select-option *ngFor="let motif of motifs" [value]="motif.id">
           {{motif.title}}
@@ -43,7 +42,6 @@
       </ion-select>
     </ion-item>
 
-    <!-- Boutons d'action -->
     <ion-footer>
       <ion-toolbar>
         <ion-row>

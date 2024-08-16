@@ -1,9 +1,12 @@
 /* Styling for the Profile Content */
+div {
+  --background: #ffffff;
+}
+
 ion-content {
   --background: #ffffff; /* White background color for the content area */
 
   ion-header {
-
     ion-toolbar {
       --background: #ffffff; /* White background color for condensed header */
       --color: #000000; /* Black text color for condensed header */
@@ -29,6 +32,10 @@ ion-content {
     }
   }
 
+  ion-list {
+    background: #ffffff !important;
+  }
+
   ion-card {
     background-color: #ffffff;
     margin: 20px; /* Add margin for better spacing */
@@ -37,6 +44,7 @@ ion-content {
 
     ion-card-header {
       text-align: center;
+
       ion-card-title {
         font-size: 18px;
         color: #000000; /* Black color for title */
@@ -46,6 +54,7 @@ ion-content {
     ion-card-content {
       ion-list {
         background-color: #ffffff;
+
         ion-item {
           --background: #f9f9f9; /* Light gray background for input items */
           --color: #000000; /* Black text color */

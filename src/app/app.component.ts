@@ -67,6 +67,8 @@ export class AppComponent {
       notificationsSharp, receiptSharp, statsChartSharp,
       bookmarksSharp, invertModeOutline, invertModeSharp
     });
+
+    //this.checkAuthentication();
   }
 
   initializeAppPages() {
@@ -87,6 +89,18 @@ export class AppComponent {
       {title: 'Rapport', url: '/rapport', icon: 'receipt', role: ['MANAGER']},
       {title: 'Mon Profil', url: '/user-profile', icon: 'person', role: ['ADMIN', 'MANAGER', 'VENDEUR']},
     ].filter(page => page.role.includes(this.currentUserRole));
+  }
+
+  checkAuthentication() {
+    const currentUser = this.authService.currentUserValue;
+
+    if (!currentUser) {
+      // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de login
+      this.router.navigate(['/login']);
+    } else {
+      // Sinon, redirigez vers le tableau de bord ou la page appropriée
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   toggleDarkMode(event: any) {

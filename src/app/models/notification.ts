@@ -1,10 +1,12 @@
+import { Produit } from "./produit";
+
 export interface Notification {
   id: number;
-  contenu: string;
-  dateNotif: Date;
-  read: boolean;
-  utilisateur: {
-    id: number;
-    username: string;
-  };
+  message: string;
+  type: string;
+  isRead: boolean;
+  produit?: Produit;
+  createDay: Date;
+  utilisateurId: number;
+  entrepotId?: number;
 }

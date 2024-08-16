@@ -34,12 +34,12 @@ export class AppComponent {
     const role = currentUser.role;
 
     this.appPages = [
-    { title: 'Dashboard', url: '/dashboard', icon: 'home', role: ['ADMIN', 'MANAGER']  },
+    { title: 'Dashboard', url: '/dashboard', icon: 'home', role: ['ADMIN', 'MANAGER']  }, 
     { title: 'Bon Entrée', url: '/bon-entre-list', icon: 'enter', role: ['MANAGER'] },
     { title: 'Bon Sortie', url: '/bon-sortie-list', icon: 'exit', role: ['VENDEUR', 'ADMIN', 'MANAGER'] },
     { title: 'Fournisseurs', url: '/fournisseurs-list', icon: 'people', role: ['VENDEUR', 'MANAGER'] },
     { title: 'Fournisseurs-Espace', url: '/fournisseurs-espace', icon: 'bookmarks', role: ['VENDEUR', 'MANAGER']},
-    { title: 'Notification', url: '/notifications', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] }
+    { title: 'Notification', url: '/notifications-list', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'VENDEUR'] }
   ].filter(page => page.role.includes(role));
 }
 

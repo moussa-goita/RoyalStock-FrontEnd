@@ -1,0 +1,46 @@
+
+
+.star-rating ion-icon {
+  font-size: 22px;
+  color: gold; /* Couleur des étoiles pleines */
+}
+
+.star-rating ion-icon[name="star-outline"] {
+  color: lightgray; /* Couleur des étoiles vides */
+}
+.ok{
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.title{
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.commentaire{
+  border-radius:10px ;
+  border: 1px solid black;
+  height: 10vh;
+  // text-align: calc(2,4);
+  padding: 8px 10px;
+  margin-top: 10px;
+}
+.margin{
+  margin-bottom: 10px;
+}
+
+
+.section-title {
+  padding: 16px;
+  //background-color: #f4f4f4;
+  //border-bottom: 1px solid #ddd;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+
+}
+

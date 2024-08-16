@@ -13,8 +13,9 @@ import { AuthService } from './services/auth.service';
   standalone: true,
   imports: [IonToggle,RouterModule, IonButtons,  IonToolbar, IonToolbar, IonHeader, IonTitle, RouterLink, RouterLinkActive, CommonModule, IonMenuButton, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet],
 })
-export class AppComponent {
+export class AppComponent { 
   public appPages: Array<{ title: string, url: string, icon: string, role: string[] }> = [];
+ 
 
   constructor(public authService: AuthService, private router: Router) {
     this.initializeAppPages();
@@ -38,7 +39,7 @@ export class AppComponent {
     { title: 'Bon Sortie', url: '/bon-sortie-list', icon: 'exit', role: ['VENDEUR', 'ADMIN', 'MANAGER'] },
     { title: 'Fournisseurs', url: '/fournisseurs-list', icon: 'people', role: ['VENDEUR', 'MANAGER'] },
     { title: 'Fournisseurs-Espace', url: '/fournisseurs-espace', icon: 'bookmarks', role: ['VENDEUR', 'MANAGER']},
-    { title: 'Notification', url: '/notifications', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'USER'] }
+    { title: 'Notification', url: '/notifications-list', icon: 'notifications', role: ['ADMIN', 'MANAGER', 'ADMIN'] }
   ].filter(page => page.role.includes(role));
 }
 

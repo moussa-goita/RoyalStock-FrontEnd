@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import '@formatjs/intl-relativetimeformat/polyfill';
-import { format } from 'date-fns';
 
 import {
   IonBackButton,
@@ -86,10 +85,9 @@ export class BonSortieFormPage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit appelé');
     this.bonSortie.utilisateur = {
       id: this.authService.currentUserValue?.id,
-      username: this.authService.currentUserValue?.username
+      email: this.authService.currentUserValue?.email
     } as Utilisateur;
     this.loadMotifs();
     const id = this.route.snapshot.paramMap.get('id');
@@ -114,7 +112,7 @@ export class BonSortieFormPage implements OnInit {
   }
 
   get motifControl(): FormControl {
-    return this.bonSortieForm.get('motifs') as FormControl;
+    return this.bonSortieForm.get('motif') as FormControl;
   }
 
   loadBonSortieById(id: number): void {
@@ -123,10 +121,8 @@ export class BonSortieFormPage implements OnInit {
         this.bonSortie = data;
         this.selectedMotifId = data.motif ? data.motif.id : null;
         this.bonSortieForm.patchValue({
-          date_sortie: this.bonSortie.dateSortie,
-          motifs: this.selectedMotifId,
-          // entrepot_id: this.bonSortie.entrepot?.id,
-          // utilisateur_id: this.bonSortie.utilisateur?.id,
+          dateSortie: this.bonSortie.dateSortie,
+          motif: this.selectedMotifId,
         });
         console.log('Bon de sortie chargé:', data);
       },
@@ -138,32 +134,28 @@ export class BonSortieFormPage implements OnInit {
     );
   }
 
+
   onSubmit(): void {
     console.log('onSubmit appelé');
-    const formData = this.bonSortieForm.value;
+    
     if (!this.bonSortieForm.valid) {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
       setTimeout(() => (this.errorMessage = ''), 3000);
       return;
     }
-
-    const selectedMotif = this.motifs.find((motif) => motif.id === this.selectedMotifId);
+  
+    const formData = this.bonSortieForm.value;
     this.bonSortie.detailsSorties = this.detailSortie;
-    this.bonSortie.motif = { id: this.selectedMotifId } as Motif;
-
-    const formattedBonSortie = {
-      ...this.bonSortie,
-      date_sortie: this.bonSortie.dateSortie
-        ? format(new Date(this.bonSortie.dateSortie), 'MM-dd-yyyy')
-        : null,
-    };
-
+    this.bonSortie.motif = { id: formData.motif } as Motif;
+    this.bonSortie.dateSortie = new Date(formData.dateSortie);
+  
     if (this.isEditMode) {
-      this.bonSortieService.updateBonSortie(this.bonSortie.id, formattedBonSortie).subscribe(
+      // Mise à jour du bon de sortie
+      this.bonSortieService.updateBonSortie(this.bonSortie.id, this.bonSortie).subscribe(
         () => {
           this.successMessage = 'Bon de Sortie mis à jour avec succès!';
           setTimeout(() => (this.successMessage = ''), 3000);
-          setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
+          this.router.navigate(['/bon-sortie']);
         },
         (error) => {
           console.error('Error updating bon de sortie:', error);
@@ -172,18 +164,27 @@ export class BonSortieFormPage implements OnInit {
         }
       );
     } else {
+      // Création du bon de sortie
       const currentUserEmail = this.authService.currentUserValue?.email;
       if (!currentUserEmail) {
         this.errorMessage = 'Erreur : utilisateur non authentifié.';
         setTimeout(() => (this.errorMessage = ''), 3000);
         return;
       }
-
-      this.bonSortieService.createBonSortie(formData, currentUserEmail).subscribe(
-        () => {
-          this.successMessage = 'Bon de Sortie créé avec succès!';
-          setTimeout(() => (this.successMessage = ''), 3000);
-          setTimeout(() => this.router.navigate(['/bon-sortie']), 3000);
+  
+      this.bonSortieService.createBonSortie(this.bonSortie, currentUserEmail).subscribe(
+        (bonSortie: BonSortie) => {
+          if (bonSortie && bonSortie.id) {
+            this.successMessage = 'Bon de Sortie créé avec succès!';
+            
+            // Effacement du message de succès après 3 secondes
+            setTimeout(() => (this.successMessage = ''), 3000);
+  
+            // Redirection immédiate vers les détails du bon de sortie
+            this.goToAddDetail(bonSortie.id);
+          } else {
+            console.error('Le bon de sortie a été créé mais l\'ID est indéfini.');
+          }
         },
         (error) => {
           console.error('Error creating bon de sortie:', error);
@@ -193,7 +194,11 @@ export class BonSortieFormPage implements OnInit {
       );
     }
   }
-
+  
+  
+  goToAddDetail(bonSortieId: number): void {
+    this.router.navigate(['/bon-sortie-detail', bonSortieId]);
+  }
   onCancel() {
     this.router.navigate(['/bon-sortie-list']);
   }

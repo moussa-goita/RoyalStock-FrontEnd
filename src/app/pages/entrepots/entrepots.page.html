@@ -1,13 +1,78 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>entrepots</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">entrepots</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <div class="ent">
+        <h1>Emplacement des Entrepots</h1>
+      </div>
+      <div class="container">
+        <div class="entA">Entrepots A</div>
+      </div>
+      <div class="container">
+        <div class="entA">Entrepots B</div>
+
+      </div>
+      <div class="container">
+        <div class="entA">Entrepots C</div>
+
+      </div>
+      <div class="container">
+        <div class="entA">Entrepots D</div>
+
+      </div>
+
+  
+</ion-content> -->
+ 
+
+
+<!-- src/app/components/entrepot-list/entrepot-list.component.html -->
+
+
+
+
+
+
+
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>entrepôts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ent">
+    <h1>Emplacement des Entrepots</h1>
+  </div>
+  <div *ngFor="let entrepot of entrepots" class="entrepot-card">
+    <div class="entrepot-info">
+      <h2>{{ entrepot.entrepotName }}</h2>
+      <div id="map-{{entrepot.id}}" class="map-container"></div>
+    </div>
+  </div>
+</ion-content> -->
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Entrepôts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ent">
+    <h1>Emplacement des Entrepôts</h1>
+  </div>
+  <div *ngFor="let entrepot of entrepots; let i = index" class="entrepot-card">
+    <div class="entrepot-info">
+      <!-- <h2>{{ entrepot.entrepotName }}</h2> -->
+      <!-- Assurez-vous que `entrepot.id` est bien défini -->
+      <div [id]="'map' + i" class="map-container"></div>
+    </div>
+  </div>
 </ion-content>
+

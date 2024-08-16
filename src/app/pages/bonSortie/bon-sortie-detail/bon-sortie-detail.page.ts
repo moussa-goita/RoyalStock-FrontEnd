@@ -42,7 +42,6 @@ import { camera, qrCode } from 'ionicons/icons';
 })
 export class BonSortieDetailPage {
   detailForm: FormGroup;
-
   constructor(private fb: FormBuilder, private router: Router) {
     this.detailForm = this.fb.group({
       produit: ['', Validators.required],

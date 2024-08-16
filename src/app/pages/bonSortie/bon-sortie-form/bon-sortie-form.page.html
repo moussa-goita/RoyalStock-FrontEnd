@@ -34,8 +34,7 @@
         label-placement="floating" 
         fill="outline" 
         placeholder="Entrez le motif" 
-        formControlName="motif"
-        [(ngModel)]="selectedMotifId"
+        formControlName="motif",
         required>
         <ion-select-option *ngFor="let motif of motifs" [value]="motif.id">
           {{motif.title}}

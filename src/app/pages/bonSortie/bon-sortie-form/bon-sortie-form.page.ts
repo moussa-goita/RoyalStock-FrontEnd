@@ -80,10 +80,8 @@ export class BonSortieFormPage implements OnInit {
     private motifService: MotifService
   ) {
     this.bonSortieForm = this.fb.group({
-      date_sortie: ['', Validators.required],
-      motifs: ['', Validators.required],
-      entrepot_id: ['', Validators.required],
-      utilisateur_id: ['', Validators.required],      
+      dateSortie: ['', Validators.required],
+      motif: ['', Validators.required],
     });
   }
 
@@ -181,7 +179,7 @@ export class BonSortieFormPage implements OnInit {
         return;
       }
 
-      this.bonSortieService.createBonSortie(formattedBonSortie, currentUserEmail).subscribe(
+      this.bonSortieService.createBonSortie(formData, currentUserEmail).subscribe(
         () => {
           this.successMessage = 'Bon de Sortie créé avec succès!';
           setTimeout(() => (this.successMessage = ''), 3000);

@@ -1,99 +1,81 @@
-/* General Styles for the Header */
-ion-header {
-  ion-toolbar {
-    --background: #251D73; /* Set header background color */
-    --color: #ffffff; /* Set text color */
-    display: flex;
-    justify-content: space-between; /* Space out title and button */
-    align-items: center;
-
-    ion-title {
-      font-weight: bold;
-      font-size: 22px;
-      text-align: center;
-    }
-
-    ion-button {
-      --background: #F5004F; /* Transparent background for logout button */
-      --color: #ffff; /* Red color for logout button */
-      border: 1px solid #F5004F; /* Border matching the button color */
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-
-      &:hover {
-        --background: #FF6B6B; /* Background color on hover */
-        --color: #ffffff; /* Text color on hover */
-      }
-    }
-  }
+/* Styling for the Profile Content */
+div {
+  --background: #ffffff;
 }
 
-/* Styling for the Profile Content */
 ion-content {
+  --background: #ffffff; /* White background color for the content area */
+
   ion-header {
     ion-toolbar {
-      --background: #251D73; /* Matching the header color on condense */
-      --color: #ffffff;
+      --background: #ffffff; /* White background color for condensed header */
+      --color: #000000; /* Black text color for condensed header */
 
       ion-title {
         font-size: 20px;
       }
 
       ion-button {
-        --background: #F5004F; /* Transparent background for logout button */
-        --color: #ffff; /* Red color for logout button */
-        border: 1px solid #F5004F; /* Border matching the button color */
+        --background: #FF6B6B; /* Red background color for logout button */
+        --color: #ffffff; /* White text color for logout button */
+        border: 1px solid #FF6B6B; /* Border matching the button color */
         font-weight: 500;
         padding: 5px 10px;
         border-radius: 5px;
         transition: all 0.3s ease;
 
         &:hover {
-          --background: #FF6B6B; /* Background color on hover */
-          --color: #ffffff; /* Text color on hover */
+          --background: #dc3545; /* Darker red background on hover */
+          --color: #ffffff; /* Keep text color white on hover */
         }
       }
     }
   }
 
+  ion-list {
+    background: #ffffff !important;
+  }
+
   ion-card {
+    background-color: #ffffff;
     margin: 20px; /* Add margin for better spacing */
     border-radius: 12px; /* Round corners */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 
     ion-card-header {
       text-align: center;
+
       ion-card-title {
         font-size: 18px;
-        color: #251D73; /* Primary color for title */
+        color: #000000; /* Black color for title */
       }
     }
 
     ion-card-content {
       ion-list {
+        background-color: #ffffff;
+
         ion-item {
-          --background: #f5f5f5; /* Light background for input items */
-          --color: #333; /* Dark text color */
+          --background: #f9f9f9; /* Light gray background for input items */
+          --color: #000000; /* Black text color */
           margin-bottom: 15px; /* Spacing between items */
           border-radius: 8px; /* Rounded corners */
           box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Light shadow for inputs */
           padding: 10px 15px; /* Increased padding for better usability */
 
           ion-label {
-            color: #666; /* Slightly lighter label color */
+            color: #333333; /* Darker label color */
             font-weight: 600;
             font-size: 14px;
           }
 
           ion-input {
-            color: #333; /* Ensure text is visible */
+            color: #000000; /* Black text color for inputs */
             font-size: 16px;
             padding: 5px 0;
 
             &::placeholder {
-              color: #aaa; /* Placeholder text color */
+              color: #aaaaaa; /* Lighter gray color for placeholder text */
               font-style: italic;
             }
           }
@@ -115,9 +97,9 @@ ion-content {
       }
 
       ion-button {
-        --background: #251D73; /* Primary background color */
-        --color: #ffffff; /* White text color */
-        --background-activated: #3A2E8D; /* Darker shade when button is activated */
+        --background: #251d73; /* Blue background color for primary buttons */
+        --color: #ffffff; /* White text color for primary buttons */
+        --background-activated: #0056b3; /* Darker blue shade when button is activated */
         font-weight: 600; /* Bold text */
         border-radius: 25px; /* Rounded button */
         padding: 12px 20px;

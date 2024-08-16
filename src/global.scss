@@ -35,21 +35,40 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
 body.dark {
     --ion-background-color: #000;
     --ion-text-color: #fff;
   }body {
     --ion-background-color: #ffffff;
-    --ion-text-color: #000000;
+    --ion-text-color: #ffffff;
     --ion-color-primary: #251D73;
     --ion-color-secondary: #3dc2ff;
     /* autres couleurs pour personnaliser ton thème */
   }
-  // ion-button{
-  //   color: #032156;
-  // }
 
 /* Augmente la marge entre le header et le contenu */
 ion-header + ion-content {
   margin-top: 16px; /* Ajustez cette valeur selon vos besoins */
+}
+
+/* Navbar Styling */
+ion-header {
+  ion-toolbar {
+    --background: #251D73; /* Dark blue background color for the navbar */
+    --color: #ffffff; /* White text color for the navbar */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for navbar depth */
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+
+      img.logo {
+        width: 70px; /* Adjust logo size */
+        height: auto;
+      }
+    }
+  }
 }

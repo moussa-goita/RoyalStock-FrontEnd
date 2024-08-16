@@ -1,0 +1,40 @@
+.titleNotif {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px;
+    font-weight: bold;
+  }
+  
+  ion-col {
+    background-color: #251D73;
+    border: solid 1px #fff;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+  
+    ion-badge {
+      font-size: 0.5rem;
+    }
+  }
+  
+  ion-card-content {
+    display: flex; 
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .icon {
+    font-size: 3rem;
+    color: #251D73;
+    font-weight: 700;
+  }
+  
+  .time { 
+    margin-left: 5rem;
+    margin-top: -0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  

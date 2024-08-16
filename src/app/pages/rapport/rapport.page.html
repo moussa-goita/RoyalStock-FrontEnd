@@ -10,4 +10,49 @@
       <ion-title size="large">rapport</ion-title>
     </ion-toolbar>
   </ion-header>
+
+<!--  <ion-list>
+    <ion-label position="floating">Sélectionner une date</ion-label>
+    <ion-datetime (ionChange)="onDateChange($event)" displayFormat="DD/MM/YYYY"></ion-datetime>
+  </ion-list>
+
+  Bouton pour générer le PDF
+  <ion-button expand="full" (click)="generatePdf()">Générer le Rapport</ion-button> -->
+
+  <!-- date-range.component.html -->
+  <h2>Derniers Bons d'Entrée</h2>
+  <ion-list>
+    <ion-item *ngFor="let bon of lastThreeBonsEntree">
+      <ion-label>
+        <h3>Date: {{ bon.dateCommande }}</h3>
+        <p>Produit: {{ bon.detailEntrees }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h2>Derniers Bons de Sortie</h2>
+  <ion-list>
+    <ion-item *ngFor="let bon of lastThreeBonsSortie">
+      <ion-label>
+        <h3>Date: {{ bon.dateSortie }}</h3>
+        <p>Quantité Totale: {{ bon.motif }}</p>
+        <p>Quantité Totale: {{ bon.detailsSorties }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <form (ngSubmit)="onSubmit()" #dateForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Date de Début</ion-label>
+      <ion-datetime [(ngModel)]="startDate" name="startDate" displayFormat="DD/MM/YYYY" required></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Date de Fin</ion-label>
+      <ion-datetime [(ngModel)]="endDate" name="endDate" displayFormat="DD/MM/YYYY" required></ion-datetime>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Générer le Rapport</ion-button>
+  </form>
+
+
 </ion-content>

@@ -38,16 +38,16 @@
         </ion-text>
 
         <div class="ion-text-center">
-          <ion-button fill="clear" color="danger" (click)="printBonSortie(bonSortie.id)">
+          <!-- <ion-button fill="clear" color="danger" (click)="printBonSortie(bonSortie.id)">
             <ion-icon slot="icon-only" name="print"></ion-icon>
-          </ion-button>
-          <ion-button fill="clear" color="primary">
+          </ion-button> -->
+          <ion-button fill="clear">
             <ion-icon slot="icon-only" name="create"></ion-icon>
           </ion-button>
           <ion-button fill="clear" color="danger" (click)="deleteBonSortie(bonSortie.id)">
             <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-button>
-          <ion-button (click)="goToAddDetail()" fill="clear">
+          <ion-button (click)="goToAddDetail(bonSortie.id)" fill="clear">
             <ion-icon slot="icon-only" name="eye"></ion-icon>
             Detail
           </ion-button>

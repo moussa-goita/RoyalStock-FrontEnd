@@ -7,6 +7,7 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+ 
   {
     path: 'folder/:id',
     loadComponent: () =>
@@ -26,8 +27,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage), data: { roles: ['MANAGER']}
   },
   {
-    path: 'bon-sortie-detail',
+    path: 'bon-sortie-detail/:id',
     loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage), data: { roles: ['VENDEUR', 'MANAGER']}
+
   },
   {
     path: 'bon-sortie-list',

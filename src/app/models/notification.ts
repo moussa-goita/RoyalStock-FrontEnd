@@ -3,6 +3,9 @@ export interface Notification {
   contenu: string;
   dateNotif: Date;
   read: boolean;
+  type: string;
+  createDay: string;
+  message: string;
   utilisateur: {
     id: number;
     username: string;

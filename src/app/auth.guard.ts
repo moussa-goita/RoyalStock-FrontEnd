@@ -1,67 +1,30 @@
-import { Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
-    path: 'folder/:id',
-    loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
-  },
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  {
-    path: 'bon-entre-form',
-    loadComponent: () => import('./pages/bonEntre/bon-entre-form/bon-entre-form.page').then( m => m.BonEntreFormPage)
-  },
-  {
-    path: 'bon-entre-list',
-    loadComponent: () => import('./pages/bonEntre/bon-entre-list/bon-entre-list.page').then( m => m.BonEntreListPage)
-  },
-  {
-    path: 'bon-entre-detail',
-    loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage)
-  },
-  {
-    path: 'bon-sortie-detail',
-    loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage)
-  },
-  {
-    path: 'bon-sortie-list',
-    loadComponent: () => import('./pages/bonSortie/bon-sortie-list/bon-sortie-list.page').then( m => m.BonSortieListPage)
-  },
-  {
-    path: 'bon-sortie-form',
-    loadComponent: () => import('./pages/bonSortie/bon-sortie-form/bon-sortie-form.page').then( m => m.BonSortieFormPage)
-  },
-  {
-    path: 'dashboard',
-    loadComponent: () => import('./pages/dashboard/dashboard/dashboard.page').then( m => m.DashboardPage)
-  },
-  {
-    path: 'fournisseurs-list',
-    loadComponent: () => import('./pages/fournisseurs/fournisseurs-list/fournisseurs-list.page').then( m => m.FournisseursListPage)
-  },
-  {
-    path: 'fournisseurs-form',
-    loadComponent: () => import('./pages/fournisseurs/fournisseurs-form/fournisseurs-form.page').then( m => m.FournisseursFormPage)
-  },
-  {
-    path: 'fournisseurs-espace',
-    loadComponent: () => import('./pages/fournisseurs/fournisseurs-espace/fournisseurs-espace.page').then( m => m.FournisseursEspacePage)
-  },
-  {
-    path: 'notifications-list',
-    loadComponent: () => import('./pages/notifications/notifications-list/notifications-list.page').then( m => m.NotificationsListPage)
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
-  },
-  {
-    path: 'user-profile',
-    loadComponent: () => import('./pages/user-profile/user-profile.page').then( m => m.UserProfilePage)
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const currentUser = this.authService.currentUserValue;
+
+    if (currentUser) {
+      // Si l'utilisateur est connecté, vérifier s'il a le rôle requis
+      const roles = route.data['roles'] as Array<string>;
+      if (roles && roles.indexOf(currentUser.role) === -1) {
+        // Si l'utilisateur n'a pas le rôle requis, rediriger vers une autre page (par exemple, une page d'erreur)
+        this.router.navigate(['/access-denied']);
+        return false;
+      }
+      // Autoriser l'accès si l'utilisateur a le rôle requis
+      return true;
+    }
+
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    return false;
   }
-];
+}

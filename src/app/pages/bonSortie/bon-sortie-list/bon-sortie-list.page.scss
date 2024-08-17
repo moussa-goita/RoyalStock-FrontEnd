@@ -1,11 +1,10 @@
 ion-card{
-  // position: relative;
+  position: relative;
     border-radius: 12px;
     border-color: rgb(29, 4, 53);
     border-style: groove;
     justify-content: center;
     align-items:center;
-  
   }
   .card-container {
     display: flex;
@@ -50,8 +49,3 @@ ion-card{
     position: relative;
     margin-top: 5px;
   }
-  // ion-card{
-  //   left: 65px;
-  //   // background-color: antiquewhite;
-  //   box-shadow: inset;
-  // }

@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-=======
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fournisseur } from '../models/fournisseur';
->>>>>>> origin/master
 
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
-<<<<<<< HEAD
-
-  constructor() { }
-=======
   private baseUrl = 'http://localhost:8080/api/fournisseurs';
 
   constructor(private http: HttpClient) { }
@@ -41,5 +34,4 @@ export class FournisseurService {
   deleteFournisseur(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
->>>>>>> origin/master
 }

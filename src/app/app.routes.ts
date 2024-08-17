@@ -13,6 +13,7 @@ export const routes: Routes = [
       import('./folder/folder.page').then((m) => m.FolderPage),
   },
 
+
   {
     path: 'bon-entre-form',
     loadComponent: () => import('./pages/bonEntre/bon-entre-form/bon-entre-form.page').then( m => m.BonEntreFormPage)
@@ -22,11 +23,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-list/bon-entre-list.page').then( m => m.BonEntreListPage)
   },
   {
-    path: 'bon-entre-detail',
+    path: 'bon-entre-detail/:id',
     loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage)
   },
   {
-    path: 'bon-sortie-detail',
+    path: 'bon-sortie-detail/:id',
     loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage)
   },
   {

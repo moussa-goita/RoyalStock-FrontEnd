@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BonEntreDetailService } from './bon-entre-detail.service';
+import { DetailEntreeService } from './bon-entre-detail.service';
 
 describe('BonEntreDetailService', () => {
-  let service: BonEntreDetailService;
+  let service:DetailEntreeService ;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BonEntreDetailService);
+    service = TestBed.inject(DetailEntreeService );
   });
 
   it('should be created', () => {

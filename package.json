@@ -29,14 +29,15 @@
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@formatjs/intl-relativetimeformat": "^11.2.14",
-    "@ionic/angular": "^8.0.0",
+    "@ionic/angular": "^8.2.7",
     "@ionic/pwa-elements": "^3.3.0",
-
+    "chart.js": "^4.4.3",
     "cordova-plugin-qrscanner": "^3.0.1",
     "date-fns": "^3.6.0",
     "ionicons": "^7.4.0",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.9",
     "rxjs": "~7.8.1",
-
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
@@ -67,7 +68,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "^5.5.4"
-
   },
   "description": "An Ionic project"
 }

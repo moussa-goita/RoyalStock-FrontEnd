@@ -1,6 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { PreloadAllModules, RouteReuseStrategy, provideRouter, withPreloading } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import 'ionicons';
+
 
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';

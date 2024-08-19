@@ -1,13 +1,87 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>bon-entre-detail</ion-title>
+    <ion-title>Formulaire Détail</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Header condense pour les petits écrans -->
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">bon-entre-detail</ion-title>
+      <ion-title size="large">Ajouter Détail</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Formulaire pour les détails d'entrée -->
+  <form [formGroup]="detailForm" (ngSubmit)="onSubmit()">
+    <!-- Liste des détails -->
+    <div formArrayName="details">
+      <div *ngFor="let detail of details.controls; let i = index" [formGroupName]="i" class="ion-margin-top">
+        
+        <!-- Sélecteur de produit -->
+        <ion-item>
+          <ion-label position="floating">Produit</ion-label>
+          <ion-select formControlName="produit" placeholder="Sélectionnez un produit" fill="outline">
+            <ion-select-option *ngFor="let produit of produits" [value]="produit.id">{{ produit.productName }}</ion-select-option>
+          </ion-select>
+          <ion-icon name="camera" slot="end"></ion-icon>
+        </ion-item>
+
+        <!-- Champ pour la quantité -->
+        <ion-item>
+          <ion-label position="floating">Quantité</ion-label>
+          <ion-input
+            formControlName="quantite"
+            type="number"
+            min="1"
+            placeholder="Quantité"
+            fill="outline"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Champ pour le prix -->
+        <ion-item>
+          <ion-label position="floating">Prix</ion-label>
+          <ion-input
+            formControlName="prix"
+            type="number"
+            min="0"
+            placeholder="Prix"
+            fill="outline"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Bouton pour supprimer le détail -->
+        <ion-button expand="full" color="danger" (click)="removeDetail(i)">
+          Supprimer
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Bouton pour ajouter un nouveau détail -->
+    <ion-button expand="full" color="secondary" type="button" (click)="addDetail()">
+      Ajouter Détail
+    </ion-button>
+
+    <!-- Bouton pour soumettre le formulaire -->
+    <ion-button expand="full" color="primary" type="submit" [disabled]="!detailForm.valid">
+      Enregistrer
+    </ion-button>
+  </form>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <!-- Bouton pour annuler l'opération -->
+        <ion-button expand="full" color="danger" (click)="onCancel()">
+          Annuler
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

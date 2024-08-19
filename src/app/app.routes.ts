@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+
+import { Routes } from "@angular/router";
 import {AuthGuard} from "./auth.guard";
 
 export const routes: Routes = [
@@ -14,6 +15,7 @@ export const routes: Routes = [
       import('./folder/folder.page').then((m) => m.FolderPage),
   },
 
+
   {
     path: 'bon-entre-form',
     loadComponent: () => import('./pages/bonEntre/bon-entre-form/bon-entre-form.page').then( m => m.BonEntreFormPage), data: { roles: ['MANAGER']}
@@ -23,13 +25,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-list/bon-entre-list.page').then( m => m.BonEntreListPage), data: { roles: ['MANAGER']}
   },
   {
-    path: 'bon-entre-detail',
-    loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage), data: { roles: ['MANAGER']}
+    path: 'bon-entre-detail/:id',
+    loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage)
   },
   {
     path: 'bon-sortie-detail/:id',
-    loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage), data: { roles: ['VENDEUR', 'MANAGER']}
-
+    loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage)
   },
   {
     path: 'bon-sortie-list',

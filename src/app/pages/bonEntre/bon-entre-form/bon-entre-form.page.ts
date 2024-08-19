@@ -82,7 +82,9 @@ export class BonEntreFormPage implements OnInit {
       this.bonEntreeService.createBonEntree(bonEntreeData, this.authService.currentUserValue.email).subscribe(
         response => {
           console.log('Bon d\'Entrée créé avec succès :', response);
-          this.router.navigate(['/bon-entre-detail']);
+         
+          const bonEntreeId = response.id;
+          this.router.navigate(['/bon-entre-detail', bonEntreeId]);
         },
         error => {
           console.error('Erreur lors de la création du Bon d\'Entrée :', error);

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un Commentaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="submitComment()">
+    <ion-item>
+      <ion-label position="stacked">Commentaire</ion-label>
+      <ion-textarea [(ngModel)]="commentaire" name="commentaire" required></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Note</ion-label>
+      <ion-range [(ngModel)]="note" name="note" min="1" max="5" step="1" snaps="true">
+        <ion-label slot="start">1</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" color="primary">Soumettre</ion-button>
+  </form>
+</ion-content>

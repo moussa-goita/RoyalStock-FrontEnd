@@ -10,20 +10,12 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-app')
-<<<<<<< master
-    implementation project(':capacitor-barcode-scanner')
-=======
->>>>>>> goita
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-status-bar')
 
 }
-<<<<<<< master
-apply from: "../../node_modules/cordova-plugin-qrscanner/src/android/qrscanner.gradle"
-=======
 
->>>>>>> goita
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

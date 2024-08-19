@@ -1,6 +1,5 @@
-
-import { Routes } from "@angular/router";
-import {AuthGuard} from "./auth.guard";
+import { Routes } from '@angular/router';
+import { AuthGuard } from "./auth.guard";
 
 export const routes: Routes = [
   {
@@ -15,7 +14,6 @@ export const routes: Routes = [
       import('./folder/folder.page').then((m) => m.FolderPage),
   },
 
-
   {
     path: 'bon-entre-form',
     loadComponent: () => import('./pages/bonEntre/bon-entre-form/bon-entre-form.page').then( m => m.BonEntreFormPage), data: { roles: ['MANAGER']}
@@ -25,12 +23,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-list/bon-entre-list.page').then( m => m.BonEntreListPage), data: { roles: ['MANAGER']}
   },
   {
-    path: 'bon-entre-detail/:id',
-    loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage)
+    path: 'bon-entre-detail',
+    loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage), data: { roles: ['MANAGER']}
   },
   {
     path: 'bon-sortie-detail/:id',
-    loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage)
+    loadComponent: () => import('./pages/bonSortie/bon-sortie-detail/bon-sortie-detail.page').then( m => m.BonSortieDetailPage), data: { roles: ['VENDEUR', 'MANAGER']}
+
   },
   {
     path: 'bon-sortie-list',
@@ -51,6 +50,10 @@ export const routes: Routes = [
   {
     path: 'fournisseurs-form',
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-form/fournisseurs-form.page').then( m => m.FournisseursFormPage), data: { roles: ['MANAGER']}
+  },
+  {
+    path: 'commentaire-form/:id',
+    loadComponent: () => import('./pages/fournisseurs/commentaire-form/commentaire-form.page').then( m => m.CommentaireFormPage), data: { roles: ['MANAGER']}
   },
   {
     path: 'fournisseurs-espace',
@@ -87,5 +90,9 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'commentaire-form',
+    loadComponent: () => import('./pages/fournisseurs/commentaire-form/commentaire-form.page').then( m => m.CommentaireFormPage)
   },
 ];

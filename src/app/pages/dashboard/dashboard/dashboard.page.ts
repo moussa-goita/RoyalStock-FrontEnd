@@ -63,32 +63,34 @@ export class DashboardPage implements OnInit {
   createPieCharts(): void {
     const documentStyle = getComputedStyle(document.documentElement);
 
+    // Graphique pour les valeurs Entrées et Sorties
     this.pieDataValues = {
-      labels: ['Valeur Entrées', 'Valeur Sorties'],
+      labels: ['Entrée (Valeur)', 'Sortie (Valeur)'],  // Les labels sont bien définis ici
       datasets: [{
         data: [this.valeurEntrees, this.valeurSorties],
         backgroundColor: [
-          documentStyle.getPropertyValue('--ion-color-primary'),
-          documentStyle.getPropertyValue('--ion-color-danger')
+          '#FFB423',   // Couleur personnalisée pour la Valeur Entrées
+          'blue'       // Couleur pour la Valeur Sorties
         ],
         hoverBackgroundColor: [
-          documentStyle.getPropertyValue('--ion-color-primary-shade'),
-          documentStyle.getPropertyValue('--ion-color-danger-shade')
+          '#FFB423',  // Couleur de survol pour la Valeur Entrées
+          documentStyle.getPropertyValue('--ion-color-primary-shade')  // Teinte pour la Valeur Sorties
         ]
       }]
     };
 
+    // Graphique pour les totaux Entrées et Sorties
     this.pieDataTotals = {
-      labels: ['Total Entrées', 'Total Sorties'],
+      labels: ['Entrée (Total)', 'Sortie (Total)'],  // Les labels sont bien définis ici
       datasets: [{
         data: [this.totalEntrees, this.totalSorties],
         backgroundColor: [
-          documentStyle.getPropertyValue('--ion-color-secondary'),
-          documentStyle.getPropertyValue('--ion-color-warning')
+          'green',  // Couleur pour le Total Entrées
+          'grey'    // Couleur pour le Total Sorties
         ],
         hoverBackgroundColor: [
-          documentStyle.getPropertyValue('--ion-color-secondary-shade'),
-          documentStyle.getPropertyValue('--ion-color-warning-shade')
+          documentStyle.getPropertyValue('--ion-color-success-shade'), // Teinte pour le Total Entrées
+          documentStyle.getPropertyValue('--ion-color-medium-shade')   // Teinte pour le Total Sorties
         ]
       }]
     };
@@ -105,18 +107,29 @@ export class DashboardPage implements OnInit {
     };
 
     // Définition des options avec la légende en bas
-    this.pieOptionsWithLegendBottom = {
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom',  // Position de la légende en bas
-          labels: {
-            color: documentStyle.getPropertyValue('--ion-text-color')
-          }
-        }
-      },
-      maintainAspectRatio: false
-    };
-  }
-  
+    // Définition des options avec la légende en bas
+this.pieOptionsWithLegendBottom = {
+  plugins: {
+    legend: {
+      display: true,
+      position: 'bottom',  // Position de la légende en bas
+      labels: {
+        color: documentStyle.getPropertyValue('--ion-text-color'),
+        font: {
+          size: 12  // Taille de la police réduite pour s'adapter aux petits écrans
+        },
+        padding: 10  // Ajouter du padding autour des éléments de légende
+      }
+    }
+  },
+  layout: {
+    padding: {
+      bottom: 20, // Espace supplémentaire sous le graphique pour les légendes
+    }
+  },
+  maintainAspectRatio: false,
+  responsive: true, // Assurez-vous que le graphique est réactif
+};
+
+}
 }

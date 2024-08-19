@@ -1,0 +1,101 @@
+/* Style général */
+.custom-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .text-black {
+    color: #333333;
+    font-weight: 500;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  .text-primary {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+
+  /* Icônes */
+  .icon-entries {
+    color: #28a745;
+    font-size: 32px;
+  }
+
+  .icon-outputs {
+    color: #dc3545;
+    font-size: 32px;
+  }
+
+  .icon-totals {
+    color: #ffc107;
+    font-size: 32px;
+  }
+
+  /* Contenu de la carte */
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  ion-icon {
+    margin-bottom: 8px;
+  }
+
+  ion-card-title {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+
+  /* Flexibilité et espacement */
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ibac {
+    background-color: #6f42c1;
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+  }
+
+  /* Style de la grille */
+  ion-grid {
+    --ion-grid-column-padding: 8px;
+    --ion-grid-row-padding: 16px;
+  }
+
+  /* Styles spécifiques aux mobiles */
+/* Forcer la disposition verticale des légendes sur les petits écrans */
+@media (max-width: 768px) {
+  .p-chart .p-legend {
+    display: flex;
+    flex-direction: column; /* Disposition verticale */
+    align-items: center;
+    gap: 8px; /* Réduction de l'espace entre les éléments de légende */
+  }
+
+  .p-chart .p-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* Ajouter un espace entre chaque élément */
+  }
+
+  .p-chart .p-legend-text {
+    font-size: 0.85em; /* Réduction de la taille du texte pour les légendes */
+    margin-left: 4px; /* Un petit espace entre la couleur et le texte */
+  }
+}

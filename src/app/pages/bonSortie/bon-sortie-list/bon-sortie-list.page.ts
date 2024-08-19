@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { add, calendar, clipboard, create, document, eye, person, print, trash } from 'ionicons/icons';
 
@@ -31,6 +29,8 @@ import {
 import { BonSortie } from 'src/app/models/bon-sortie';
 import { AuthService } from 'src/app/services/auth.service';
 import { BonSortieService } from 'src/app/services/bon-sortie.service';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bon-sortie-list',

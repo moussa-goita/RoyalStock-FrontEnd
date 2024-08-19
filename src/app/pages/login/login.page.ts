@@ -25,15 +25,26 @@ export class LoginPage {
     this.passwordVisible = !this.passwordVisible;
   }
 
+  // login() {
+  //   this.authService.login(this.email, this.password).subscribe(
+  //     () => {
+  //       this.router.navigate(['/dashboard']);
+  //     },
+  //     (error) => {
+  //       this.errorMessage = 'Email ddou mot de passe incorrect';
+  //     }
+  //   );
+  // }
   login() {
     this.authService.login(this.email, this.password).subscribe(
       () => {
         this.router.navigate(['/dashboard']);
       },
       (error) => {
-        this.errorMessage = 'Email ou mot de passe incorrect';
+        this.errorMessage = error; // Directly set the error message returned by handleError
       }
     );
   }
+  
 
 }

@@ -85,3 +85,50 @@ ion-card{
     .no-padding {
       padding: 0;
     }
+    // Fournisseurs Form Page Styles
+
+form {
+  ion-item {
+    --highlight-color-focused: var(--ion-color-primary);
+    --min-height: 60px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 8px;
+    --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    margin-bottom: 15px;
+
+    ion-label {
+      font-weight: 600;
+      color: var(--ion-color-medium);
+    }
+
+    ion-input,
+    ion-textarea {
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+
+    &.ion-margin-bottom {
+      margin-bottom: 20px;
+    }
+  }
+
+  ion-row {
+    ion-button {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+ion-header {
+  ion-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+}
+
+ion-content {
+  padding: 15px;
+}

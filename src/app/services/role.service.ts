@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { HttpClient } from '@angular/common/http';
+
+  import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-=======
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
->>>>>>> origin/master
 import { Observable } from 'rxjs';
 import { Role } from '../models/role';
 
@@ -12,7 +8,7 @@ import { Role } from '../models/role';
   providedIn: 'root'
 })
 export class RoleService {
-  private baseUrl = 'http://localhost:8080/api/roles';
+  private baseUrl = 'http://10.175.48.126:8080/api/roles';
 
   constructor(private http: HttpClient) { }
 

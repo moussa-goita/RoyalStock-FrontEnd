@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {AuthGuard} from "./auth.guard";
+import { AuthGuard } from "./auth.guard";
 
 export const routes: Routes = [
   {
@@ -52,6 +52,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-form/fournisseurs-form.page').then( m => m.FournisseursFormPage), data: { roles: ['MANAGER']}
   },
   {
+    path: 'commentaire-form/:id',
+    loadComponent: () => import('./pages/fournisseurs/commentaire-form/commentaire-form.page').then( m => m.CommentaireFormPage), data: { roles: ['MANAGER']}
+  },
+  {
     path: 'fournisseurs-espace',
     loadComponent: () => import('./pages/fournisseurs/fournisseurs-espace/fournisseurs-espace.page').then( m => m.FournisseursEspacePage), data: { roles: ['MANAGER']}
   },
@@ -86,5 +90,9 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'commentaire-form',
+    loadComponent: () => import('./pages/fournisseurs/commentaire-form/commentaire-form.page').then( m => m.CommentaireFormPage)
   },
 ];

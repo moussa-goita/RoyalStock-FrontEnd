@@ -11,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
 
 
-  private apiUrl = 'http://localhost:8080/api/utilisateurs';
+  private apiUrl = 'http://10.175.48.126:8080/api/utilisateurs';
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
@@ -34,10 +34,12 @@ export class AuthService {
 
 
   login(email: string, password: string) {
+    console.log("je suis dans log");
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         map(data => {
           if (data && data.token && this.isBrowser()) {
+            console.log('data:',data);
             localStorage.setItem('currentUser', JSON.stringify(data));
             this.currentUserSubject.next(data);
           }
@@ -57,18 +59,47 @@ export class AuthService {
   }
 
 
+  // private handleError(error: HttpErrorResponse) {
+  //   let errorMessage = 'An unknown error occurred!';
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Client-side errors
+  //     errorMessage = `Error: ${error.error.message}`;
+  //   } else {
+  //     // Server-side errors
+  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  //   }
+  //   return throwError(errorMessage);
+  // }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
+    
     if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${error.error.message}`;
+      // Erreurs côté client
+      errorMessage = `Erreur : ${error.error.message}`;
     } else {
-      // Server-side errors
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      // Erreurs côté serveur
+      switch (error.status) {
+        case 0: // No connection to the server
+          errorMessage = "Le serveur est injoignable. Veuillez vérifier votre connexion Internet.";
+          break;
+        case 401: // Unauthorized - incorrect email or password
+          errorMessage = "Email ou mot de passe incorrect. Veuillez réessayer.";
+          break;
+        case 403: // Forbidden - access denied
+          errorMessage = "Accès refusé. Vous n'avez pas les permissions nécessaires.";
+          break;
+        case 500: // Internal server error
+          errorMessage = "Erreur interne du serveur. Veuillez réessayer plus tard.";
+          break;
+        default:
+          errorMessage = `Code d'erreur : ${error.status}\nMessage : ${error.message}`;
+      }
     }
+  
     return throwError(errorMessage);
   }
-
+  
 
   hasRole(role: string): boolean {
     return this.currentUserValue && this.currentUserValue.role && this.currentUserValue.role === role;

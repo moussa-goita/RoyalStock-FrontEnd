@@ -1,10 +1,11 @@
-import {Utilisateur} from "./utilisateur";
-import {Entrepot} from "./entrepot";
+import { Entrepot } from "./entrepot";
+import { Utilisateur } from "./utilisateur";
 
 
 export interface Fournisseur {
+isPublic: any;
   id: number;
-  fournName: string;
+  four_name: string;
   adresse?: string;
   telephone?: string;
   createdBy: Utilisateur;

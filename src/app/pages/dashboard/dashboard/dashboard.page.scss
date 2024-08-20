@@ -81,38 +81,52 @@
 
   .legend-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 10px;
-    margin-bottom: 0;  // Réduit l'espace en dessous des légendes
-  }
-  
-  .legend-row {
-    display: flex;
-    justify-content: center;  // Centrer les légendes sous le graphique
-    margin-top: 10px;
-    margin-bottom: 0;  // Réduit l'espace en dessous des légendes
   }
   
   .legend-item {
     display: flex;
     align-items: center;
-    margin: 0 4px;  // Réduit l'espace entre les légendes du même graphique
+    margin: 0 8px;
   }
   
   .legend-color {
     width: 16px;
     height: 16px;
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 8px;
     border-radius: 50%;
   }
   
   .legend-label {
     font-size: 14px;
-    color: var(--ion-text-color);
+    color: var(--ion-text-color, #070707);
   }
   
+  .custom-card {
+    margin-bottom: 20px;
+  }
   
+  .card-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon-entries, .icon-outputs, .icon-totals {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .text-black {
+    color: #000;
+  }
+  
+  .text-primary {
+    color: var(--ion-color-primary);
+  }
+  
+
   
   /* Styles spécifiques aux mobiles */
 /* Forcer la disposition verticale des légendes sur les petits écrans */

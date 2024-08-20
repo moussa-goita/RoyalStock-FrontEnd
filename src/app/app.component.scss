@@ -1,0 +1,97 @@
+/* General App Styles */
+
+/* Sidebar (Menu) Styling */
+ion-menu {
+  --background: #251D73; /* Dark blue background color for the sidebar */
+  width: 240px; /* Adjust width to your design */
+  box-shadow: 2px 0 8px rgb(255, 255, 255); /* Add shadow for sidebar depth */
+
+  ion-toolbar {
+    --background: transparent; /* Transparent background for toolbar inside sidebar */
+    text-align: center;
+    padding-top: 30px;
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+
+      img.logo {
+        width: 70px; /* Adjust logo size */
+        height: auto;
+      }
+    }
+  }
+
+  ion-content {
+    --background: #251D73; /* Match sidebar content background color */
+    padding: 20px 0; /* Adjust padding */
+  }
+
+  ion-list {
+    padding: 0;
+  }
+
+  ion-note {
+    margin-bottom: 30px;
+  }
+
+  ion-item {
+    --background: #251D73; /* Set background color for list items */
+    --color: #ffffff; /* Set text color to white */
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 50px;
+
+    ion-icon {
+      color: #ffffff; /* White color for icons */
+      font-size: 22px;
+      margin-right: 10px;
+    }
+
+    ion-label {
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    &.selected {
+      --background: #3A5DAF; /* Slightly lighter blue for selected item */
+    }
+
+    &:hover {
+      --background: #3A5DAF; /* Hover effect with lighter blue */
+    }
+  }
+
+  ion-toggle {
+    --handle-background: #ffffff; /* White handle for the toggle */
+    --bar-background: #251D73; /* Lighter blue background for the toggle bar */
+  }
+
+  ion-label {
+    font-weight: 500;
+    color: #ffffff; /* White color for the dark mode label */
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  ion-menu {
+    width: 200px; /* Reduce the width for mobile devices */
+
+    ion-toolbar {
+      padding-top: 20px;
+
+      .logo-container {
+        margin-right: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* Ensure container height allows vertical centering */
+      }
+
+      img.logo {
+        width: 60px; /* Adjust logo size for mobile */
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>entrepot</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">entrepot</ion-title>
+      <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="filterEntrepots()"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngFor="let entrepot of entrepot">
+    <ion-card-header>
+      <ion-card-title>{{ entrepot.entrepotName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Lieu:</strong> {{ entrepot.lieu }}</p>
+      <p><strong>Latitude:</strong> {{ entrepot.latitude }}</p>
+      <p><strong>Longitude:</strong> {{ entrepot.longitude }}</p>
+      <p><strong>Statut:</strong> {{ entrepot.statut }}</p>
+      <p><strong>Date de création:</strong> {{ entrepot.dateCreate }}</p>
+    </ion-card-content>
+  </ion-card>
+  <div id="mapId" style="height: 100%;"></div>
+</ion-content>

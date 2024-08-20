@@ -1,0 +1,145 @@
+/* Styling for the Profile Content */
+div {
+  --background: #ffffff;
+}
+
+ion-content {
+  --background: #ffffff; /* White background color for the content area */
+
+  ion-header {
+    ion-toolbar {
+      --background: #ffffff; /* White background color for condensed header */
+      --color: #000000; /* Black text color for condensed header */
+
+      ion-title {
+        font-size: 20px;
+      }
+
+      ion-button {
+        --background: #FF6B6B; /* Red background color for logout button */
+        --color: #ffffff; /* White text color for logout button */
+        border: 1px solid #FF6B6B; /* Border matching the button color */
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          --background: #dc3545; /* Darker red background on hover */
+          --color: #ffffff; /* Keep text color white on hover */
+        }
+      }
+    }
+  }
+
+  ion-list {
+    background: #ffffff !important;
+  }
+
+  ion-card {
+    background-color: #ffffff;
+    margin: 20px; /* Add margin for better spacing */
+    border-radius: 12px; /* Round corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+    ion-card-header {
+      text-align: center;
+
+      ion-card-title {
+        font-size: 18px;
+        color: #000000; /* Black color for title */
+      }
+    }
+
+    ion-card-content {
+      ion-list {
+        background-color: #ffffff;
+
+        ion-item {
+          --background: #f9f9f9; /* Light gray background for input items */
+          --color: #000000; /* Black text color */
+          margin-bottom: 15px; /* Spacing between items */
+          border-radius: 8px; /* Rounded corners */
+          box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Light shadow for inputs */
+          padding: 10px 15px; /* Increased padding for better usability */
+
+          ion-label {
+            color: #333333; /* Darker label color */
+            font-weight: 600;
+            font-size: 14px;
+          }
+
+          ion-input {
+            color: #000000; /* Black text color for inputs */
+            font-size: 16px;
+            padding: 5px 0;
+
+            &::placeholder {
+              color: #aaaaaa; /* Lighter gray color for placeholder text */
+              font-style: italic;
+            }
+          }
+
+          &.input-valid {
+            --background: #e0ffe0; /* Light green background for valid inputs */
+            ion-label {
+              color: #28a745; /* Green text color for valid labels */
+            }
+          }
+
+          &.input-invalid {
+            --background: #ffe0e0; /* Light red background for invalid inputs */
+            ion-label {
+              color: #dc3545; /* Red text color for invalid labels */
+            }
+          }
+        }
+      }
+
+      ion-button {
+        --background: #251d73; /* Blue background color for primary buttons */
+        --color: #ffffff; /* White text color for primary buttons */
+        --background-activated: #0056b3; /* Darker blue shade when button is activated */
+        font-weight: 600; /* Bold text */
+        border-radius: 25px; /* Rounded button */
+        padding: 12px 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for the button */
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05); /* Slightly scale up on hover */
+        }
+      }
+    }
+  }
+}
+
+/* Input Feedback Styles */
+ion-item {
+  position: relative;
+
+  ion-input {
+    --padding-start: 10px; /* Add padding to the left side */
+  }
+
+  /* Styling for feedback text (minlength, maxlength, etc.) */
+  &::after {
+    content: attr(error-text);
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    font-size: 12px;
+    color: #dc3545; /* Red color for errors */
+    visibility: hidden; /* Hidden by default */
+  }
+
+  &.input-invalid::after {
+    visibility: visible; /* Show error message if input is invalid */
+  }
+
+  &.input-valid::after {
+    content: attr(success-text); /* Show success message if input is valid */
+    color: #28a745; /* Green color for success */
+    visibility: visible;
+  }
+}

@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Produits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Produits</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="applyFilter($event)"
+                   placeholder="Rechercher un produit"></ion-searchbar>
+    <ion-list>
+      <ion-card *ngFor="let produit of filteredProduits">
+        <ion-label>
+          <ion-card-header>
+            <ion-card-title>{{ produit.productName }}</ion-card-title>
+            <ion-card-subtitle>{{ produit.description }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Quantité: {{ produit.quantity }}</p>
+            <p>Catégorie: {{ produit.categorie.name }}</p>
+          </ion-card-content>
+        </ion-label>
+      </ion-card>
+    </ion-list>
+  </ion-list>
+
+</ion-content>

@@ -16,69 +16,38 @@
 
   <form [formGroup]="fournisseurForm" (ngSubmit)="onSubmit()">
     <ion-item class="ion-margin-bottom">
-      <ion-input
-        label="Nom"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Nom du fournisseur"
-        formControlName="fourName"
-        required
-      ></ion-input>
+      <ion-label position="floating">Nom du fournisseur</ion-label>
+      <ion-input formControlName="fournName" placeholder="Nom"></ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
-      <ion-input
-        label="Adresse"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Adresse du fournisseur"
-        formControlName="adresse"
-        required
-      ></ion-input>
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input formControlName="adresse" placeholder="Adresse"></ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
-      <ion-input
-        label="Téléphone"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Numéro de téléphone"
-        formControlName="telephone"
-        type="tel"
-        required
-      ></ion-input>
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input formControlName="telephone" type="tel" placeholder="Téléphone"></ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
-      <ion-input
-        label="Service"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Service proposé"
-        formControlName="service"
-        required
-      ></ion-input>
+      <ion-label position="floating">Service</ion-label>
+      <ion-input formControlName="service" placeholder="Service proposé"></ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
-      <ion-input
-        label="Email"
-        label-placement="floating"
-        fill="outline"
-        placeholder="Email du fournisseur"
-        formControlName="email"
-        type="email"
-      ></ion-input>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
     </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button expand="full" color="primary" type="submit" [disabled]="!fournisseurForm.valid">
-          {{ currentFournisseur ? 'Mettre à jour' : 'Ajouter' }}
+        <ion-button expand="full" color="primary" type="submit" [disabled]="fournisseurForm.invalid">
+          {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
         </ion-button>
       </ion-col>
-      <ion-col *ngIf="currentFournisseur">
-        <ion-button expand="full"color="danger" (click)="deleteFournisseur()">
+      <ion-col *ngIf="isEditMode">
+        <ion-button expand="full" color="danger" (click)="deleteFournisseur()">
           Supprimer
         </ion-button>
       </ion-col>

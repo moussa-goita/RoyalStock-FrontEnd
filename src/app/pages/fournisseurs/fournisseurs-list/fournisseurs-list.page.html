@@ -20,7 +20,7 @@
         <div class="header-left">
           <ion-text color="primary">
             <h6 class="large-bold-text">
-              <ion-icon name="person"></ion-icon> Nom: <span>{{ fournisseur.four_name }}</span>
+              <ion-icon name="person"></ion-icon> Nom: <span>{{ fournisseur.fournName }}</span>
             </h6>
           </ion-text>
         </div>
@@ -59,13 +59,13 @@
         <button mat-button (click)="goToCommentForm(fournisseur.id)">
           Ajouter Commentaire
         </button>
-        <ion-button fill="clear" color="secondary" (click)="openImageModal(fournisseur)">
+        <ion-button fill="clear" color="secondary" (click)="openImageModal(fournisseur)" disabled>
           <ion-icon slot="icon-only" name="image"></ion-icon>
         </ion-button>
         <ion-item lines="none" class="no-padding">
           <ion-toggle (ionChange)="confirmToggle(fournisseur)" [checked]="fournisseur.statut === 'PUBLIC'"></ion-toggle>
         </ion-item>
-        <ion-button fill="clear" color="primary" (click)="editFournisseur(fournisseur)">
+        <ion-button fill="clear" color="primary" (click)="editFournisseur(fournisseur.id)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-button>
         <ion-button fill="clear" color="danger" (click)="deleteFournisseur(fournisseur)">
@@ -101,5 +101,5 @@
       <img [src]="imageUrl" alt="Image du Fournisseur" style="width: 100%; height: auto;" />
     </ion-content>
   </ion-modal>
-  
+
 </ion-content>

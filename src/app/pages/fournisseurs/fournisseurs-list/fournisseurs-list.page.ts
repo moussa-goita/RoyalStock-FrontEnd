@@ -1,8 +1,8 @@
-import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonModal, IonRouterLink, IonText, IonTextarea, IonTitle, IonToggle, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { NgFor } from '@angular/common';
 import { addIcons } from 'ionicons';
 
 import { briefcase, call, create, home, image, location, person, star, trash } from 'ionicons/icons';
@@ -13,25 +13,8 @@ import { FournisseurService } from 'src/app/services/fournisseur.service';
   selector: 'app-fournisseurs-list',
   standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonMenuButton,
-    IonTitle,
-    IonButtons,
-    IonContent,
-    IonCard,
-    IonCardContent,
-    IonText,
-    IonIcon,
-    IonInput,
+    IonicModule,
     NgFor,
-    IonItem,
-    IonLabel,
-    IonTextarea,
-    IonButton,
-    IonToggle,
-    IonModal,
-    IonRouterLink
   ],
   templateUrl: './fournisseurs-list.page.html',
   styleUrls: ['./fournisseurs-list.page.scss']
@@ -73,16 +56,11 @@ export class FournisseursListPage implements OnInit {
       buttons: [
         {
           text: 'Annuler',
-          role: 'cancel',
-          handler: () => {
-            console.log('Confirmation annulée');
-          }
+          role: 'cancel'
         },
         {
           text: 'Oui',
-          handler: () => {
-            this.toggleFournisseurStatut(fournisseur);
-          }
+          handler: () => this.toggleFournisseurStatut(fournisseur)
         }
       ]
     });
@@ -92,15 +70,16 @@ export class FournisseursListPage implements OnInit {
 
   toggleFournisseurStatut(fournisseur: Fournisseur) {
     const newStatut = fournisseur.statut === Statut.PUBLIC ? Statut.PRIVE : Statut.PUBLIC;
-    this.fournisseurService.mettreFournisseurPublic(fournisseur.id).subscribe(
-      (response: Fournisseur) => {
+
+    this.fournisseurService.mettreFournisseurPublic(fournisseur.id, newStatut).subscribe({
+      next: () => {
         fournisseur.statut = newStatut;
-        console.log(`Le fournisseur ${fournisseur.four_name} est maintenant ${newStatut}`);
+        this.loadFournisseurs();  // Recharge la liste après la modification
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la mise à jour du statut du fournisseur', error);
       }
-    );
+    });
   }
 
   openImageModal(fournisseur: Fournisseur) {
@@ -120,14 +99,15 @@ export class FournisseursListPage implements OnInit {
     this.router.navigate([`/commentaire-form/${fournisseurId}`]);
   }
 
-  editFournisseur(fournisseur: Fournisseur) {
-    console.log('Modifier le fournisseur:', fournisseur.four_name);
+  editFournisseur(fournisseurId: number) {
+    this.router.navigate([`/fournisseurs-form/${fournisseurId}`]);
   }
 
   deleteFournisseur(fournisseur: Fournisseur) {
     this.fournisseurService.deleteFournisseur(fournisseur.id).subscribe({
       next: () => {
         this.fournisseurs = this.fournisseurs.filter(f => f.id !== fournisseur.id);
+        this.loadFournisseurs();
       },
       error: (error) => {
         console.error('Erreur lors de la suppression du fournisseur:', error);

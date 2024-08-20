@@ -18,20 +18,20 @@
 
     <ion-item class="ion-margin-bottom">
       <ion-label position="floating">Date d'Entrée</ion-label>
-      <ion-input 
-        formControlName="dateCommande" 
-        type="date" 
+      <ion-input
+        formControlName="dateCommande"
+        type="date"
         required>
       </ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom">
       <ion-label position="floating">Fournisseur</ion-label>
-      <ion-select 
-        formControlName="fournisseur" 
+      <ion-select
+        formControlName="fournisseur"
         placeholder="Sélectionnez un fournisseur">
         <ion-select-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
-          {{ fournisseur.four_name }}
+          {{ fournisseur.fournName }}
         </ion-select-option>
       </ion-select>
     </ion-item>

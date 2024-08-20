@@ -78,6 +78,42 @@
     --ion-grid-row-padding: 16px;
   }
 
+
+  .legend-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 0;  // Réduit l'espace en dessous des légendes
+  }
+  
+  .legend-row {
+    display: flex;
+    justify-content: center;  // Centrer les légendes sous le graphique
+    margin-top: 10px;
+    margin-bottom: 0;  // Réduit l'espace en dessous des légendes
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 4px;  // Réduit l'espace entre les légendes du même graphique
+  }
+  
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 4px;
+    border-radius: 50%;
+  }
+  
+  .legend-label {
+    font-size: 14px;
+    color: var(--ion-text-color);
+  }
+  
+  
+  
   /* Styles spécifiques aux mobiles */
 /* Forcer la disposition verticale des légendes sur les petits écrans */
 @media (max-width: 768px) {
@@ -85,17 +121,17 @@
     display: flex;
     flex-direction: column; /* Disposition verticale */
     align-items: center;
-    gap: 8px; /* Réduction de l'espace entre les éléments de légende */
+    gap: 4px; /* Réduction de l'espace entre les éléments de légende */
   }
 
   .p-chart .p-legend-item {
     display: flex;
     align-items: center;
-    margin-bottom: 5px; /* Ajouter un espace entre chaque élément */
+    margin-bottom: 2px; /* Ajouter un espace entre chaque élément */
   }
 
   .p-chart .p-legend-text {
     font-size: 0.85em; /* Réduction de la taille du texte pour les légendes */
-    margin-left: 4px; /* Un petit espace entre la couleur et le texte */
+    margin-left: 8px; /* Un petit espace entre la couleur et le texte */
   }
 }

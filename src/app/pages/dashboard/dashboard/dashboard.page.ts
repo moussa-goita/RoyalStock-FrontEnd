@@ -62,74 +62,50 @@ export class DashboardPage implements OnInit {
 
   createPieCharts(): void {
     const documentStyle = getComputedStyle(document.documentElement);
-
+  
     // Graphique pour les valeurs Entrées et Sorties
     this.pieDataValues = {
-      labels: ['Entrée (Valeur)', 'Sortie (Valeur)'],  // Les labels sont bien définis ici
+      labels: ['Entrée (Valeur)', 'Sortie (Valeur)'],
       datasets: [{
         data: [this.valeurEntrees, this.valeurSorties],
         backgroundColor: [
-          '#FFB423',   // Couleur personnalisée pour la Valeur Entrées
-          'blue'       // Couleur pour la Valeur Sorties
+          '#FFB423',
+          'blue'
         ],
         hoverBackgroundColor: [
-          '#FFB423',  // Couleur de survol pour la Valeur Entrées
-          documentStyle.getPropertyValue('--ion-color-primary-shade')  // Teinte pour la Valeur Sorties
+          '#FFB423',
+          documentStyle.getPropertyValue('--ion-color-primary-shade')
         ]
       }]
     };
-
+  
     // Graphique pour les totaux Entrées et Sorties
     this.pieDataTotals = {
-      labels: ['Entrée (Total)', 'Sortie (Total)'],  // Les labels sont bien définis ici
+      labels: ['Entrée (Total)', 'Sortie (Total)'],
       datasets: [{
         data: [this.totalEntrees, this.totalSorties],
         backgroundColor: [
-          'green',  // Couleur pour le Total Entrées
-          'grey'    // Couleur pour le Total Sorties
+          'green',
+          'grey'
         ],
         hoverBackgroundColor: [
-          documentStyle.getPropertyValue('--ion-color-success-shade'), // Teinte pour le Total Entrées
-          documentStyle.getPropertyValue('--ion-color-medium-shade')   // Teinte pour le Total Sorties
+          documentStyle.getPropertyValue('--ion-color-success-shade'),
+          documentStyle.getPropertyValue('--ion-color-medium-shade')
         ]
       }]
     };
-
+  
+    // Configuration des options du graphique sans légende
     this.pieOptions = {
       plugins: {
         legend: {
-          labels: {
-            color: documentStyle.getPropertyValue('--ion-text-color')
-          }
+          display: false,  // Supprimer les légendes automatiques
         }
       },
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      responsive: true
     };
-
-    // Définition des options avec la légende en bas
-    // Définition des options avec la légende en bas
-this.pieOptionsWithLegendBottom = {
-  plugins: {
-    legend: {
-      display: true,
-      position: 'bottom',  // Position de la légende en bas
-      labels: {
-        color: documentStyle.getPropertyValue('--ion-text-color'),
-        font: {
-          size: 12  // Taille de la police réduite pour s'adapter aux petits écrans
-        },
-        padding: 10  // Ajouter du padding autour des éléments de légende
-      }
-    }
-  },
-  layout: {
-    padding: {
-      bottom: 20, // Espace supplémentaire sous le graphique pour les légendes
-    }
-  },
-  maintainAspectRatio: false,
-  responsive: true, // Assurez-vous que le graphique est réactif
-};
+  }
 
 }
-}
+

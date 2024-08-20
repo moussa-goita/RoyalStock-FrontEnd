@@ -7,6 +7,8 @@ import { DetailEntree } from '../models/detail-entree';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
+
+
 @Injectable({
   providedIn: 'root'
 })

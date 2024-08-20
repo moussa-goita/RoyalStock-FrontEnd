@@ -7,7 +7,7 @@ import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonFooter, Io
 import { FournisseurService } from 'src/app/services/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
 import { AuthService } from 'src/app/services/auth.service';
-import { BonEntreeService } from 'src/app/services/bon-entre.service';
+import { BonEntreService } from 'src/app/services/bon-entre.service';
 
 @Component({
   selector: 'app-bon-entre-form',
@@ -43,7 +43,7 @@ export class BonEntreFormPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private bonEntreeService: BonEntreeService,
+    private bonEntreService: BonEntreService,
     private fournisseurService: FournisseurService,
     private authService: AuthService
   ) {
@@ -79,7 +79,7 @@ export class BonEntreFormPage implements OnInit {
       console.log('Bon d\'Entrée soumis :', bonEntreeData);
   
       // Pass the authenticated user's email separately
-      this.bonEntreeService.createBonEntree(bonEntreeData, this.authService.currentUserValue.email).subscribe(
+      this.bonEntreService.createBonEntree(bonEntreeData, this.authService.currentUserValue.email).subscribe(
         response => {
           console.log('Bon d\'Entrée créé avec succès :', response);
          

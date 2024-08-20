@@ -6,7 +6,7 @@ import { BonEntree } from '../models/bon-entree';
 @Injectable({
   providedIn: 'root'
 })
-export class BonEntreeService {
+export class BonEntreService {
   private baseUrl = 'http://localhost:8080/api/bon-entrees';
 
   constructor(private http: HttpClient) {}

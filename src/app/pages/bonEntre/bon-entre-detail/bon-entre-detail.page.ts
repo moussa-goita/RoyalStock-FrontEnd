@@ -10,7 +10,7 @@ import { DetailEntree } from 'src/app/models/detail-entree';
 import { Produit } from 'src/app/models/produit';
 import { AuthService } from 'src/app/services/auth.service';
 import { DetailEntreeService } from 'src/app/services/bon-entre-detail.service';
-import { BonEntreeService } from 'src/app/services/bon-entre.service';
+import { BonEntreService } from 'src/app/services/bon-entre.service';
 import { ProduitService } from 'src/app/services/produit.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class BonEntreDetailPage implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private bonEntreeService: BonEntreeService,
+    private bonEntreService: BonEntreService,
     private produitService: ProduitService,
     private authService: AuthService,
     private detailsEntreeService: DetailEntreeService
@@ -97,7 +97,7 @@ export class BonEntreDetailPage implements OnInit {
 
   loadBonEntree(): void {
     if (this.bonEntreeId) {
-      this.bonEntreeService.getBonEntreeById(this.bonEntreeId).subscribe(data => {
+      this.bonEntreService.getBonEntreeById(this.bonEntreeId).subscribe(data => {
         if (data && data.detailEntrees) {
           this.details.clear(); // Vider le formulaire avant de charger de nouveaux détails
           data.detailEntrees.forEach((detail: DetailEntree) => {

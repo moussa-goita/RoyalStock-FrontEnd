@@ -32,7 +32,7 @@ import {
 } from '@ionic/angular/standalone';
 import { BonEntree } from 'src/app/models/bon-entree';
 import { AuthService } from 'src/app/services/auth.service';
-import { BonEntreeService } from 'src/app/services/bon-entre.service';
+import { BonEntreService } from 'src/app/services/bon-entre.service';
 
 
 @Component({
@@ -79,7 +79,7 @@ export class BonEntreListPage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private bonEntreeService: BonEntreeService
+    private bonEntreService: BonEntreService
   ) {
     addIcons({ calendar, print, document, clipboard, person, create, add, eye, trash });
   }
@@ -92,7 +92,7 @@ export class BonEntreListPage implements OnInit {
     const currentUser = this.authService.currentUserValue;
     if (currentUser && currentUser.entrepot) {
       const entrepotId = currentUser.entrepot.entrepotId;
-      this.bonEntreeService.getBonEntreesByEntrepots(entrepotId).subscribe(data => {
+      this.bonEntreService.getBonEntreesByEntrepots(entrepotId).subscribe(data => {
         console.log('Données reçues:', data); // Debugging
         if (data.length === 0) {
           this.infoMessage = 'Aucun Bon d\'Entrée trouvé pour cet Entrepôt.';
@@ -118,7 +118,7 @@ export class BonEntreListPage implements OnInit {
   }
 
   deleteBonEntree(id: number): void {
-    this.bonEntreeService.deleteBonEntree(id).subscribe(() => {
+    this.bonEntreService.deleteBonEntree(id).subscribe(() => {
       this.bonEntrees = this.bonEntrees.filter(b => b.id !== id);
       this.filteredBonEntrees = this.filteredBonEntrees.filter(b => b.id !== id);
     });

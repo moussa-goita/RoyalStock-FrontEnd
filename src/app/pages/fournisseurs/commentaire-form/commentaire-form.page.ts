@@ -32,11 +32,15 @@ export class CommentaireFormPage {
   submitComment(): void {
     this.fournisseurService.noterFournisseur(this.fournisseurId, this.note, this.commentaire).subscribe(
       response => {
-        console.log('Commentaire et note ajoutés avec succès', response);
+        if (response.commentaire === null) {
+          console.warn('Le commentaire est null dans la réponse');
+        }
+        console.log('Réponse du serveur:', response);
         this.router.navigate(['/fournisseurs-list']);
       },
       error => {
         this.errorMessage = 'Erreur lors de l\'ajout du commentaire et de la note';
+        console.error('Erreur lors de l\'ajout du commentaire et de la note:', error);
       }
     );
   }

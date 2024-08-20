@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonCard,
-  IonCardContent, IonCardHeader, IonCardTitle,
+  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,
   IonContent,
   IonHeader, IonItem,
   IonLabel,
@@ -22,66 +22,36 @@ import {CurrentUser} from "../../models/currentUser";
   templateUrl: './produit.page.html',
   styleUrls: ['./produit.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCardContent, IonList, IonLabel, IonItem, IonSearchbar, IonCardTitle, IonCardHeader, IonCard]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCardContent, IonList, IonLabel, IonItem, IonSearchbar, IonCardTitle, IonCardHeader, IonCard, IonCardSubtitle]
 })
 export class ProduitPage implements OnInit {
-
   produits: Produit[] = [];
   filteredProduits: Produit[] = [];
-
-  produitsToDelete: number | null = null;
-  produitsToEdit: number | null = null;
+  searchQuery: string = '';
   errorMessage = '';
-  infoMessage = '';
-  currentUser: CurrentUser | null = null;
 
-  constructor(private produitService: ProduitService, private authService: AuthService, private router: Router) { }
+  constructor(private produitService: ProduitService) { }
 
   ngOnInit(): void {
     this.loadProduits();
   }
 
-  loadProduits(): void {
-    /*const currentUser = this.authService.currentUserValue;
-    if (currentUser && currentUser.entrepot) {
-      const entrepotId = currentUser.entrepot.entrepotId;
-      this.produitService.getProduitsByEntrepot(entrepotId).subscribe(produits => {
-        if (produits.length === 0) {
-          this.infoMessage = 'Aucun produit trouvée pour cet Entrepot.';
-          setTimeout(() => this.infoMessage = '', 2000);
-        }else{
-
-          this.produits = produits;
-        }
-      }, error => {
+  loadProduits() {
+    this.produitService.getProduits().subscribe(
+      (data: Produit[]) => {
+        this.produits = data;
+        this.filteredProduits = data;
+      },
+      error => {
         console.error('Erreur lors de la récupération des produits:', error);
-        this.errorMessage = 'Erreur lors de la récupération des produits.';
-      });
-    } else {
-      this.errorMessage = 'Erreur: entrepôt utilisateur non trouvé';
-    }*/
+      }
+    );
   }
 
-  addProduit(): void {
-    this.router.navigate(['/add-produit']);
-  }
-
-  editProduit(id: number): void {
-    this.router.navigate(['/edit-produit', id]);
-  }
-
-  deleteProduit(id: number): void {
-    this.produitService.deleteProduit(id).subscribe(() => {
-      this.produits = this.produits.filter(p => p.id !== id);
-      this.filteredProduits = this.filteredProduits.filter(p => p.id !== id);
-    });
-  }
-
-  applyFilter(event: Event): void {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.filteredProduits = this.produits.filter(produit =>
       produit.productName.toLowerCase().includes(filterValue)
     );
   }
-
 }

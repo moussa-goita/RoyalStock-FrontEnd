@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError  } from 'rxjs';
+import {Observable, tap, throwError} from 'rxjs';
 import { Fournisseur } from '../models/fournisseur';
 import { catchError, retry } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
@@ -73,6 +73,14 @@ export class FournisseurService {
 
   noterFournisseur(id: number, note: number, commentaire: string): Observable<Fournisseur> {
     const payload = { note, commentaire };
-    return this.http.post<Fournisseur>(`${this.baseUrl}/${id}/noter`, payload);
+    return this.http.post<Fournisseur>(`${this.baseUrl}/${id}/noter`, payload).pipe(
+      retry(2),
+      catchError(this.handleError.bind(this)),
+      tap(response => {
+        if (!response.commentaire) {
+          console.warn('Le commentaire est null dans la réponse');
+        }
+      })
+    );
   }
 }

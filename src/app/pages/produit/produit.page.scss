@@ -1,0 +1,53 @@
+/* Styling for the Profile Content */
+div {
+  --background: #ffffff;
+}
+
+ion-content {
+  --background: #ffffff; /* White background color for the content area */
+
+  ion-searchbar {
+    --color: #000000;
+  }
+
+  ion-list {
+    background: #ffffff !important;
+  }
+
+  ion-card {
+    background-color: #ffffff;
+    margin: 20px; /* Add margin for better spacing */
+    border-radius: 12px; /* Round corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+    ion-card-header {
+      text-align: center;
+
+      ion-card-title {
+        font-size: 18px;
+        color: #000000; /* Black color for title */
+      }
+    }
+
+    ion-card-content {
+      ion-list {
+        background-color: #ffffff;
+
+        ion-item {
+          --background: #f9f9f9; /* Light gray background for input items */
+          --color: #000000; /* Black text color */
+          margin-bottom: 15px; /* Spacing between items */
+          border-radius: 8px; /* Rounded corners */
+          box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Light shadow for inputs */
+          padding: 10px 15px; /* Increased padding for better usability */
+
+          ion-label {
+            color: #000000; /* Darker label color */
+            font-weight: 600;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

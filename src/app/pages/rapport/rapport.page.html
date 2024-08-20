@@ -14,86 +14,78 @@
     </ion-toolbar>
   </ion-header>
 
-  <!--  <ion-list>
-      <ion-label position="floating">Sélectionner une date</ion-label>
-      <ion-datetime (ionChange)="onDateChange($event)" displayFormat="DD/MM/YYYY"></ion-datetime>
-    </ion-list>
-
-    Bouton pour générer le PDF
-    <ion-button expand="full" (click)="generatePdf()">Générer le Rapport</ion-button> -->
-
-  <!-- date-range.component.html -->
-
-  
   <ion-content>
     <ion-header>
       <ion-toolbar>
         <ion-title>Détails d'Entrée</ion-title>
       </ion-toolbar>
     </ion-header>
-  
+
     <ion-content class="table-container">
       <table class="data-table">
         <thead>
-          <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix</th>
-          </tr>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+        </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let detail of lastThreeDetailsEntree">
-            <td>{{ detail.produit }}</td>
-            <td>{{ detail.quantite }}</td>
-            <td>{{ detail.prix }}</td>
-          </tr>
+        <tr *ngFor="let detail of lastThreeDetailsEntree">
+          <td>{{ detail.produit.productName }}</td>
+          <td>{{ detail.quantite }}</td>
+          <td>{{ detail.prix }}</td>
+        </tr>
         </tbody>
       </table>
-  
+
       <ion-header>
         <ion-toolbar>
           <ion-title>Détails de Sortie</ion-title>
         </ion-toolbar>
       </ion-header>
-  
+
       <table class="data-table">
         <thead>
-          <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix</th>
-          </tr>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+        </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let detail of lastThreeDetailsSortie">
-            <td>{{ detail.produit.productName }}</td>
-            <td>{{ detail.quantity }}</td>
-            <td>{{ detail.prix }}</td>
-          </tr>
+        <tr *ngFor="let detail of lastThreeDetailsSortie">
+          <td>{{ detail.produit.productName }}</td>
+          <td>{{ detail.quantity }}</td>
+          <td>{{ detail.prix }}</td>
+        </tr>
         </tbody>
       </table>
 
-   <!-- Formulaire de sélection de date -->
-   <form (ngSubmit)="onSubmit()" #dateForm="ngForm" class="date-form">
-    <ion-item (click)="showStartDatePicker = true">
-      <ion-label>Date de Début</ion-label>
-      <ion-input [value]="formattedStartDate" readonly></ion-input>
-    </ion-item>
-    <ion-item *ngIf="showStartDatePicker">
-      <ion-datetime [(ngModel)]="startDate" (ionChange)="onDateChange($event, 'startDate')" displayFormat="DD/MM/YYYY"></ion-datetime>
-    </ion-item>
-  
-    <ion-item (click)="showEndDatePicker = true">
-      <ion-label>Date de Fin</ion-label>
-      <ion-input [value]="formattedEndDate" readonly></ion-input>
-    </ion-item>
-    <ion-item *ngIf="showEndDatePicker">
-      <ion-datetime [(ngModel)]="endDate" (ionChange)="onDateChange($event, 'endDate')" displayFormat="DD/MM/YYYY"></ion-datetime>
-    </ion-item>
+      <!-- Formulaire de sélection de date -->
+      <form (ngSubmit)="onSubmit()" #dateForm="ngForm" class="date-form">
+        <ion-item (click)="showStartDatePicker = true">
+          <ion-label>Date de Début</ion-label>
+          <ion-input [value]="formattedStartDate" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="showStartDatePicker">
+          <ion-datetime [(ngModel)]="startDate" (ionChange)="onDateChange($event, 'startDate')"
+                        displayFormat="DD/MM/YYYY"></ion-datetime>
+        </ion-item>
 
-    <ion-button expand="full" type="submit" class="generate-btn">Générer le Rapport</ion-button>
-  </form>
+        <ion-item (click)="showEndDatePicker = true">
+          <ion-label>Date de Fin</ion-label>
+          <ion-input [value]="formattedEndDate" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="showEndDatePicker">
+          <ion-datetime [(ngModel)]="endDate" (ionChange)="onDateChange($event, 'endDate')"
+                        displayFormat="DD/MM/YYYY"></ion-datetime>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" class="generate-btn">Générer le Rapport</ion-button>
+      </form>
 
 
-
+    </ion-content>
+  </ion-content>
 </ion-content>

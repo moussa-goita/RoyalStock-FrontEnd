@@ -11,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
 
 
-  private apiUrl = 'http://10.175.48.126:8080/api/utilisateurs';
+  private apiUrl = 'http://localhost:8080/api/utilisateurs';
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 

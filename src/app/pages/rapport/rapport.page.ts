@@ -1,27 +1,23 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { DetailEntree } from "../../models/detail-entree";
+import { DetailSortie } from "../../models/detail-sortie";
+import { RapportService } from 'src/app/services/rapport.service';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import {
   IonButton,
   IonButtons,
   IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol,
   IonContent, IonDatetime,
   IonGrid,
-  IonHeader,
-  IonInput, IonItem, IonLabel, IonList, IonMenuButton, IonModal,
+  IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonMenuButton, IonModal,
   IonRouterLink, IonRow, IonSearchbar,
   IonText,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-// import { getName } from "ionicons/dist/types/components/icon/utils";
-import { add, alert, calendar, clipboard, create, document, eye, person, print, trash } from "ionicons/icons";
-import { BonEntree } from "../../models/bon-entree";
-import { BonSortie } from "../../models/bon-sortie";
-import { RapportService } from "../../services/rapport.service";
-
+import { BonEntree } from 'src/app/models/bon-entree';
+import { BonSortie } from 'src/app/models/bon-sortie';
 
 
 @Component({
@@ -49,6 +45,7 @@ import { RapportService } from "../../services/rapport.service";
     CommonModule,
     FormsModule,
     IonButton,
+    IonIcon,
     IonInput,
     IonItem,
     IonLabel,
@@ -58,46 +55,95 @@ import { RapportService } from "../../services/rapport.service";
     IonDatetime,
   ],
 })
+
 export class RapportPage implements OnInit {
+  startDate: string ='';
+  endDate: string ='';
 
-  startDate: string | null = null;
-  endDate: string | null = null;
+  formattedStartDate: string | null = null;
+  formattedEndDate: string | null = null;
 
+  showStartDatePicker = false;
+  showEndDatePicker = false;
 
-  public lastThreeBonsEntree: BonEntree[] = [];
-  public lastThreeBonsSortie: BonSortie[] = [];
+  public detailEntrees: DetailEntree[] = [];
+  public detailSorties: DetailSortie[] = [];
 
-  constructor(private rapportService: RapportService) {
-    addIcons({
-      calendar,print, document, clipboard, person, create, add, eye, trash
-    
-    });
+  public lastThreeDetailsEntree: DetailEntree[] = [];
+  public lastThreeDetailsSortie: DetailSortie[] = [];
+ 
+  
+
+  constructor(private rapportService: RapportService, ) {}
+
+  getLastThreeItems(items: any[]): any[] {
+    return items
+      .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 3);
   }
-
   ngOnInit() {
-    this.loadLastThreeBons();
+    this.loadLastThreeDetails();
   }
 
-  loadLastThreeBons() {
-    this.rapportService.getLastThreeBonsEntree().subscribe(bonsEntree => {
-      this.lastThreeBonsEntree = bonsEntree;
-    });
-
-    this.rapportService.getLastThreeBonsSortie().subscribe(bonsSortie => {
-      this.lastThreeBonsSortie = bonsSortie;
-    });
+ 
+    loadLastThreeDetails() {
+      this.rapportService.getAllDetailsEntree().subscribe(detailsEntree => {
+        this.lastThreeDetailsEntree = this.getLastThreeItems(detailsEntree);
+      });
+  
+      this.rapportService.getAllDetailsSortie().subscribe(detailsSortie => {
+        this.lastThreeDetailsSortie = this.getLastThreeItems(detailsSortie);
+      });
+    
+  
+     
+      
   }
-
-  onSubmit() {
-    if (this.startDate && this.endDate) {
-      this.rapportService.generatePdf(this.startDate, this.endDate);
-    } else {
-      // @ts-ignore
-      alert('Veuillez sélectionner les deux dates.');
+  onDateChange(event: any, dateType: string) {
+    const selectedDate = event.detail.value;
+    if (dateType === 'startDate') {
+      this.startDate = selectedDate;
+      this.formattedStartDate = this.formatDateToDisplay(selectedDate);
+      this.showStartDatePicker = false;
+    } else if (dateType === 'endDate') {
+      this.endDate = selectedDate;
+      this.formattedEndDate = this.formatDateToDisplay(selectedDate);
+      this.showEndDatePicker = false;
     }
   }
 
+  formatDateToDisplay(date: string): string {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('fr-FR');
+  }
 
-  // protected readonly getName = getName;
+ onSubmit() {
+  if (this.startDate && this.endDate) {
+    if (new Date(this.endDate) >= new Date(this.startDate)) {
+      this.loadDetails();
+    } else {
+      alert('La date de fin ne peut pas être antérieure à la date de début.');
+    }
+  } else {
+    alert('Veuillez sélectionner les deux dates.');
+  }
 }
-
+  
+  loadDetails() {
+    // Récupération des détails d'entrée
+    this.rapportService.getDetailEntree().subscribe(detailsEntree => {
+      this.detailEntrees = detailsEntree;
+      // Récupération des détails de sortie une fois les détails d'entrée chargés
+      this.rapportService.getDetailSortie().subscribe(detailsSortie => {
+        this.detailSorties = detailsSortie;
+        // Génération du PDF après le chargement des détails
+        this.generatePdf();
+      });
+    });
+  }
+  
+  generatePdf() {
+    this.rapportService.generatePdf(this.startDate, this.endDate, this.detailEntrees, this.detailSorties);
+  }
+  
+}

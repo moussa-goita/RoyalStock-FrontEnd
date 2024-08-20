@@ -1,0 +1,54 @@
+ion-header {
+    background-color: #f8f8f8; // Couleur d'arrière-plan pour l'en-tête
+  }
+  
+  ion-toolbar {
+    --background: #ffffff; // Couleur d'arrière-plan pour la barre d'outils
+    --color: #333; // Couleur du texte
+  }
+  
+  ion-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .date-form {
+    margin: 1rem;
+  }
+  
+  .date-form ion-item {
+    margin-bottom: 1rem;
+  }
+  
+  .generate-btn {
+    margin-top: 1rem;
+    background-color: #457B6D; // Couleur de fond du bouton
+    color: #fff; // Couleur du texte du bouton
+  }
+  
+  .table-container {
+    padding: 1rem;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+  
+  .data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: #0d1185;
+    color: #fff;
+  }
+  
+  .data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  

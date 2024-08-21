@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthService } from './auth.service';
 
@@ -8,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UtilisateurService {
-  private baseUrl = 'http://10.175.48.126:8080/api/utilisateurs'; 
+  private baseUrl = `${environment.apiUrl}/utilisateurs`; 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

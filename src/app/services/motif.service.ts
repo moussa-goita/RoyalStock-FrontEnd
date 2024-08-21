@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Motif } from '../models/motif';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MotifService {
-  private baseUrl = 'http://localhost:8080/api/motif';
+  private baseUrl = `${environment.apiUrl}/motif`;
 
   constructor(private http: HttpClient) { }
 

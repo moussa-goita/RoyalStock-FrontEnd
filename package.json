@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor/android": "6.1.2",
     "@capacitor/app": "6.0.1",
     "@capacitor/core": "^6.1.2",
@@ -33,6 +34,8 @@
     "@ionic/pwa-elements": "^3.3.0",
     "chart.js": "^4.4.3",
     "cordova-plugin-qrscanner": "^3.0.1",
+    "@jcesarmobile/ssl-skip": "0.4.0",
+
     "date-fns": "^3.6.0",
     "ionicons": "^7.4.0",
     "jspdf": "^2.5.1",

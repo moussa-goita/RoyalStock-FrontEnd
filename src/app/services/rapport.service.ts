@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment';
 import { BonEntree } from "../models/bon-entree";
 import { BonSortie } from "../models/bon-sortie";
 import { DetailEntree } from '../models/detail-entree';
@@ -15,7 +16,7 @@ import { DetailSortie } from '../models/detail-sortie';
 })
 export class RapportService {
 
-  private apiUrl = 'http://localhost:8080/api'; // Remplace par l'URL de ton API
+  private apiUrl = `${environment.apiUrl}/rapport`; 
 
   constructor(private http: HttpClient) {}
 

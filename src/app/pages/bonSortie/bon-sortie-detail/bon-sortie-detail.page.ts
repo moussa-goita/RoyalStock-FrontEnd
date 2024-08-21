@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonTitle, IonToast, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { camera, qrCode } from 'ionicons/icons';
 import { BonSortie } from 'src/app/models/bon-sortie';
@@ -18,7 +19,7 @@ import { ProduitService } from 'src/app/services/produit.service';
   templateUrl: './bon-sortie-detail.page.html',
   styleUrls: ['./bon-sortie-detail.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonToast, 
     CommonModule,
     IonButton,
     IonButtons,
@@ -44,7 +45,7 @@ export class BonSortieDetailPage implements OnInit {
   produits: Produit[] = [];
   infoMessage: string = '';
   errorMessage: string = '';
-  bonSortieId: number = 0; 
+  bonSortieId: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -60,19 +61,13 @@ export class BonSortieDetailPage implements OnInit {
     });
 
     addIcons({ qrCode, camera });
-
-    // Récupération de bonSortieId depuis les paramètres de route
     this.bonSortieId = +this.route.snapshot.paramMap.get('id')!;
-    this.detailForm = this.fb.group({
-      details: this.fb.array([]),
-    });
   }
 
   ngOnInit(): void {
     this.loadProduits();
     this.addDetail();
-    this.loadBonSortie(); // Appel de la méthode pour charger le bon de sortie avec ses détails
-
+    this.loadBonSortie();
   }
 
   get details(): FormArray {
@@ -84,14 +79,8 @@ export class BonSortieDetailPage implements OnInit {
     if (currentUser && currentUser.entrepot) {
       const entrepotId = currentUser.entrepot.entrepotId;
       this.produitService.getProduitsByEntrepot(entrepotId).subscribe(produits => {
-        if (produits.length === 0) {
-          this.infoMessage = 'Aucun produit trouvé pour cet Entrepôt.';
-          setTimeout(() => this.infoMessage = '', 2000);
-        } else {
-          this.produits = produits;
-        }
+        this.produits = produits;
       }, error => {
-        console.error('Erreur lors de la récupération des produits:', error);
         this.errorMessage = 'Erreur lors de la récupération des produits.';
       });
     } else {
@@ -99,12 +88,11 @@ export class BonSortieDetailPage implements OnInit {
     }
   }
 
-  // 
   loadBonSortie(): void {
     if (this.bonSortieId) {
       this.bonSortieService.getBonSortieById(this.bonSortieId).subscribe(data => {
         if (data && data.detailsSorties) {
-          this.details.clear(); // Assurez-vous de vider le formulaire avant de charger de nouveaux détails
+          this.details.clear(); 
           data.detailsSorties.forEach((detail: DetailSortie) => {
             this.addDetail(detail);
           });
@@ -115,11 +103,10 @@ export class BonSortieDetailPage implements OnInit {
       });
     }
   }
-  
 
   addDetail(detail?: DetailSortie): void {
     this.details.push(this.fb.group({
-      produit: [detail?.produit || '', Validators.required],
+      produit: [detail?.produit.productName || '', Validators.required], 
       quantity: [detail?.quantity || '', Validators.required],
       prix: [detail?.prix || '', Validators.required]
     }));
@@ -135,10 +122,10 @@ export class BonSortieDetailPage implements OnInit {
       formValue.details.forEach((detail: DetailSortie) => {
         detail.bonSortie = { id: this.bonSortieId } as BonSortie;
         this.detailSortieService.createDetailSortie(detail).subscribe(() => {
-          // Optionnel : gérer la confirmation ou redirection après l'enregistrement
+          this.router.navigate(['/bon-sortie-list']);
         });
       });
-      this.router.navigate(['/bon-sortie-list']);
+      
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
     }
@@ -147,4 +134,35 @@ export class BonSortieDetailPage implements OnInit {
   onCancel(): void {
     this.router.navigate(['/bon-sortie-list']);
   }
+
+  async startScan(index: number): Promise<void> {
+    const status = await BarcodeScanner.checkPermission({ force: true });
+
+    if (status.granted) {
+      await BarcodeScanner.hideBackground(); 
+      const result = await BarcodeScanner.startScan(); 
+
+      if (result.hasContent) {
+        const produitScanned = this.produits.find(produit => produit.qrCodeText === result.content);
+
+        if (produitScanned) {
+          this.infoMessage = ' pour ce code QR le scannage a demarer';
+          this.details.at(index).patchValue({ produit: produitScanned.productName });
+          this.infoMessage = 'Produit scanne et trouve pour ce code QR';
+        } else {
+          this.errorMessage = 'Produit non trouvé pour ce code QR';
+        }
+      } else {
+        this.errorMessage = 'Aucun contenu trouvé dans le code QR';
+      }
+
+      await BarcodeScanner.showBackground(); 
+      await BarcodeScanner.stopScan(); 
+    } else if (status.denied) {
+      this.errorMessage = 'Permission non accordée pour accéder à la caméra. Veuillez l\'autoriser dans les paramètres.';
+    } else {
+      this.errorMessage = 'Permission non accordée. Veuillez autoriser l\'accès à la caméra.';
+    }
+  }
+
 }

@@ -11,21 +11,25 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Liste des produits</ion-card-title>
-      <ion-searchbar></ion-searchbar>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-list>
-          <ion-item *ngFor="let produit of produits">
-            <ion-label>{{ produit.productName }}</ion-label>
-            <ion-label>{{ produit.categorie }}</ion-label>
-            <ion-label>{{ produit.quantity }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="applyFilter($event)"
+                   placeholder="Rechercher un produit"></ion-searchbar>
+    <ion-list>
+      <ion-card *ngFor="let produit of filteredProduits">
+        <ion-label>
+          <ion-card-header>
+            <ion-card-title>{{ produit.productName }}</ion-card-title>
+            <ion-card-subtitle>{{ produit.description }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Quantité: {{ produit.quantity }}</p>
+            <p>Catégorie: {{ produit.categorie.name }}</p>
+          </ion-card-content>
+        </ion-label>
+      </ion-card>
+      <ion-item *ngIf="filteredProduits.length === 0">Aucun produit trouvé.</ion-item>
+    </ion-list>
+    <ion-item *ngIf="errorMessage">{{ errorMessage }}</ion-item>
+  </ion-list>
+
 </ion-content>

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>rapport</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,48 +14,78 @@
     </ion-toolbar>
   </ion-header>
 
-<!--  <ion-list>
-    <ion-label position="floating">Sélectionner une date</ion-label>
-    <ion-datetime (ionChange)="onDateChange($event)" displayFormat="DD/MM/YYYY"></ion-datetime>
-  </ion-list>
+  <ion-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Détails d'Entrée</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  Bouton pour générer le PDF
-  <ion-button expand="full" (click)="generatePdf()">Générer le Rapport</ion-button> -->
+    <ion-content class="table-container">
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let detail of lastThreeDetailsEntree">
+          <td>{{ detail.produit.productName }}</td>
+          <td>{{ detail.quantite }}</td>
+          <td>{{ detail.prix }}</td>
+        </tr>
+        </tbody>
+      </table>
 
-  <!-- date-range.component.html -->
-  <h2>Derniers Bons d'Entrée</h2>
-  <ion-list>
-    <ion-item *ngFor="let bon of lastThreeBonsEntree">
-      <ion-label>
-        <h3>Date: {{ bon.dateCommande }}</h3>
-        <p>Produit: {{ bon.detailEntrees }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Détails de Sortie</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-  <h2>Derniers Bons de Sortie</h2>
-  <ion-list>
-    <ion-item *ngFor="let bon of lastThreeBonsSortie">
-      <ion-label>
-        <h3>Date: {{ bon.dateSortie }}</h3>
-        <p>Quantité Totale: {{ bon.motif }}</p>
-        <p>Quantité Totale: {{ bon.detailsSorties }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <form (ngSubmit)="onSubmit()" #dateForm="ngForm">
-    <ion-item>
-      <ion-label position="floating">Date de Début</ion-label>
-      <ion-datetime [(ngModel)]="startDate" name="startDate" displayFormat="DD/MM/YYYY" required></ion-datetime>
-    </ion-item>
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let detail of lastThreeDetailsSortie">
+          <td>{{ detail.produit.productName }}</td>
+          <td>{{ detail.quantity }}</td>
+          <td>{{ detail.prix }}</td>
+        </tr>
+        </tbody>
+      </table>
 
-    <ion-item>
-      <ion-label position="floating">Date de Fin</ion-label>
-      <ion-datetime [(ngModel)]="endDate" name="endDate" displayFormat="DD/MM/YYYY" required></ion-datetime>
-    </ion-item>
+      <!-- Formulaire de sélection de date -->
+      <form (ngSubmit)="onSubmit()" #dateForm="ngForm" class="date-form">
+        <ion-item (click)="showStartDatePicker = true">
+          <ion-label>Date de Début</ion-label>
+          <ion-input [value]="formattedStartDate" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="showStartDatePicker">
+          <ion-datetime [(ngModel)]="startDate" (ionChange)="onDateChange($event, 'startDate')"
+                        displayFormat="DD/MM/YYYY"></ion-datetime>
+        </ion-item>
 
-    <ion-button expand="full" type="submit">Générer le Rapport</ion-button>
-  </form>
+        <ion-item (click)="showEndDatePicker = true">
+          <ion-label>Date de Fin</ion-label>
+          <ion-input [value]="formattedEndDate" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="showEndDatePicker">
+          <ion-datetime [(ngModel)]="endDate" (ionChange)="onDateChange($event, 'endDate')"
+                        displayFormat="DD/MM/YYYY"></ion-datetime>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" class="generate-btn">Générer le Rapport</ion-button>
+      </form>
 
 
+    </ion-content>
+  </ion-content>
 </ion-content>

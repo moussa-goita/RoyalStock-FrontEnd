@@ -2,26 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
-import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonCol,
-  IonContent,
-  IonFooter,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonMenuButton,
-  IonRow,
-  IonSelect,
-  IonSelectOption,
-  IonText,
-  IonTitle,
-  IonToolbar
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 import { Fournisseur } from 'src/app/models/fournisseur';
 import { AuthService } from 'src/app/services/auth.service';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
@@ -32,36 +13,19 @@ import { FournisseurService } from 'src/app/services/fournisseur.service';
   styleUrls: ['./fournisseurs-form.page.scss'],
   standalone: true,
   imports: [
-    IonText, 
+    IonicModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonMenuButton,
-    RouterModule,
-    IonButton,
-    IonButtons,
-    IonSelectOption,
-    IonBackButton,
-    IonContent,
-    IonHeader,
-    IonInput,
-    IonItem,
-    IonFooter,
-    IonLabel,
-    IonTitle,
-    IonSelect,
-    IonToolbar,
-    IonRow,
-    IonCol,
+    RouterModule
   ],
 })
 export class FournisseursFormPage implements OnInit {
   fournisseurForm: FormGroup;
+  currentFournisseur: Fournisseur | null = null;
   fournisseur: Fournisseur = {} as Fournisseur;
   isEditMode: boolean = false;
   successMessage: string = '';
-  currentFournisseur: Fournisseur | null = null; // Ajout de la propriété `currentFournisseur`
-
   errorMessage: string = '';
 
   constructor(
@@ -69,10 +33,10 @@ export class FournisseursFormPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fournisseurService: FournisseurService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.fournisseurForm = this.fb.group({
-      fourName: ['', Validators.required],
+      fournName: ['', Validators.required],
       adresse: ['', Validators.required],
       telephone: ['', Validators.required],
       service: ['', Validators.required],
@@ -93,16 +57,15 @@ export class FournisseursFormPage implements OnInit {
       (data) => {
         this.fournisseur = data;
         this.fournisseurForm.patchValue({
-          fourName: this.fournisseur.four_name,
+          fournName: this.fournisseur.fournName,
           adresse: this.fournisseur.adresse,
           telephone: this.fournisseur.telephone,
           service: this.fournisseur.service,
           email: this.fournisseur.email
         });
-        console.log('Fournisseur chargé:', data);
       },
       (error) => {
-        console.error('Error loading fournisseur:', error);
+        console.error('Erreur lors du chargement du fournisseur:', error);
         this.errorMessage = 'Erreur lors du chargement du fournisseur.';
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
@@ -110,60 +73,58 @@ export class FournisseursFormPage implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('onSubmit appelé');
-    
     if (!this.fournisseurForm.valid) {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
       setTimeout(() => (this.errorMessage = ''), 3000);
       return;
     }
-  
+
     const formData = this.fournisseurForm.value;
-    this.fournisseur = {
-      ...this.fournisseur,
-      ...formData,
-    };
-  
+    this.fournisseur = { ...this.fournisseur, ...formData };
+    console.log(formData);
+
     if (this.isEditMode) {
-      this.fournisseurService.updateFournisseur(this.fournisseur.id, this.fournisseur).subscribe(
-        () => {
-          this.successMessage = 'Fournisseur mis à jour avec succès!';
-          setTimeout(() => (this.successMessage = ''), 3000);
-          this.router.navigate(['/fournisseurs-list']);
-        },
-        (error) => {
-          console.error('Error updating fournisseur:', error);
-          this.errorMessage = 'Erreur lors de la mise à jour du fournisseur.';
-          setTimeout(() => (this.errorMessage = ''), 3000);
-        }
-      );
+      this.updateFournisseur();
     } else {
-      const currentUserEmail = this.authService.currentUserValue?.email;
-      if (!currentUserEmail) {
-        this.errorMessage = 'Erreur : utilisateur non authentifié.';
-        setTimeout(() => (this.errorMessage = ''), 3000);
-        return;
-      }
-  
-      this.fournisseurService.createFournisseur(this.fournisseur, currentUserEmail).subscribe(
-        (fournisseur: Fournisseur) => {
-          if (fournisseur && fournisseur.id) {
-            this.successMessage = 'Fournisseur créé avec succès!';
-            
-            setTimeout(() => (this.successMessage = ''), 3000);
-  
-            this.router.navigate(['/fournisseurs-list']);
-          } else {
-            console.error('Le fournisseur a été créé mais l\'ID est indéfini.');
-          }
-        },
-        (error) => {
-          console.error('Error creating fournisseur:', error);
-          this.errorMessage = 'Erreur lors de la création du fournisseur.';
-          setTimeout(() => (this.errorMessage = ''), 3000);
-        }
-      );
+      this.createFournisseur();
     }
+  }
+
+  createFournisseur(): void {
+    const currentUserEmail = this.authService.currentUserValue?.email;
+    if (!currentUserEmail) {
+      this.errorMessage = 'Erreur : utilisateur non authentifié.';
+      setTimeout(() => (this.errorMessage = ''), 3000);
+      return;
+    }
+
+    this.fournisseurService.createFournisseur(this.fournisseur, currentUserEmail).subscribe(
+      () => {
+        this.successMessage = 'Fournisseur créé avec succès!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+        this.router.navigate(['/fournisseurs-list']);
+      },
+      (error) => {
+        console.error('Erreur lors de la création du fournisseur:', error);
+        this.errorMessage = 'Erreur lors de la création du fournisseur.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
+  }
+
+  updateFournisseur(): void {
+    this.fournisseurService.updateFournisseur(this.fournisseur.id, this.fournisseur).subscribe(
+      () => {
+        this.successMessage = 'Fournisseur mis à jour avec succès!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+        this.router.navigate(['/fournisseurs-list']);
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du fournisseur:', error);
+        this.errorMessage = 'Erreur lors de la mise à jour du fournisseur.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
   }
 
   deleteFournisseur(): void {
@@ -173,10 +134,10 @@ export class FournisseursFormPage implements OnInit {
       () => {
         this.successMessage = 'Fournisseur supprimé avec succès!';
         setTimeout(() => (this.successMessage = ''), 3000);
-        this.router.navigate(['/fournisseurs']);
+        this.router.navigate(['/fournisseurs-list']);
       },
       (error) => {
-        console.error('Error deleting fournisseur:', error);
+        console.error('Erreur lors de la suppression du fournisseur:', error);
         this.errorMessage = 'Erreur lors de la suppression du fournisseur.';
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
@@ -184,6 +145,6 @@ export class FournisseursFormPage implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/fournisseurs']);
+    this.router.navigate(['/fournisseurs-list']);
   }
 }

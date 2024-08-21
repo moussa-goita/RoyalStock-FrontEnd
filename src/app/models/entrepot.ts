@@ -7,4 +7,6 @@ export interface Entrepot {
   dateCreate: Date;
   abonnementStart: Date;
   abonnementEnd: Date;
+  latitude: number;
+  longitude: number;
 }

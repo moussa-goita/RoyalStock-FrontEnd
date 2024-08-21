@@ -12,11 +12,14 @@
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
+
+
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
+
 
 /* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
@@ -35,13 +38,14 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+@import "leaflet/dist/leaflet.css";
 
 body.dark {
     --ion-background-color: #000;
     --ion-text-color: #fff;
   }body {
     --ion-background-color: #ffffff;
-    --ion-text-color: #ffffff;
+    --ion-text-color: #010000;
     --ion-color-primary: #251D73;
     --ion-color-secondary: #3dc2ff;
     /* autres couleurs pour personnaliser ton thème */
@@ -72,3 +76,101 @@ ion-header {
     }
   }
 }
+
+
+/* Styles pour la table dans le mode clair */
+ion-content.table-container {
+  --table-background: #ffffff; /* Fond de la table */
+  --table-text-color: #000000; /* Couleur du texte */
+  --table-border-color: #dddddd; /* Couleur des bordures */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--table-background);
+  color: var(--table-text-color);
+}
+
+.data-table th, .data-table td {
+  border: 1px solid var(--table-border-color);
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--ion-color-primary); /* Utilise la couleur primaire */
+  color: #ffffff; /* Texte en blanc pour l'entête */
+}
+
+/* Styles pour la table en mode sombre */
+body.dark ion-content.table-container {
+  --table-background: #1a1a1a; /* Fond de la table en mode sombre */
+  --table-text-color: #ffffff; /* Couleur du texte en mode sombre */
+  --table-border-color: #333333; /* Couleur des bordures en mode sombre */
+}
+
+body.dark .data-table th {
+  background-color: #444444; /* Couleur de fond pour l'entête en mode sombre */
+  color: var(--table-text-color); /* Texte de l'entête en mode sombre */
+}
+
+/* Styles de base pour le formulaire en mode clair */
+.date-form {
+  --background: #ffffff;
+  --ion-item-background: #ffffff;
+  --ion-label-color: #000000;
+  --ion-input-color: #000000;
+  --ion-datetime-background: #ffffff;
+}
+
+.date-form ion-item {
+  background-color: var(--ion-item-background);
+  color: var(--ion-label-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.date-form ion-label {
+  color: var(--ion-label-color);
+}
+
+.date-form ion-input {
+  color: var(--ion-input-color);
+}
+
+.date-form ion-datetime {
+  background-color: var(--ion-datetime-background);
+  color: var(--ion-input-color);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* Styles spécifiques pour le formulaire en mode sombre */
+body.dark .date-form {
+  --background: #1a1a1a;
+  --ion-item-background: #333333;
+  --ion-label-color: #ffffff;
+  --ion-input-color: #ffffff;
+  --ion-datetime-background: #444444;
+}
+
+body.dark .date-form ion-item {
+  background-color: var(--ion-item-background);
+  color: var(--ion-label-color);
+}
+
+body.dark .date-form ion-label {
+  color: var(--ion-label-color);
+}
+
+body.dark .date-form ion-input {
+  color: var(--ion-input-color);
+}
+
+body.dark .date-form ion-datetime {
+  background-color: var(--ion-datetime-background);
+  color: var(--ion-input-color);
+}
+
+

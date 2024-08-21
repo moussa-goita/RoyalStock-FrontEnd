@@ -1,15 +1,17 @@
 // rapport.service.ts
-import { formatDate } from '@angular/common';
-import { HttpClient } from "@angular/common/http";
-
 import { Injectable } from '@angular/core';
+// @ts-ignore
 import { jsPDF } from 'jspdf';
+
 import { Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { BonEntree } from "../models/bon-entree";
 import { BonSortie } from "../models/bon-sortie";
 import { DetailEntree } from '../models/detail-entree';
 import { DetailSortie } from '../models/detail-sortie';
+import {HttpClient} from "@angular/common/http";
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,80 +22,80 @@ export class RapportService {
 
   constructor(private http: HttpClient) {}
 
-  getLastThreeBonsEntree(): Observable<BonEntree[]> {
-    return this.http.get<BonEntree[]>(`${this.apiUrl}/bons-entree?limit=3&sort=dateEntree,desc`);
+  getAllDetailsEntree(): Observable<DetailEntree[]> {
+    return this.http.get<DetailEntree[]>(`${this.apiUrl}/details-entrees`);
   }
 
-  getLastThreeBonsSortie(): Observable<BonSortie[]> {
-    return this.http.get<BonSortie[]>(`${this.apiUrl}/bons-sortie?limit=3&sort=dateSortie,desc`);
+  getAllDetailsSortie(): Observable<DetailSortie[]> {
+    return this.http.get<DetailSortie[]>(`${this.apiUrl}/details-sorties`);
   }
 
-  generatePdf(startDate: string | null, endDate: string | null) {
-    if (!startDate || !endDate) {
-      alert('Veuillez sélectionner les deux dates.');
-      return;
-    }
-
-    // Convertir les dates en objets Date
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    // Filtrer les données selon l'intervalle de dates
-    const filteredDetailSortie = this.getDetailSortie().filter(item =>
-      item.bonSortie &&
-      new Date(item.bonSortie.dateSortie) >= start &&
-      new Date(item.bonSortie.dateSortie) <= end
-    );
-
-    const filteredDetailEntree = this.getDetailEntree().filter(item =>
-      item.bonEntree &&
-      new Date(item.bonEntree.dateCommande) >= start &&
-      new Date(item.bonEntree.dateCommande) <= end
-    );
-
-    const doc = new jsPDF();
-    const margin = 10;
-    let y = margin;
-
-    // Titre du document
-    doc.setFontSize(18);
-    doc.setFont("helvetica", "bold");
-    doc.text('Rapport Période - ' + formatDate(startDate, 'dd/MM/yyyy', 'en') + ' au ' + formatDate(endDate, 'dd/MM/yyyy', 'en'), margin, y);
-    y += 15;
-
-    // Header DetailSortie
-    this.addTableHeader(doc, 'Données du DetailSortie:', margin, y);
-    y += 25;
-
-    // Données du DetailSortie
-    this.addTable(doc, filteredDetailSortie, ['#', 'Produit', 'Quantité', 'Prix'], margin, y);
-    y += (filteredDetailSortie.length + 1) * 10 + 10;
-
-    // Ligne de séparation
-    doc.setLineWidth(0.5);
-    doc.line(margin, y, 200 - margin, y);
-    y += 10;
-
-    // Header DetailEntree
-    this.addTableHeader(doc, 'Données du DetailEntree:', margin, y);
-    y += 25;
-
-    // Données du DetailEntree
-    this.addTable(doc, filteredDetailEntree, ['#', 'Produit', 'Quantité', 'Prix'], margin, y);
-
-    // Sauvegarde du fichier
-    doc.save(`rapport-periode-${formatDate(startDate, 'dd-MM-yyyy', 'en')}-au-${formatDate(endDate, 'dd-MM-yyyy', 'en')}.pdf`);
+  
+  getDetailSortie(): Observable<DetailSortie[]> {
+    return this.http.get<DetailSortie[]>(`${this.apiUrl}/details-sorties`);
   }
 
-  private getDetailSortie(): DetailSortie[] {
-    // Implémentez la récupération des données
-    return [];
+  getDetailEntree(): Observable<DetailEntree[]> {
+    return this.http.get<DetailEntree[]>(`${this.apiUrl}/details-entrees`);
   }
 
-  private getDetailEntree(): DetailEntree[] {
-    // Implémentez la récupération des données
-    return [];
-  }
+generatePdf(startDate: string, endDate: string, detailEntrees: DetailEntree[], detailSorties: DetailSortie[]) {
+  const doc = new jsPDF();
+
+  // Titre principal
+  doc.setFontSize(16);
+  doc.text('Rapport de Stock', 10, 10);
+
+  // Période du rapport
+  doc.setFontSize(12);
+  doc.text(`Période: ${startDate} - ${endDate}`, 10, 20);
+
+  // Section des Bons d'Entrée
+  doc.setFontSize(14);
+  doc.text('Détails des Bons d\'Entrée:', 10, 30);
+
+  // Headers du tableau des Bons d'Entrée
+  doc.setFontSize(12);
+  doc.text('Produit', 10, 40);
+  doc.text('Quantité', 80, 40);
+  doc.text('Prix Total', 130, 40);
+
+  // Contenu du tableau des Bons d'Entrée
+  let yOffset = 50;
+  detailEntrees.forEach((detail) => {
+    doc.text(detail.produit.productName, 10, yOffset);
+    doc.text(detail.quantite.toString(), 80, yOffset);
+    doc.text(detail.prix.toString(), 130, yOffset);
+    yOffset += 10;
+  });
+
+  // Ajoute un espace avant la section suivante
+  yOffset += 10;
+
+  // Section des Bons de Sortie
+  doc.setFontSize(14);
+  doc.text('Détails des Bons de Sortie:', 10, yOffset);
+  
+  // Headers du tableau des Bons de Sortie
+  yOffset += 10;
+  doc.setFontSize(12);
+  doc.text('Produit', 10, yOffset);
+  doc.text('Quantité', 80, yOffset);
+  doc.text('Prix Total', 130, yOffset);
+
+  // Contenu du tableau des Bons de Sortie
+  yOffset += 10;
+  detailSorties.forEach((detail) => {
+    doc.text(detail.produit.productName, 10, yOffset);
+    doc.text(detail.quantity.toString(), 80, yOffset);
+    doc.text(detail.prix.toString(), 130, yOffset);
+    yOffset += 10;
+  });
+
+  // Sauvegarde le PDF
+  doc.save('rapport.pdf');
+}
+
 
   private addTableHeader(doc: jsPDF, title: string, margin: number, y: number) {
     doc.setFontSize(12);

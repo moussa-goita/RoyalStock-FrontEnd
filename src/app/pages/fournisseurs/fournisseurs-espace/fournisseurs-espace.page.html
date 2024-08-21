@@ -23,7 +23,7 @@
     <ion-card *ngFor="let fournisseur of fournisseurs">
       <ion-card-header>
         <div class="ok">
-          <ion-card-title class="title">{{ fournisseur.four_name }}</ion-card-title>
+          <ion-card-title class="title">{{ fournisseur.fournName }}</ion-card-title>
           <ion-card-subtitle class="star-rating">
             <ion-icon *ngFor="let star of getStars(fournisseur.noteMoyenne || 0)" name="star"></ion-icon>
             <ion-icon *ngFor="let star of getEmptyStars(fournisseur.noteMoyenne || 0)" name="star-outline"></ion-icon>

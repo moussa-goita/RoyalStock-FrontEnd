@@ -1,16 +1,147 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content class="ion-padding">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Dashboard</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid>
+    <!-- Stock Total -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-row class="ion-align-items-center flex">
+              <ion-col size="auto">
+                <ion-icon name="bar-chart" class="ibac"></ion-icon>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-card-title class="text-black">Stock Total</ion-card-title>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-text class="text-primary">{{ stockTotal }}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Valeur des Entrées et Sorties -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" size-md="6" size-lg="4">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <div class="card-content">
+              <ion-icon name="cash-outline" class="icon-entries"></ion-icon>
+              <ion-card-title class="text-black">Valeurs Entrées</ion-card-title>
+              <ion-text class="text-primary">{{ valeurEntrees }} FCFA</ion-text>
+            </div>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="6" size-lg="4">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <div class="card-content">
+              <ion-icon name="trending-up" class="icon-outputs"></ion-icon>
+              <ion-card-title class="text-black">Valeurs Sorties</ion-card-title>
+              <ion-text class="text-primary">{{ valeurSorties }} FCFA</ion-text>
+            </div>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Pie Chart for Valeurs -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="10" size-lg="8">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title class="text-black">Valeurs des Entrées et Sorties</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- Ajout du p-chart pour afficher le graphique -->
+            <p-chart type="pie" [data]="pieDataValues" [options]="pieOptions"></p-chart>
+
+            <!-- Légendes pour le premier graphique -->
+            <ion-row class="legend-row">
+              <ion-col size="6">
+                <div class="legend-item">
+                  <span class="legend-color" style="background-color: #FFB423;"></span>
+                  <span class="legend-label">Valeur Entrées</span>
+                </div>
+              </ion-col>
+              <ion-col size="6">
+                <div class="legend-item">
+                  <span class="legend-color" style="background-color: blue;"></span>
+                  <span class="legend-label">Valeur Sorties</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Total des Entrées et Sorties -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" size-md="6" size-lg="4">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <div class="card-content">
+              <ion-icon name="cart" class="icon-totals"></ion-icon>
+              <ion-card-title class="text-black">Totaux Entrées</ion-card-title>
+              <ion-text class="text-primary">{{ totalEntrees }}</ion-text>
+            </div>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="6" size-lg="4">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <div class="card-content">
+              <ion-icon name="archive" class="icon-totals"></ion-icon>
+              <ion-card-title class="text-black">Totaux Sorties</ion-card-title>
+              <ion-text class="text-primary">{{ totalSorties }}</ion-text>
+            </div>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Pie Chart for Totals -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="10" size-lg="8">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title class="text-black">Totaux des Entrées et Sorties</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p-chart type="pie" [data]="pieDataTotals" [options]="pieOptions"></p-chart>
+
+            <!-- Légendes pour le deuxième graphique -->
+            <ion-row class="legend-row">
+              <ion-col size="6">
+                <div class="legend-item">
+                  <span class="legend-color" style="background-color: green;"></span>
+                  <span class="legend-label">Totaux Entrées</span>
+                </div>
+              </ion-col>
+              <ion-col size="6">
+                <div class="legend-item">
+                  <span class="legend-color" style="background-color: grey;"></span>
+                  <span class="legend-label">Totaux Sorties</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>

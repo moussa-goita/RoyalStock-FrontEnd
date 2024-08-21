@@ -8,6 +8,7 @@ import { addIcons } from 'ionicons';
 import { briefcase, call, create, home, image, location, person, star, trash } from 'ionicons/icons';
 import { Fournisseur, Statut } from 'src/app/models/fournisseur';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
+import {ModalController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-fournisseurs-list',
@@ -23,11 +24,14 @@ export class FournisseursListPage implements OnInit {
 
   fournisseurs: Fournisseur[] = [];
   isModalOpen = false;
-  imageUrl = '';
+
+  imageUrl: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private router: Router,
     private alertController: AlertController,
+    private modalController: ModalController,
     private fournisseurService: FournisseurService
   ) {
     addIcons({ star, location, home, person, call, trash, briefcase, image, create });
@@ -82,11 +86,16 @@ export class FournisseursListPage implements OnInit {
     });
   }
 
-  openImageModal(fournisseur: Fournisseur) {
-    this.imageUrl = '../../../../assets/WhatsApp Image 2024-02-24 at 1.14.06 AM.jpeg';
+
+  openImageModal(fournisseur: any) {
     this.isModalOpen = true;
+    this.imageUrl = fournisseur.imageUrl; // Si l'image est déjà stockée
   }
 
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
   closeModal() {
     this.isModalOpen = false;
   }
@@ -114,4 +123,28 @@ export class FournisseursListPage implements OnInit {
       }
     });
   }
+
+  uploadImage(fournisseur: any) {
+    if (this.selectedFile) {
+      this.fournisseurService.uploadContrat(fournisseur.id, this.selectedFile).subscribe(response => {
+        console.log('Image uploadée avec succès:', response);
+        this.closeModal(); // Fermer le modal après le succès de l'upload
+      });
+    }
+  }
+
+
+  getContrat(fournisseurId: number) {
+    this.fournisseurService.getContrat(fournisseurId).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  deleteContrat(fournisseurId: number) {
+    this.fournisseurService.deleteContrat(fournisseurId).subscribe(response => {
+      console.log('Contrat supprimé:', response);
+    });
+  }
+
 }

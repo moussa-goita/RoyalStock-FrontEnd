@@ -59,9 +59,10 @@
         <button mat-button (click)="goToCommentForm(fournisseur.id)">
           Ajouter Commentaire
         </button>
-        <ion-button fill="clear" color="secondary" (click)="openImageModal(fournisseur)" disabled>
+        <ion-button fill="clear" color="secondary" (click)="openImageModal(fournisseur)" >
           <ion-icon slot="icon-only" name="image"></ion-icon>
         </ion-button>
+
         <ion-item lines="none" class="no-padding">
           <ion-toggle (ionChange)="confirmToggle(fournisseur)" [checked]="fournisseur.statut === 'PUBLIC'"></ion-toggle>
         </ion-item>
@@ -73,6 +74,8 @@
         </ion-button>
       </div>
     </ion-card-content>
+
+    <!-- Modal to upload and display image -->
     <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
       <ion-header>
         <ion-toolbar>
@@ -83,23 +86,16 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <img [src]="imageUrl" alt="Image du Fournisseur" style="width: 100%; height: auto;" />
+        <form (submit)="uploadImage(fournisseur)">
+          <ion-item>
+            <ion-label position="stacked">Télécharger une image</ion-label>
+            <input type="file" (change)="onFileSelected($event)" />
+          </ion-item>
+          <ion-button expand="block" type="submit" [disabled]="!selectedFile">Upload</ion-button>
+        </form>
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Image du Fournisseur" style="width: 100%; height: auto;" />
       </ion-content>
     </ion-modal>
   </ion-card>
-
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Image du Fournisseur</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closeModal()">Fermer</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <img [src]="imageUrl" alt="Image du Fournisseur" style="width: 100%; height: auto;" />
-    </ion-content>
-  </ion-modal>
 
 </ion-content>

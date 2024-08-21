@@ -83,4 +83,21 @@ export class FournisseurService {
       })
     );
   }
+
+  //
+  uploadContrat(fournisseurId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseUrl}/${fournisseurId}/upload-contrat`, formData);
+  }
+
+  getContrat(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/${id}/contrat`, { responseType: 'blob' });
+  }
+
+  deleteContrat(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}/contrat`, { responseType: 'text' });
+  }
+
 }

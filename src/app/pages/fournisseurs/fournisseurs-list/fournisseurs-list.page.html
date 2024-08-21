@@ -76,10 +76,11 @@
     </ion-card-content>
 
     <!-- Modal to upload and display image -->
+    <!-- Modal to upload and display image or PDF -->
     <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Image du Fournisseur</ion-title>
+          <ion-title>Fournisseur Fichier</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeModal()">Fermer</ion-button>
           </ion-buttons>
@@ -88,12 +89,17 @@
       <ion-content>
         <form (submit)="uploadImage(fournisseur)">
           <ion-item>
-            <ion-label position="stacked">Télécharger une image</ion-label>
+            <ion-label position="stacked">Télécharger un fichier</ion-label>
             <input type="file" (change)="onFileSelected($event)" />
           </ion-item>
           <ion-button expand="block" type="submit" [disabled]="!selectedFile">Upload</ion-button>
         </form>
+
+        <!-- Display image if available -->
         <img *ngIf="imageUrl" [src]="imageUrl" alt="Image du Fournisseur" style="width: 100%; height: auto;" />
+
+        <!-- Display PDF if available -->
+        <iframe *ngIf="pdfUrl" [src]="pdfUrl | safe: 'resourceUrl'" style="width: 100%; height: 500px;"></iframe>
       </ion-content>
     </ion-modal>
   </ion-card>

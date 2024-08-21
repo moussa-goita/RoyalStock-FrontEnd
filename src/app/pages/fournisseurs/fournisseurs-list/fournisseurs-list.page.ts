@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
-import { NgFor } from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import { addIcons } from 'ionicons';
-
+import { SafePipe } from '../../../pipes/safe.pipe';
 import { briefcase, call, create, home, image, location, person, star, trash } from 'ionicons/icons';
 import { Fournisseur, Statut } from 'src/app/models/fournisseur';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
@@ -16,6 +16,8 @@ import {ModalController} from "@ionic/angular/standalone";
   imports: [
     IonicModule,
     NgFor,
+    NgIf,
+    SafePipe // Inclure le pipe ici
   ],
   templateUrl: './fournisseurs-list.page.html',
   styleUrls: ['./fournisseurs-list.page.scss']
@@ -26,6 +28,7 @@ export class FournisseursListPage implements OnInit {
   isModalOpen = false;
 
   imageUrl: string | null = null;
+  pdfUrl: string | null = null;
   selectedFile: File | null = null;
 
   constructor(
@@ -89,9 +92,15 @@ export class FournisseursListPage implements OnInit {
 
   openImageModal(fournisseur: any) {
     this.isModalOpen = true;
-    this.imageUrl = fournisseur.imageUrl; // Si l'image est déjà stockée
-  }
 
+    if (fournisseur.imageUrl) {
+      this.imageUrl = fournisseur.imageUrl;
+      this.pdfUrl = null; // Assurez-vous que l'URL du PDF est réinitialisée
+    } else if (fournisseur.pdfUrl) {
+      this.pdfUrl = fournisseur.pdfUrl;
+      this.imageUrl = null; // Assurez-vous que l'URL de l'image est réinitialisée
+    }
+  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];

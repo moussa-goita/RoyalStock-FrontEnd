@@ -1,3 +1,4 @@
+import { Entrepot } from './../../../models/entrepot';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -24,6 +25,7 @@ export class FournisseursListPage implements OnInit {
   fournisseurs: Fournisseur[] = [];
   isModalOpen = false;
   imageUrl = '';
+  entrepotId!: number;
 
   constructor(
     private router: Router,
@@ -38,7 +40,7 @@ export class FournisseursListPage implements OnInit {
   }
 
   loadFournisseurs() {
-    this.fournisseurService.getFournisseurs().subscribe({
+    this.fournisseurService.getFournisseursForCurrentUser(this.entrepotId).subscribe({
       next: (data) => {
         this.fournisseurs = data;
       },
@@ -46,6 +48,7 @@ export class FournisseursListPage implements OnInit {
         console.error('Erreur lors du chargement des fournisseurs:', error);
       }
     });
+
   }
 
   async confirmToggle(fournisseur: Fournisseur) {

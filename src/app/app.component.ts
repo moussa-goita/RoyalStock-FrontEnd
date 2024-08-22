@@ -109,4 +109,11 @@ export class AppComponent {
     document.body.classList.toggle('dark', event.detail.checked);
   }
 
+  get currentUser() {
+    return this.authService.currentUserValue;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

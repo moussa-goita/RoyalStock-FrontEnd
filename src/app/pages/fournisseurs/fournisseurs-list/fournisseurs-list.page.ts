@@ -12,10 +12,10 @@ import { FournisseurService } from 'src/app/services/fournisseur.service';
 @Component({
   selector: 'app-fournisseurs-list',
   standalone: true,
-  imports: [
-    IonicModule,
-    NgFor,
-  ],
+    imports: [
+        IonicModule,
+        NgFor,
+    ],
   templateUrl: './fournisseurs-list.page.html',
   styleUrls: ['./fournisseurs-list.page.scss']
 })

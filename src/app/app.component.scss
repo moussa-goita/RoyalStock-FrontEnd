@@ -3,7 +3,7 @@
 /* Sidebar (Menu) Styling */
 ion-menu {
   --background: #251D73; /* Dark blue background color for the sidebar */
-  width: 240px; /* Adjust width to your design */
+  width: 300px; /* Adjust width to your design */
   box-shadow: 2px 0 8px rgb(255, 255, 255); /* Add shadow for sidebar depth */
 
   ion-toolbar {
@@ -76,13 +76,13 @@ ion-menu {
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
   ion-menu {
-    width: 200px; /* Reduce the width for mobile devices */
+    width: 250px; /* Reduce the width for mobile devices */
 
     ion-toolbar {
       padding-top: 20px;
 
       .logo-container {
-        margin-right: 100px;
+        margin-right: 50px;
         display: flex;
         justify-content: center;
         align-items: center;

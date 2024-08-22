@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Produit } from '../models/produit';
 
@@ -22,6 +22,7 @@ export class ProduitService {
   // createProduit(produit: Produit): Observable<Produit> {
   //   return this.http.post<Produit>(this.apiUrl, produit);
   // }
+ // Méthode pour récupérer les produits d'un entrepôt spécifique
 
   createProduit(produit: Produit, email: string): Observable<Produit> {
     return this.http.post<Produit>(`${this.apiUrl}/create?email=${email}`, produit);
@@ -30,7 +31,11 @@ export class ProduitService {
   getProduitsByEntrepot(entrepotId: number): Observable<Produit[]> {
     return this.http.get<Produit[]>(`${this.apiUrl}/entrepot/${entrepotId}`);
   }
-  
+  // Méthode pour récupérer un produit par son code QR
+  getProduitsByQrCode(qrCode: string): Observable<Produit> {
+    return this.http.get<Produit>(`${this.apiUrl}/qr-code/${qrCode}`);
+  }
+
   updateProduit(id: number, produit: Produit): Observable<Produit> {
     return this.http.put<Produit>(`${this.apiUrl}/${id}`, produit);
   }

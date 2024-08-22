@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-//import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// @ts-ignore
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonTitle, IonToast, IonToolbar } from '@ionic/angular/standalone';
+// @ts-ignore
 import { addIcons } from 'ionicons';
+// @ts-ignore
 import { camera, qrCode } from 'ionicons/icons';
 import { BonSortie } from 'src/app/models/bon-sortie';
 import { DetailSortie } from 'src/app/models/detail-sortie';
@@ -16,12 +18,13 @@ import { BonSortieDetailService } from 'src/app/services/bon-sortie-detail.servi
 import { BonSortieService } from 'src/app/services/bon-sortie.service';
 import { ProduitService } from 'src/app/services/produit.service';
 
+// @ts-ignore
 @Component({
   selector: 'app-bon-sortie-detail',
   templateUrl: './bon-sortie-detail.page.html',
   styleUrls: ['./bon-sortie-detail.page.scss'],
   standalone: true,
-  imports: [IonToast, 
+  imports: [IonToast,
     CommonModule,
     IonButton,
     IonButtons,
@@ -94,7 +97,7 @@ export class BonSortieDetailPage implements OnInit {
     if (this.bonSortieId) {
       this.bonSortieService.getBonSortieById(this.bonSortieId).subscribe(data => {
         if (data && data.detailsSorties) {
-          this.details.clear(); 
+          this.details.clear();
           data.detailsSorties.forEach((detail: DetailSortie) => {
             this.addDetail(detail);
           });
@@ -108,7 +111,7 @@ export class BonSortieDetailPage implements OnInit {
 
   addDetail(detail?: DetailSortie): void {
     this.details.push(this.fb.group({
-      produit: [detail?.produit.productName || '', Validators.required], 
+      produit: [detail?.produit.productName || '', Validators.required],
       quantity: [detail?.quantity || '', Validators.required],
       prix: [detail?.prix || '', Validators.required]
     }));
@@ -127,7 +130,7 @@ export class BonSortieDetailPage implements OnInit {
           this.router.navigate(['/bon-sortie-list']);
         });
       });
-      
+
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
     }
@@ -141,30 +144,32 @@ export class BonSortieDetailPage implements OnInit {
     const status = await BarcodeScanner.checkPermission({ force: true });
 
     if (status.granted) {
-      await BarcodeScanner.hideBackground(); 
-      const result = await BarcodeScanner.startScan(); 
+        await BarcodeScanner.hideBackground();
+        const result = await BarcodeScanner.startScan();
 
-      if (result.hasContent) {
-        const produitScanned = this.produits.find(produit => produit.qrCodeText === result.content);
-
-        if (produitScanned) {
-          this.infoMessage = ' pour ce code QR le scannage a demarer';
-          this.details.at(index).patchValue({ produit: produitScanned.productName });
-          this.infoMessage = 'Produit scanne et trouve pour ce code QR';
+        if (result.hasContent) {
+            this.produitService.getProduitsByQrCode(result.content).subscribe(produit => {
+                if (produit) {
+                    this.details.at(index).patchValue({ produit: produit.productName });
+                    this.infoMessage = 'Produit scanné et trouvé pour ce code QR';
+                } else {
+                    this.errorMessage = 'Produit non trouvé pour ce code QR';
+                }
+            }, error => {
+                this.errorMessage = 'Erreur lors de la récupération du produit';
+            });
         } else {
-          this.errorMessage = 'Produit non trouvé pour ce code QR';
+            this.errorMessage = 'Aucun contenu trouvé dans le code QR';
         }
-      } else {
-        this.errorMessage = 'Aucun contenu trouvé dans le code QR';
-      }
 
-      await BarcodeScanner.showBackground(); 
-      await BarcodeScanner.stopScan(); 
+        await BarcodeScanner.showBackground();
+        await BarcodeScanner.stopScan();
     } else if (status.denied) {
-      this.errorMessage = 'Permission non accordée pour accéder à la caméra. Veuillez l\'autoriser dans les paramètres.';
+        this.errorMessage = 'Permission non accordée pour accéder à la caméra. Veuillez l\'autoriser dans les paramètres.';
     } else {
-      this.errorMessage = 'Permission non accordée. Veuillez autoriser l\'accès à la caméra.';
+        this.errorMessage = 'Permission non accordée. Veuillez autoriser l\'accès à la caméra.';
     }
-  }
+}
+
 
 }

@@ -1,5 +1,8 @@
 {
 	"appId": "io.ionic.starter",
 	"appName": "RoyalStock",
-	"webDir": "www"
+	"webDir": "www",
+	"server": {
+		"url": "https://192.168.123.35:8101"
+	}
 }

@@ -17,7 +17,7 @@ dependencies {
     implementation project(':jcesarmobile-ssl-skip')
 
 }
-
+apply from: "../../node_modules/cordova-plugin-qrscanner/src/android/qrscanner.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

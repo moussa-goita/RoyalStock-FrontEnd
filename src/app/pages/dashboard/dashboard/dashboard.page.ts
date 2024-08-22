@@ -41,7 +41,6 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
-    private datachartService: DataChartService,
     private bonEntreService: BonEntreService) {}
 
   ngOnInit() {

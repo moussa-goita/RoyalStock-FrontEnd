@@ -2,9 +2,13 @@
 import { Injectable } from '@angular/core';
 // @ts-ignore
 import { jsPDF } from 'jspdf';
-import { DetailSortie } from '../models/detail-sortie';
+
+import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment';
+import { BonEntree } from "../models/bon-entree";
+import { BonSortie } from "../models/bon-sortie";
 import { DetailEntree } from '../models/detail-entree';
-import {Observable} from "rxjs";
+import { DetailSortie } from '../models/detail-sortie';
 import {HttpClient} from "@angular/common/http";
 
 
@@ -14,7 +18,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RapportService {
 
-  private apiUrl = 'http://localhost:8080/api'; // Remplace par l'URL de ton API
+  private apiUrl = `${environment.apiUrl}/rapport`; 
 
   constructor(private http: HttpClient) {}
 

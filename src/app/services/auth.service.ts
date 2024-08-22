@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
 
 
-  private apiUrl = 'http://localhost:8080/api/utilisateurs';
+  private apiUrl = `${environment.apiUrl}/utilisateurs`;
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 

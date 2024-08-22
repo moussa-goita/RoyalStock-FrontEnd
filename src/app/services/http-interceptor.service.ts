@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-=======
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
->>>>>>> origin/master
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 

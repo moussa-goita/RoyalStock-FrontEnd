@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categorie } from '../models/categorie';
 
@@ -7,7 +7,7 @@ import { Categorie } from '../models/categorie';
   providedIn: 'root'
 })
 export class CategorieService {
-  private apiUrl = 'http://localhost:8080/api/categories';
+  private apiUrl = 'https://192.168.1.14:8443/api/categories';
 
   constructor(private http: HttpClient) { }
 

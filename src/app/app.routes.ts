@@ -23,7 +23,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/bonEntre/bon-entre-list/bon-entre-list.page').then( m => m.BonEntreListPage), data: { roles: ['MANAGER']}
   },
   {
-    path: 'bon-entre-detail',
+    path: 'bon-entre-detail/:id',
     loadComponent: () => import('./pages/bonEntre/bon-entre-detail/bon-entre-detail.page').then( m => m.BonEntreDetailPage), data: { roles: ['MANAGER']}
   },
   {

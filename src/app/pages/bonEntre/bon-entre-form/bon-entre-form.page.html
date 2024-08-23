@@ -8,49 +8,59 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Ajouter Bon d'Entrée</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <form [formGroup]="bonEntreeForm" (ngSubmit)="onSubmit()">
-
-    <ion-item class="ion-margin-bottom">
-      <ion-label position="floating">Date d'Entrée</ion-label>
-      <ion-input
-        formControlName="dateCommande"
-        type="date"
-        required>
-      </ion-input>
-    </ion-item>
-
-    <ion-item class="ion-margin-bottom">
-      <ion-label position="floating">Fournisseur</ion-label>
-      <ion-select
-        formControlName="fournisseur"
-        placeholder="Sélectionnez un fournisseur">
-        <ion-select-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
-          {{ fournisseur.fournName }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-footer>
+    <ion-header collapse="condense">
       <ion-toolbar>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="full" color="primary" type="submit" [disabled]="!bonEntreeForm.valid">
-              Ajouter
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button expand="full" color="danger" (click)="onCancel()">
-              Annuler
-            </ion-button>
-          </ion-col>
-        </ion-row>
+        <ion-title size="large">Ajouter Bon d'Entrée</ion-title>
       </ion-toolbar>
-    </ion-footer>
-  </form>
+    </ion-header>
+
+    <form [formGroup]="bonEntreeForm" (ngSubmit)="onSubmit()">
+      <!-- Date d'Entrée Input Field -->
+      <ion-item class="ion-margin-bottom">
+        <ion-input
+          label="Date d'Entrée"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Sélectionnez une date"
+          formControlName="dateCommande"
+          type="date"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <!-- Fournisseur Select Field -->
+      <ion-item class="ion-margin-bottom">
+        <ion-select
+          label="Fournisseur"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Sélectionnez un fournisseur"
+          formControlName="fournisseur"
+          required>
+          <ion-select-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
+            {{ fournisseur.fournName }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Footer with Submit and Cancel Buttons -->
+      <ion-footer>
+        <ion-toolbar>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="full" color="primary" type="submit" [disabled]="!bonEntreeForm.valid">
+                Ajouter
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="full" color="danger" (click)="onCancel()">
+                Annuler
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+      </ion-footer>
+    </form>
+
+
 </ion-content>

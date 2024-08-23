@@ -1,70 +1,31 @@
-/* Styles pour le contenu */
+ion-item {
+  ion-input {
+    --border-radius: 19px;
+    --border-width: 1px;
+    --border-color: #050f36;
+
+  }
+
+
+  &.ion-margin-bottom {
+    margin-bottom: 20px;
+    margin-top: 16px;
+  }
+}
+ion-header + ion-content {
+  margin-top: 160px;
+}
 ion-content {
-    --background: #f9f9f9;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  
-    form {
-      width: 100%;
-      max-width: 400px; /* Définir la largeur maximale du formulaire */
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  
-      ion-item {
-        margin-bottom: 15px;
-        --background: #ffffff;
-        --border-color: var(--ion-color-medium);
-        --border-width: 1px;
-        --padding-start: 15px;
-        --padding-end: 15px;
-        --padding-top: 10px;
-        --padding-bottom: 10px;
-  
-        ion-label {
-          color: var(--ion-color-primary);
-          font-weight: bold;
-        }
-  
-        ion-input,
-        ion-select {
-          color: var(--ion-color-dark);
-        }
-      }
-    }
-  }
-  
-  /* Styles pour le footer et les boutons */
-  ion-footer {
-    ion-toolbar {
-      --background: #ffffff;
-      display: flex;
-      justify-content: center;
-  
-      ion-row {
-        max-width: 400px; /* Correspond à la largeur du formulaire */
-        width: 100%;
-  
-        ion-col {
-          ion-button {
-            font-weight: bold;
-            font-size: 16px;
-            border-radius: 5px;
-  
-            &.danger {
-              --background: var(--ion-color-danger);
-            }
-  
-            &.primary {
-              --background: var(--ion-color-primary);
-            }
-          }
-        }
-      }
-    }
-  }
-  
+  --padding-bottom: 56px;
+}
+
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+ion-button {
+  margin: 4px;
+}
+

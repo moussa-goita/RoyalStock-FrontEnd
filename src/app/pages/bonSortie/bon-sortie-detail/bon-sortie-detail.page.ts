@@ -17,6 +17,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BonSortieDetailService } from 'src/app/services/bon-sortie-detail.service';
 import { BonSortieService } from 'src/app/services/bon-sortie.service';
 import { ProduitService } from 'src/app/services/produit.service';
+import { AlertController } from '@ionic/angular';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // @ts-ignore
 @Component({
@@ -59,7 +61,8 @@ export class BonSortieDetailPage implements OnInit {
     private bonSortieService: BonSortieService,
     private produitService: ProduitService,
     private detailSortieService: BonSortieDetailService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertController: AlertController 
   ) {
     this.detailForm = this.fb.group({
       details: this.fb.array([])
@@ -121,20 +124,57 @@ export class BonSortieDetailPage implements OnInit {
     this.details.removeAt(index);
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.detailForm.valid) {
       const formValue = this.detailForm.value;
-      formValue.details.forEach((detail: DetailSortie) => {
-        detail.bonSortie = { id: this.bonSortieId } as BonSortie;
-        this.detailSortieService.createDetailSortie(detail).subscribe(() => {
-          this.router.navigate(['/bon-sortie-list']);
-        });
-      });
-
+  
+      try {
+        for (const detail of formValue.details) {
+          detail.bonSortie = { id: this.bonSortieId } as BonSortie;
+  
+          try {
+            await this.detailSortieService.createDetailSortie(detail).toPromise();
+            
+            // Affichage de l'alerte après l'enregistrement réussi
+            const alert = await this.alertController.create({
+              header: 'Succès',
+              message: 'Le détail du Bon de Sortie a été ajouté avec succès.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          } catch (err) {
+            // Gestion de l'erreur en cas d'échec de l'enregistrement du détail
+            let errorMessage = 'Veuillez réessayer.';
+  
+            if (err instanceof HttpErrorResponse) {
+              errorMessage = err.error?.message || 'Erreur lors de l\'ajout du détail du Bon de Sortie.';
+            } else if (err instanceof Error) {
+              errorMessage = err.message;
+            }
+  
+            const alert = await this.alertController.create({
+              header: 'Erreur',
+              message: 'Erreur lors de l\'ajout du détail du Bon de Sortie : ' + errorMessage,
+              buttons: ['OK'],
+            });
+            await alert.present();
+            console.error('Erreur lors de l\'enregistrement du détail du Bon de Sortie:', err);
+          }
+        }
+  
+        // Redirection vers la liste des bons de sortie après l'enregistrement de tous les détails
+        this.router.navigate(['/bon-sortie-list']);
+      } catch (error) {
+        // Gestion de l'erreur en cas de problème général lors de l'enregistrement
+        this.errorMessage = 'Une erreur est survenue lors de l\'enregistrement des détails. Veuillez réessayer.';
+        console.error('Erreur générale lors de l\'enregistrement des détails du bon de sortie:', error);
+      }
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
     }
   }
+  
+  
 
   onCancel(): void {
     this.router.navigate(['/bon-sortie-list']);

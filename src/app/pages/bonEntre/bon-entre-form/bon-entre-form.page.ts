@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonToolbar, IonTitle } from '@ionic/angular/standalone';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonToolbar, IonTitle, AlertController } from '@ionic/angular/standalone';
 
 import { FournisseurService } from 'src/app/services/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
@@ -45,20 +45,19 @@ export class BonEntreFormPage implements OnInit {
     private router: Router,
     private bonEntreService: BonEntreService,
     private fournisseurService: FournisseurService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertController: AlertController // Injecting AlertController for showing confirmation messages
   ) {
     this.bonEntreeForm = this.fb.group({
       numero: [{ value: '', disabled: true }], // Numéro généré automatiquement
       dateCommande: ['', Validators.required],
       fournisseur: ['', Validators.required],
-      // utilisateur: ['', Validators.required],  // Uncomment if you need this field
     });
   }
 
   ngOnInit(): void {
     this.generateNumero();
     this.loadFournisseurs();
-    // this.setAuthenticatedUser(); // Uncomment if you need to set the user field
   }
 
   generateNumero(): void {
@@ -73,16 +72,22 @@ export class BonEntreFormPage implements OnInit {
     );
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.bonEntreeForm.valid) {
       const bonEntreeData = this.bonEntreeForm.getRawValue();
       console.log('Bon d\'Entrée soumis :', bonEntreeData);
-  
-      // Pass the authenticated user's email separately
+
       this.bonEntreService.createBonEntree(bonEntreeData, this.authService.currentUserValue.email).subscribe(
-        response => {
+        async response => {
           console.log('Bon d\'Entrée créé avec succès :', response);
-         
+
+          const alert = await this.alertController.create({
+            header: 'Succès',
+            message: 'Le Bon d\'Entrée a été ajouté avec succès.',
+            buttons: ['OK'],
+          });
+          await alert.present();
+
           const bonEntreeId = response.id;
           this.router.navigate(['/bon-entre-detail', bonEntreeId]);
         },
@@ -97,9 +102,9 @@ export class BonEntreFormPage implements OnInit {
       console.log('Formulaire invalide');
     }
   }
-   
+
   goToAddDetail(bonEntreeId: number): void {
-    this.router.navigate(['/bon-entre-detail', bonEntreeId]); // Corrected route
+    this.router.navigate(['/bon-entre-detail', bonEntreeId]);
   }
 
   onCancel(): void {

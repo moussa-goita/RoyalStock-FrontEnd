@@ -140,6 +140,7 @@ export class BonSortieDetailPage implements OnInit {
     this.router.navigate(['/bon-sortie-list']);
   }
 
+/*
   async startScan(index: number): Promise<void> {
     const status = await BarcodeScanner.checkPermission({ force: true });
 
@@ -170,6 +171,7 @@ export class BonSortieDetailPage implements OnInit {
         this.errorMessage = 'Permission non accordée. Veuillez autoriser l\'accès à la caméra.';
     }
 }
+*/
 
 
 }

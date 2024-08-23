@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
+  IonButtons,
   IonCard,
   IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,
   IonContent,
   IonHeader, IonItem,
   IonLabel,
-  IonList, IonSearchbar,
+  IonList, IonMenuButton, IonSearchbar,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -22,7 +23,7 @@ import {CurrentUser} from "../../models/currentUser";
   templateUrl: './produit.page.html',
   styleUrls: ['./produit.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCardContent, IonList, IonLabel, IonItem, IonSearchbar, IonCardTitle, IonCardHeader, IonCard, IonCardSubtitle]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCardContent, IonList, IonLabel, IonItem, IonSearchbar, IonCardTitle, IonCardHeader, IonCard, IonCardSubtitle, IonButtons, IonMenuButton]
 })
 export class ProduitPage implements OnInit {
   produits: Produit[] = [];
@@ -30,22 +31,30 @@ export class ProduitPage implements OnInit {
   searchQuery: string = '';
   errorMessage = '';
 
-  constructor(private produitService: ProduitService) { }
+  constructor(private produitService: ProduitService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadProduits();
   }
 
   loadProduits() {
-    this.produitService.getProduits().subscribe(
-      (data: Produit[]) => {
-        this.produits = data;
-        this.filteredProduits = data;
-      },
-      error => {
-        console.error('Erreur lors de la récupération des produits:', error);
-      }
-    );
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser && currentUser.entrepot) {
+      const entrepotId = currentUser.entrepot.entrepotId;
+      this.produitService.getProduitsByEntrepot(entrepotId).subscribe(
+        (data: Produit[]) => {
+          this.produits = data;
+          this.filteredProduits = data;
+        },
+        error => {
+          console.error('Erreur lors de la récupération des produits:', error);
+        }
+      );
+    } else {
+      this.errorMessage = 'Erreur: entrepôt utilisateur non trouvé';
+    }
+
+
   }
 
   applyFilter(event: Event) {

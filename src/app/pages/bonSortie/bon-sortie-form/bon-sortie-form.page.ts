@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import '@formatjs/intl-relativetimeformat/polyfill';
+import { AlertController } from '@ionic/angular';
 
 import {
   IonBackButton,
@@ -76,7 +77,8 @@ export class BonSortieFormPage implements OnInit {
     private route: ActivatedRoute,
     private bonSortieService: BonSortieService,
     private authService: AuthService,
-    private motifService: MotifService
+    private motifService: MotifService,
+    private alertController: AlertController 
   ) {
     this.bonSortieForm = this.fb.group({
       dateSortie: ['', Validators.required],
@@ -135,7 +137,7 @@ export class BonSortieFormPage implements OnInit {
   }
 
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {  // Conversion de la méthode en async
     console.log('onSubmit appelé');
     
     if (!this.bonSortieForm.valid) {
@@ -150,11 +152,14 @@ export class BonSortieFormPage implements OnInit {
     this.bonSortie.dateSortie = new Date(formData.dateSortie);
   
     if (this.isEditMode) {
-      // Mise à jour du bon de sortie
       this.bonSortieService.updateBonSortie(this.bonSortie.id, this.bonSortie).subscribe(
-        () => {
-          this.successMessage = 'Bon de Sortie mis à jour avec succès!';
-          setTimeout(() => (this.successMessage = ''), 3000);
+        async () => {
+          const alert = await this.alertController.create({
+            header: 'Succès',
+            message: 'Le Bon de Sortie a été mis à jour avec succès.',
+            buttons: ['OK'],
+          });
+          await alert.present();
           this.router.navigate(['/bon-sortie']);
         },
         (error) => {
@@ -164,7 +169,6 @@ export class BonSortieFormPage implements OnInit {
         }
       );
     } else {
-      // Création du bon de sortie
       const currentUserEmail = this.authService.currentUserValue?.email;
       if (!currentUserEmail) {
         this.errorMessage = 'Erreur : utilisateur non authentifié.';
@@ -173,14 +177,15 @@ export class BonSortieFormPage implements OnInit {
       }
   
       this.bonSortieService.createBonSortie(this.bonSortie, currentUserEmail).subscribe(
-        (bonSortie: BonSortie) => {
+        async (bonSortie: BonSortie) => {
           if (bonSortie && bonSortie.id) {
-            this.successMessage = 'Bon de Sortie créé avec succès!';
-            
-            // Effacement du message de succès après 3 secondes
-            setTimeout(() => (this.successMessage = ''), 3000);
+            const alert = await this.alertController.create({
+              header: 'Succès',
+              message: 'Le Bon de Sortie a été ajouté avec succès.',
+              buttons: ['OK'],
+            });
+            await alert.present();
   
-            // Redirection immédiate vers les détails du bon de sortie
             this.goToAddDetail(bonSortie.id);
           } else {
             console.error('Le bon de sortie a été créé mais l\'ID est indéfini.');

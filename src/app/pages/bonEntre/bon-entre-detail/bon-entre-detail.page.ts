@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, AlertController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { camera, qrCode } from 'ionicons/icons';
 import { BonEntree } from 'src/app/models/bon-entree';
@@ -53,7 +53,8 @@ export class BonEntreDetailPage implements OnInit {
     private bonEntreService: BonEntreService,
     private produitService: ProduitService,
     private authService: AuthService,
-    private detailsEntreeService: DetailEntreeService
+    private detailsEntreeService: DetailEntreeService,
+    private alertController: AlertController // Ajout d'AlertController
   ) {
     this.detailForm = this.fb.group({
       details: this.fb.array([])
@@ -67,7 +68,7 @@ export class BonEntreDetailPage implements OnInit {
 
   ngOnInit(): void {
     this.loadProduits();
-    this.addDetail();
+    this.addDetail(); // Ajouter un champ de détail par défaut
     this.loadBonEntree(); // Charger le bon d'entrée avec ses détails
   }
 
@@ -89,9 +90,11 @@ export class BonEntreDetailPage implements OnInit {
       }, error => {
         console.error('Erreur lors de la récupération des produits:', error);
         this.errorMessage = 'Erreur lors de la récupération des produits.';
+        setTimeout(() => this.errorMessage = '', 2000);
       });
     } else {
       this.errorMessage = 'Erreur: entrepôt utilisateur non trouvé';
+      setTimeout(() => this.errorMessage = '', 2000);
     }
   }
 
@@ -107,13 +110,15 @@ export class BonEntreDetailPage implements OnInit {
       }, error => {
         console.error('Erreur lors de la récupération du bon d\'entrée:', error);
         this.errorMessage = 'Erreur lors de la récupération du bon d\'entrée.';
+        setTimeout(() => this.errorMessage = '', 2000);
       });
     }
   }
 
   addDetail(detail?: DetailEntree): void {
     this.details.push(this.fb.group({
-      produit: [detail?.produit || '', Validators.required],
+      id: [detail?.id || null],
+      produit: [detail?.produit?.id || '', Validators.required],
       quantite: [detail?.quantite || '', Validators.required],
       prix: [detail?.prix || '', Validators.required]
     }));
@@ -122,64 +127,84 @@ export class BonEntreDetailPage implements OnInit {
   removeDetail(index: number): void {
     this.details.removeAt(index);
   }
+
+  async showAlert(message: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Succès',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   onSubmit(): void {
     if (this.detailForm.valid) {
       const formValue = this.detailForm.value;
       console.log('Form Value:', formValue); // Débogage : Afficher les valeurs du formulaire
-  
+
+      let allDetailsAdded = true;
+
       formValue.details.forEach((detail: any) => {
-        // Assurez-vous que le produit ID est défini
         const produitId = detail.produit;
-        
+
         if (produitId === undefined) {
           console.error(`ID du produit non trouvé pour le détail:`, detail);
           this.errorMessage = 'ID du produit non trouvé.';
-          return; // Arrêter le traitement pour ce détail
+          setTimeout(() => this.errorMessage = '', 2000);
+          allDetailsAdded = false;
+          return;
         }
-  
-        // Trouver le produit complet pour chaque détail en utilisant l'ID
+
         const produit = this.produits.find(p => p.id === produitId);
-  
-        // Assurez-vous que le produit existe
+
         if (!produit) {
           console.error(`Produit avec ID ${produitId} non trouvé`);
           this.errorMessage = 'Produit non trouvé.';
-          return; // Arrêter le traitement pour ce détail
+          setTimeout(() => this.errorMessage = '', 2000);
+          allDetailsAdded = false;
+          return;
         }
-  
-        // Créer l'objet DetailEntree avec les données du formulaire
+
         const detailEntree: DetailEntree = {
           id: detail.id || 0,
           quantite: detail.quantite,
           prix: detail.prix,
-          produit: produit, // Assigner le produit trouvé
-          bonEntree: { id: this.bonEntreeId } as BonEntree // Assigner l'objet BonEntree avec l'ID
+          produit: produit,
+          bonEntree: { id: this.bonEntreeId } as BonEntree
         };
-  
-        // Envoyer le détail au backend
+
         this.detailsEntreeService.createDetailEntree(detailEntree).subscribe(
           response => {
             console.log('Détail d\'entrée enregistré:', response);
-            // Optionnel : ajouter une logique pour traiter la réponse, comme mettre à jour l'interface utilisateur
           },
           error => {
             console.error('Erreur lors de l\'enregistrement des détails:', error);
             if (error.error) {
               console.error('Détails de l\'erreur du serveur :', error.error);
             }
-            // Optionnel : afficher un message d'erreur à l'utilisateur
+            this.errorMessage = 'Erreur lors de l\'enregistrement des détails.';
+            setTimeout(() => this.errorMessage = '', 2000);
+            allDetailsAdded = false;
           }
         );
       });
-  
-      // Redirection après la sauvegarde des détails
-      this.router.navigate(['/bon-entre-list']);
+
+      if (allDetailsAdded) {
+        this.infoMessage = 'Tous les détails d\'entrée ont été enregistrés avec succès.';
+        this.showAlert(this.infoMessage); // Affichage du message d'alerte
+        setTimeout(() => this.infoMessage = '', 2000);
+
+        // Redirection après la sauvegarde des détails
+        this.router.navigate(['/bon-entre-list']);
+      }
+
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs requis.';
+      setTimeout(() => this.errorMessage = '', 2000);
     }
   }
-  
-  
+
   onCancel(): void {
     this.router.navigate(['/bon-entre-list']);
   }

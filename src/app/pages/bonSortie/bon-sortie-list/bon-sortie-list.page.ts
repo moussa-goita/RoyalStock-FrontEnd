@@ -24,7 +24,8 @@ import {
   IonSearchbar,
   IonText,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  AlertController // Import du service AlertController
 } from '@ionic/angular/standalone';
 import { BonSortie } from 'src/app/models/bon-sortie';
 import { AuthService } from 'src/app/services/auth.service';
@@ -73,38 +74,40 @@ export class BonSortieListPage implements OnInit  {
   infoMessage= '';
   errorMessage= '';
 
-
-  constructor(private router: Router, private authService: AuthService, private BonSortieService: BonSortieService) {
+  constructor(
+    private router: Router, 
+    private authService: AuthService, 
+    private BonSortieService: BonSortieService,
+    private alertController: AlertController // Injection du service AlertController
+  ) {
     addIcons({
-      calendar,print, document, clipboard, person, create, add, eye, trash
-    
+      calendar, print, document, clipboard, person, create, add, eye, trash
     });
   }
+
   ngOnInit(): void {
     this.loadBonSorties();
   }
+
   loadBonSorties(): void {
     const currentUser = this.authService.currentUserValue;
     if (currentUser && currentUser.entrepot) {
       const entrepotId = currentUser.entrepot.entrepotId;
       this.BonSortieService.getBonSortiesByEntrepots(entrepotId).subscribe(data => {
-        console.log('Données reçues:', data); // Debugging
         if (data.length === 0) {
-          this.infoMessage = 'Aucun Bon Entrees trouvée pour cet Entrepot.';
+          this.infoMessage = 'Aucun Bon Sorties trouvée pour cet Entrepot.';
           setTimeout(() => this.infoMessage = '', 2000);
         } else {
           this.bonSorties = data;
           this.filteredBonSorties = data;
         }
       }, error => {
-        console.error('Erreur lors de la récupération des Bon Entrees:', error);
-        this.errorMessage = 'Erreur lors de la récupération des Bon Entrees.';
+        this.errorMessage = 'Erreur lors de la récupération des Bon Sorties.';
       });
     } else {
       this.errorMessage = 'Erreur: entrepôt utilisateur non trouvé';
     }
   }
-  
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -113,11 +116,28 @@ export class BonSortieListPage implements OnInit  {
     );
   }
 
-  deleteBonSortie(id: number): void {
-    this.BonSortieService.deleteBonSortie(id).subscribe(() => {
-      this.bonSorties = this.bonSorties.filter(b => b.id !== id);
-      this.filteredBonSorties = this.filteredBonSorties.filter(b => b.id !== id);
+  async deleteBonSortie(id: number): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Confirmation de suppression',
+      message: 'Êtes-vous sûr de vouloir supprimer ce bon de sortie?',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Supprimer',
+          handler: () => {
+            this.BonSortieService.deleteBonSortie(id).subscribe(() => {
+              this.bonSorties = this.bonSorties.filter(b => b.id !== id);
+              this.filteredBonSorties = this.filteredBonSorties.filter(b => b.id !== id);
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
   printBonSortie(id: number): void {
@@ -125,16 +145,14 @@ export class BonSortieListPage implements OnInit  {
   }
 
   goToAddForm() {
-    console.log('Navigation vers le formulaire');
-
     this.router.navigate(['/bon-sortie-form']);
-    console.log('Navigation vers le Ok');
   }
+
   goToAddDetail(bonSortieId: number): void {
     this.router.navigate(['/bon-sortie-detail', bonSortieId]);
   }
 
-hasRole(role: string): boolean {
-  return this.authService.hasRole(role);
-}
+  hasRole(role: string): boolean {
+    return this.authService.hasRole(role);
+  }
 }

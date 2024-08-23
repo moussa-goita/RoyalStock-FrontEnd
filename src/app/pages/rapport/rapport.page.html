@@ -63,14 +63,14 @@
       </table>
 
       <!-- Formulaire de sélection de date -->
+
       <form (ngSubmit)="onSubmit()" #dateForm="ngForm" class="date-form">
         <ion-item (click)="showStartDatePicker = true">
           <ion-label>Date de Début</ion-label>
           <ion-input [value]="formattedStartDate" readonly></ion-input>
         </ion-item>
         <ion-item *ngIf="showStartDatePicker">
-          <ion-datetime [(ngModel)]="startDate" (ionChange)="onDateChange($event, 'startDate')"
-                        displayFormat="DD/MM/YYYY"></ion-datetime>
+          <ion-datetime [(ngModel)]="startDate" (ionChange)="onDateChange($event, 'startDate')" displayFormat="DD/MM/YYYY"></ion-datetime>
         </ion-item>
 
         <ion-item (click)="showEndDatePicker = true">
@@ -78,8 +78,7 @@
           <ion-input [value]="formattedEndDate" readonly></ion-input>
         </ion-item>
         <ion-item *ngIf="showEndDatePicker">
-          <ion-datetime [(ngModel)]="endDate" (ionChange)="onDateChange($event, 'endDate')"
-                        displayFormat="DD/MM/YYYY"></ion-datetime>
+          <ion-datetime [(ngModel)]="endDate" (ionChange)="onDateChange($event, 'endDate')" displayFormat="DD/MM/YYYY"></ion-datetime>
         </ion-item>
 
         <ion-button expand="full" type="submit" class="generate-btn">Générer le Rapport</ion-button>

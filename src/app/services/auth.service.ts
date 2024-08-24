@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
 
-  private apiUrl = `${environment.apiUrl}/utilisateurs`;
+  private apiUrl = "https://192.168.123.35:8443/api/utilisateurs";
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 

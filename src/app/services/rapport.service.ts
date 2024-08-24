@@ -3,13 +3,10 @@ import { Injectable } from '@angular/core';
 // @ts-ignore
 import { jsPDF } from 'jspdf';
 
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment } from 'src/environments/environment';
-import { BonEntree } from "../models/bon-entree";
-import { BonSortie } from "../models/bon-sortie";
 import { DetailEntree } from '../models/detail-entree';
 import { DetailSortie } from '../models/detail-sortie';
-import {HttpClient} from "@angular/common/http";
 
 
 
@@ -18,7 +15,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RapportService {
 
-  private apiUrl = `${environment.apiUrl}/rapport`; 
+  private apiUrl = "https://192.168.123.35:8443/api/rapport"; 
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Entrepot } from '../models/entrepot';
 
@@ -8,7 +8,7 @@ import { Entrepot } from '../models/entrepot';
 })
 export class EntrepotService {
 
-  private baseUrl = 'http://localhost:8080/api/entrepots';
+  private baseUrl = 'https://192.168.1.37:8443/api/entrepots';
 
   constructor(private http: HttpClient) { }
 

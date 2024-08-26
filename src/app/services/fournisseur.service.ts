@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, tap, throwError} from 'rxjs';
-import { Fournisseur } from '../models/fournisseur';
-import { catchError, retry } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { Observable, tap, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { Fournisseur } from '../models/fournisseur';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
 
-  private baseUrl = 'http://localhost:8080/api/fournisseurs';
+  private baseUrl = 'https://192.168.1.37:8443/api/fournisseurs';
 
   constructor(private http: HttpClient, private toastController: ToastController) { }
 

@@ -7,7 +7,7 @@ import { Categorie } from '../models/categorie';
   providedIn: 'root'
 })
 export class CategorieService {
-  private apiUrl = 'https://192.168.1.14:8443/api/categories';
+  private apiUrl = 'https://192.168.123.35:8443/api/categories';
 
   constructor(private http: HttpClient) { }
 

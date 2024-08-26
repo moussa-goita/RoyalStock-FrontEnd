@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Notification } from '../models/notification';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { Notification } from '../models/notification';
 })
 export class NotificationsService {
 
-  private apiUrl = `${environment.apiUrl}/notifications`;
+  private apiUrl = "https://192.168.123.35:8443/api/notifications";
 
    constructor(private http: HttpClient) { } 
 

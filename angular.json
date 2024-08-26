@@ -32,7 +32,14 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss", "node_modules/leaflet/dist/leaflet.css"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "core-js/modules/es.array.index-of.js",
+              "raf",
+              "rgbcolor",
+              "dompurify",
+              "html2canvas"
+            ]
           },
           "configurations": {
             "production": {

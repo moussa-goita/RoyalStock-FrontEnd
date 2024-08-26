@@ -1,16 +1,15 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from "rxjs/operators";
 import { Utilisateur } from '../models/utilisateur';
 import { AuthService } from './auth.service';
-import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
-  private baseUrl = `${environment.apiUrl}/utilisateurs`;
+  private baseUrl = "https://192.168.123.35:8443/api/utilisateurs";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

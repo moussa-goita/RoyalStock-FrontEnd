@@ -5,10 +5,6 @@ const config: CapacitorConfig = {
   appName: 'RoyalStock',
   webDir: 'www',
   //bundledWebRuntime: false,
-  // "server": {
-  //   "url": "http://10.175.48.126:8080/",
-  //   "cleartext": true
-  // }
 };
 
 export default config;

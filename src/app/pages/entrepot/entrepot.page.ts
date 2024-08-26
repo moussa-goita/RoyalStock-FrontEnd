@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import { Entrepot } from '../../models/entrepot';
 import { EntrepotService } from '../../services/entrepot.service';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule,} from "@ionic/angular";
+import {IonButtons, IonMenuButton} from "@ionic/angular/standalone";
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'assets/images/marker-icon-2x.png',
@@ -17,11 +18,14 @@ L.Icon.Default.mergeOptions({
   templateUrl: './entrepot.page.html',
   styleUrls: ['./entrepot.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        IonButtons,
+        IonMenuButton,
+
+    ]
 })
 export class EntrepotPage implements OnInit {
 

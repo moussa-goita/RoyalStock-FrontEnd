@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DataChartService {
   
-  private apiUrl = 'http://localhost:8080/api/stats';
+  private apiUrl = 'https://192.168.1.37:8443/api/stats';
 
   constructor(private http: HttpClient) { }
 

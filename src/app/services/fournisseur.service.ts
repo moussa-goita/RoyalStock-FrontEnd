@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, tap, throwError} from 'rxjs';
-import { Fournisseur } from '../models/fournisseur';
-import { catchError, retry } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { Observable, tap, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { Fournisseur } from '../models/fournisseur';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
 
-  private baseUrl = 'http://localhost:8080/api/fournisseurs';
+  private baseUrl = 'https://192.168.1.37:8443/api/fournisseurs';
 
   constructor(private http: HttpClient, private toastController: ToastController) { }
 
@@ -46,8 +46,11 @@ export class FournisseurService {
     return this.http.put<Fournisseur>(`${this.baseUrl}/${fournisseurId}/modifier-statut`, newStatut);
   }
 
-  getFournisseursForCurrentUser(email: string): Observable<Fournisseur[]> {
-    return this.http.get<Fournisseur[]>(`${this.baseUrl}/current?email=${email}`);
+  getFournisseursForCurrentUser(entrepotId: number): Observable<Fournisseur[]> {
+    return this.http.get<Fournisseur[]>(`${this.baseUrl}/current?entrepotId=${entrepotId}`).pipe(
+      retry(2),
+      catchError(this.handleError.bind(this))
+    );
   }
 
   createFournisseur(fournisseur: Fournisseur, email: string): Observable<Fournisseur> {

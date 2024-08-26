@@ -7,7 +7,7 @@ import { BonEntree } from '../models/bon-entree';
   providedIn: 'root'
 })
 export class BonEntreService {
-  private baseUrl = 'http://localhost:8080/api/bon-entrees';
+  private baseUrl = "https://192.168.123.35:8443/api/bon-entrees";
 
   constructor(private http: HttpClient) {}
 

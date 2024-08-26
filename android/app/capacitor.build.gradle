@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    implementation project(':capacitor-community-barcode-scanner')
     implementation project(':capacitor-app')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
@@ -16,7 +15,7 @@ dependencies {
     implementation project(':jcesarmobile-ssl-skip')
 
 }
-apply from: "../../node_modules/cordova-plugin-qrscanner/src/android/qrscanner.gradle"
+
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

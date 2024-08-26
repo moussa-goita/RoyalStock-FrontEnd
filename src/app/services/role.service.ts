@@ -1,13 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
+
 import { Role } from '../models/role';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
-  private baseUrl = `${environment.apiUrl}/roles`;
+  private baseUrl = "https://192.168.123.35:8443/api/utilisateurs";;
 
   constructor(private http: HttpClient) { }
 

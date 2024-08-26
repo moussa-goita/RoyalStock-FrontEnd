@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DetailEntree } from '../models/detail-entree';
 
@@ -7,7 +7,7 @@ import { DetailEntree } from '../models/detail-entree';
   providedIn: 'root'
 })
 export class DetailEntreeService {
-  private apiUrl = 'http://localhost:8080/api/details-entrees';
+  private apiUrl = "https://192.168.123.35:8443/api/details-entrees";
 
   constructor(private http: HttpClient) { }
 

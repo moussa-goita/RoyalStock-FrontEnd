@@ -35,6 +35,10 @@ export class FournisseurService {
     );
   }
 
+  getFournisseursForCurrentUser(email: string): Observable<Fournisseur[]> {
+    return this.http.get<Fournisseur[]>(`${this.baseUrl}/current?email=${email}`);
+  }
+
   getFournisseurById(id: number): Observable<Fournisseur> {
     return this.http.get<Fournisseur>(`${this.baseUrl}/${id}`).pipe(
       retry(2),
@@ -46,12 +50,12 @@ export class FournisseurService {
     return this.http.put<Fournisseur>(`${this.baseUrl}/${fournisseurId}/modifier-statut`, newStatut);
   }
 
-  getFournisseursForCurrentUser(entrepotId: number): Observable<Fournisseur[]> {
-    return this.http.get<Fournisseur[]>(`${this.baseUrl}/current?entrepotId=${entrepotId}`).pipe(
-      retry(2),
-      catchError(this.handleError.bind(this))
-    );
-  }
+  // getFournisseursForCurrentUser(entrepotId: number): Observable<Fournisseur[]> {
+  //   return this.http.get<Fournisseur[]>(`${this.baseUrl}/current?entrepotId=${entrepotId}`).pipe(
+  //     retry(2),
+  //     catchError(this.handleError.bind(this))
+  //   );
+  // }
 
   createFournisseur(fournisseur: Fournisseur, email: string): Observable<Fournisseur> {
     return this.http.post<Fournisseur>(`${this.baseUrl}/create?email=${email}`, fournisseur).pipe(

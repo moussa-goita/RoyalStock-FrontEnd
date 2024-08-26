@@ -9,6 +9,7 @@ import { addIcons } from 'ionicons';
 import { briefcase, call, create, home, image, location, person, star, trash } from 'ionicons/icons';
 import { Fournisseur, Statut } from 'src/app/models/fournisseur';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-fournisseurs-list',
@@ -26,28 +27,49 @@ export class FournisseursListPage implements OnInit {
   isModalOpen = false;
   imageUrl = '';
   entrepotId!: number;
+  infoMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private fournisseurService: FournisseurService
+    private fournisseurService: FournisseurService,
+    private authService : AuthService
   ) {
     addIcons({ star, location, home, person, call, trash, briefcase, image, create });
   }
 
-  ngOnInit() {
-    this.loadFournisseurs();
+  ngOnInit(): void {
+    this.loadFournisseurs()
   }
 
   loadFournisseurs() {
-    this.fournisseurService.getFournisseursForCurrentUser(this.entrepotId).subscribe({
-      next: (data) => {
-        this.fournisseurs = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des fournisseurs:', error);
+    const currentUser = this.authService.currentUserValue;
+    if (!currentUser || !currentUser.email) {
+      this.errorMessage = 'Erreur: email utilisateur non trouvé';
+      return;
+    }
+    const email = currentUser.email;
+
+    this.fournisseurService.getFournisseursForCurrentUser(email).subscribe(fournisseurs => {
+      if (fournisseurs.length === 0) {
+        this.infoMessage = 'Aucune Fournisseurs trouvée pour cet Entrepot.';
+        setTimeout(() => this.infoMessage = '', 2000);
+      } else {
+        this.fournisseurs = fournisseurs;
       }
+    }, error => {
+      console.error('Erreur lors de la récupération des fournisseurs:', error);
+      this.errorMessage = 'Erreur lors de la récupération des fournisseurs.';
     });
+    // this.fournisseurService.getFournisseursForCurrentUser(this.entrepotId).subscribe({
+    //   next: (data) => {
+    //     this.fournisseurs = data;
+    //   },
+    //   error: (error) => {
+    //     console.error('Erreur lors du chargement des fournisseurs:', error);
+    //   }
+    // });
 
   }
 
